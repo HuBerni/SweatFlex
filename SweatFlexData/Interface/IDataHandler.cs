@@ -1,4 +1,5 @@
-﻿using SweatFlexData.DTOs;
+﻿using SweatFlexData.Create.DTOs;
+using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using System;
@@ -34,6 +35,17 @@ namespace SweatFlexData.Interface
         bool DeleteExercise(int id);
         ExerciseDTO CreateExercise(ExerciseCreateDTO createDTO);
 
-        //TODO: TrainingExercise & WrkoutExercise
+        IList<TrainingExerciseDTO> GetTrainingExercies(int? userId, int? workoutId = null);
+        TrainingExerciseDTO GetTrainingExercies(int id);
+        ExerciseDTO UpdateTrainingExercise(int id, TrainingExerciseUpdateDTO updateDTO);
+        bool DeleteTrainingExercise(int id);
+        TrainingExerciseDTO CreateTrainingExercise(TrainingExerciseCreateDTO createDTO);
+
+        IList<WorkoutExerciseDTO> GetWorkoutExercise(int workoutId);
+        WorkoutExerciseDTO GetWorkoutExerciseById(int id);
+        WorkoutExerciseDTO UpdateWorkoutExercise(int id, WorkoutExerciseUpdateDTO updateDTO);
+        bool DeleteWorkoutExercise(int id);
+        WorkoutExerciseDTO CreateWorkoutExcerise(WorkoutExerciseCreateDTO createDTO);
+
     }
 }
