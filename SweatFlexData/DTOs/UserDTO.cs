@@ -8,7 +8,7 @@ namespace SweatFlexData.DTOs
 {
     public class UserDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public int Role { get; set; }
 
@@ -17,8 +17,6 @@ namespace SweatFlexData.DTOs
         public string LastName { get; set; }
 
         public string Email { get; set; }
-
-        public string Password { get; set; }
 
         public UserDTO? Coach { get; set; }
     }

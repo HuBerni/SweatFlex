@@ -16,6 +16,6 @@ namespace SweatFlexData.DTOs.Update
 
         public string Password { get; set; }
 
-        public int? Coach { get; set; }
+        public string? Coach { get; set; }
     }
 }

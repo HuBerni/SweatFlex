@@ -18,6 +18,6 @@ namespace SweatFlexData.DTOs.Create
 
         public string Password { get; set; }
 
-        public int? CoachId { get; set; }
+        public string? CoachId { get; set; }
     }
 }
