@@ -14,12 +14,12 @@ namespace SweatFlexData.Interface
 {
     public interface IDataHandler
     {
-        IList<UserDTO> GetUsers();
-        IList<UserDTO> GetUsersByCoach(int coachId);
-        UserDTO GetUserById(int id);
-        UserDTO UpdateUser(int id, UserUpdateDTO updateDTO);
-        bool DeleteUser(int id);
-        UserDTO CreateUser(UserCreateDTO createDTO);
+        Task<IList<UserDTO>> GetUsersAsync();
+        Task<IList<UserDTO>> GetUsersByCoachIdAsync(string coachId);
+        Task<UserDTO> GetUserByIdAsync(string id);
+        Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO);
+        Task<bool> DeleteUserAsync(string id);
+        Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO);
        
         IList<WorkoutDTO> GetWorkouts(int? UserId = null);
         WorkoutDTO GetWorkoutById(int id);
