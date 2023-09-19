@@ -21,31 +21,31 @@ namespace SweatFlexData.Interface
         Task<bool> DeleteUserAsync(string id);
         Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO);
        
-        IList<WorkoutDTO> GetWorkouts(int? UserId = null);
-        WorkoutDTO GetWorkoutById(int id);
-        WorkoutDTO UpdateWorkout(int id, WorkoutUpdateDTO updateDTO);
-        bool DeleteWorkout(int id);
-        WorkoutDTO CreateWorkout(WorkoutCreateDTO creatDTO);
+        Task<IList<WorkoutDTO>> GetWorkoutsAsync(int? UserId = null);
+        Task<WorkoutDTO> GetWorkoutByIdAsync(int id);
+        Task<WorkoutDTO> GetWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO);
+        Task<bool> DeleteWorkoutAsync(int id);
+        Task<WorkoutDTO> GetWorkoutsAsynct(WorkoutCreateDTO creatDTO);
 
         //TODO: implement Method for getting Exercise with lambda function parameter for bodypart, type ...
 
-        IList<ExerciseDTO> GetExercise(int? UserId = null);        
-        ExerciseDTO GetExerciseById(int id);
-        ExerciseDTO UpdateExercise(int id, ExerciseUpdateDTO updateDTO);
-        bool DeleteExercise(int id);
-        ExerciseDTO CreateExercise(ExerciseCreateDTO createDTO);
+        Task<IList<ExerciseDTO>> GetExerciseAsync(int? UserId = null);        
+        Task<ExerciseDTO> GetExerciseByIdAsync(int id);
+        Task<ExerciseDTO> UpdateExerciseAsync(int id, ExerciseUpdateDTO updateDTO);
+        Task<bool> DeleteExerciseAsync(int id);
+        Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO);
 
-        IList<TrainingExerciseDTO> GetTrainingExercies(int? userId, int? workoutId = null);
-        TrainingExerciseDTO GetTrainingExercies(int id);
-        ExerciseDTO UpdateTrainingExercise(int id, TrainingExerciseUpdateDTO updateDTO);
-        bool DeleteTrainingExercise(int id);
-        TrainingExerciseDTO CreateTrainingExercise(TrainingExerciseCreateDTO createDTO);
+        Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(int? userId, int? workoutId = null);
+        Task<TrainingExerciseDTO> GetExerciseAsync(int id);
+        Task<ExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO);
+        Task<bool> DeleteTrainingExerciseAsync(int id);
+        Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO);
 
-        IList<WorkoutExerciseDTO> GetWorkoutExercise(int workoutId);
-        WorkoutExerciseDTO GetWorkoutExerciseById(int id);
-        WorkoutExerciseDTO UpdateWorkoutExercise(int id, WorkoutExerciseUpdateDTO updateDTO);
-        bool DeleteWorkoutExercise(int id);
-        WorkoutExerciseDTO CreateWorkoutExcerise(WorkoutExerciseCreateDTO createDTO);
+        Task<IList<WorkoutExerciseDTO>> GetWorkoutExerciseAsync(int workoutId);
+        Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id);
+        Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO);
+        Task<bool> DeleteWorkoutExerciseAsync(int id);
+        Task<WorkoutExerciseDTO> CreateWorkoutExceriseAsync(WorkoutExerciseCreateDTO createDTO);
 
     }
 }
