@@ -12,16 +12,18 @@ namespace SweatFlexEF
     public class DataHandler : IDataHandler
     {
         SweatFlexContext _context;
-        ExerciseHandler _dbExercise;
+        ExerciseHandler _exerciseHandler;
+        UserHandler _userHandler;
         public DataHandler(SweatFlexContext context)
         {
             _context = context;
-            _dbExercise = new ExerciseHandler(_context);
+            _exerciseHandler = new ExerciseHandler(_context);
+            _userHandler = new UserHandler(_context);
         }
 
         public async Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO)
         {
-            return await _dbExercise.CreateExerciseAsync(createDTO);
+            return await _exerciseHandler.CreateExerciseAsync(createDTO);
         }
 
         public Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
@@ -31,7 +33,7 @@ namespace SweatFlexEF
 
         public async Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO)
         {
-            throw new NotImplementedException();
+            return await _userHandler.CreateUserAsync(createDTO);
         }
 
         public Task<WorkoutExerciseDTO> CreateWorkoutExceriseAsync(WorkoutExerciseCreateDTO createDTO)
@@ -41,7 +43,7 @@ namespace SweatFlexEF
 
         public Task<bool> DeleteExerciseAsync(int id)
         {
-            return _dbExercise.DeleteExerciseAsync(id);
+            return _exerciseHandler.DeleteExerciseAsync(id);
         }
 
         public Task<bool> DeleteTrainingExerciseAsync(int id)
@@ -49,9 +51,9 @@ namespace SweatFlexEF
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteUserAsync(string id)
+        public async Task<bool> DeleteUserAsync(string id)
         {
-            throw new NotImplementedException();
+            return await _userHandler.DeleteUserAsync(id);
         }
 
         public Task<bool> DeleteWorkoutAsync(int id)
@@ -66,7 +68,7 @@ namespace SweatFlexEF
 
         public async Task<IList<ExerciseDTO>> GetExercisesAsync(string? userId = null)
         {
-            return await _dbExercise.GetExercisesAsync(userId);
+            return await _exerciseHandler.GetExercisesAsync(userId);
         }
 
         public Task<TrainingExerciseDTO> GetTrainingExerciseAsync(int id)
@@ -76,7 +78,7 @@ namespace SweatFlexEF
 
         public async Task<ExerciseDTO> GetExerciseByIdAsync(int id)
         {
-            return await _dbExercise.GetExerciseByIdAsync(id);
+            return await _exerciseHandler.GetExerciseByIdAsync(id);
         }
 
         public Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(string? userId, int? workoutId = null)
@@ -84,19 +86,19 @@ namespace SweatFlexEF
             throw new NotImplementedException();
         }
 
-        public Task<UserDTO> GetUserByIdAsync(string id)
+        public async Task<UserDTO> GetUserByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await _userHandler.GetUserByIdAsync(id);
         }
 
-        public Task<IList<UserDTO>> GetUsersAsync()
+        public async Task<IList<UserDTO>> GetUsersAsync()
         {
-            throw new NotImplementedException();
+            return await _userHandler.GetUsersAsync();
         }
 
-        public Task<IList<UserDTO>> GetUsersByCoachIdAsync(string coachId)
+        public async Task<IList<UserDTO>> GetUsersByCoachIdAsync(string coachId)
         {
-            throw new NotImplementedException();
+            return await _userHandler.GetUsersByCoachIdAsync(coachId);
         }
 
         public Task<WorkoutDTO> GetWorkoutByIdAsync(int id)
@@ -131,7 +133,7 @@ namespace SweatFlexEF
 
         public async Task<ExerciseDTO> UpdateExerciseAsync(int id, ExerciseUpdateDTO updateDTO)
         {
-            return await _dbExercise.UpdateExerciseAsync(id, updateDTO);
+            return await _exerciseHandler.UpdateExerciseAsync(id, updateDTO);
         }
 
         public Task<ExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
@@ -139,9 +141,9 @@ namespace SweatFlexEF
             throw new NotImplementedException();
         }
 
-        public Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
+        public async Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
         {
-            throw new NotImplementedException();
+            return await _userHandler.UpdateUserAsync(id, updateDTO);
         }
 
         public Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO)
