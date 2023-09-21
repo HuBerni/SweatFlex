@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SweatFlexAPI.Models;
-using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
@@ -24,6 +23,7 @@ namespace SweatFlexAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ApiResponse>> GetUsers()
         {
             try
@@ -35,7 +35,7 @@ namespace SweatFlexAPI.Controllers
                     _response.IsSuccess = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
                     _response.ErrorMessages.Add("No users found");
-                    return BadRequest(_response);
+                    return NotFound(_response);
                 }
 
                 _response.StatusCode = HttpStatusCode.OK;
@@ -68,7 +68,7 @@ namespace SweatFlexAPI.Controllers
                     _response.IsSuccess = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
                     _response.ErrorMessages.Add("No user with this Id found");
-                    return BadRequest(_response);
+                    return NotFound(_response);
                 }
 
                 _response.StatusCode = HttpStatusCode.OK;
