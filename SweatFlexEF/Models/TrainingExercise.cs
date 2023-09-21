@@ -21,7 +21,11 @@ public partial class TrainingExercise
 
     public int ExerciseId { get; set; }
 
+    public int WorkoutExerciseId { get; set; }
+
     public virtual Exercise Exercise { get; set; }
 
     public virtual User User { get; set; }
+
+    public virtual WorkoutExercise WorkoutExercise { get; set; }
 }

@@ -13,7 +13,11 @@ public partial class WorkoutExercise
 
     public int WorkoutId { get; set; }
 
+    public int WorkoutIndex { get; set; }
+
     public virtual Exercise Exercise { get; set; }
+
+    public virtual ICollection<TrainingExercise> TrainingExercises { get; set; } = new List<TrainingExercise>();
 
     public virtual Workout Workout { get; set; }
 }

@@ -28,6 +28,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[PasswordDepot]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[TrainingExercise]",
          "ObjectType": 0
       },

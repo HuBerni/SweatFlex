@@ -19,6 +19,8 @@ public partial class SweatFlexContext : DbContext
 
     public virtual DbSet<Musclegroup> Musclegroups { get; set; }
 
+    public virtual DbSet<PasswordDepot> PasswordDepots { get; set; }
+
     public virtual DbSet<TrainingExercise> TrainingExercises { get; set; }
 
     public virtual DbSet<Type> Types { get; set; }
@@ -85,6 +87,16 @@ public partial class SweatFlexContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<PasswordDepot>(entity =>
+        {
+            entity.ToTable("PasswordDepot");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(50);
+        });
+
         modelBuilder.Entity<TrainingExercise>(entity =>
         {
             entity.ToTable("TrainingExercise");
@@ -105,6 +117,11 @@ public partial class SweatFlexContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TrainingExercise_User");
+
+            entity.HasOne(d => d.WorkoutExercise).WithMany(p => p.TrainingExercises)
+                .HasForeignKey(d => d.WorkoutExerciseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_WorkoutExercise_Id");
         });
 
         modelBuilder.Entity<Type>(entity =>
@@ -138,13 +155,15 @@ public partial class SweatFlexContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Password)
-                .IsRequired()
-                .HasMaxLength(100);
 
             entity.HasOne(d => d.CoachNavigation).WithMany(p => p.InverseCoachNavigation)
                 .HasForeignKey(d => d.Coach)
                 .HasConstraintName("FK_User_User");
+
+            entity.HasOne(d => d.Password).WithMany(p => p.Users)
+                .HasForeignKey(d => d.PasswordId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Password_PasswordDepot");
 
             entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Role)
