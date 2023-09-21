@@ -10,7 +10,7 @@ namespace SweatFlexData.DTOs
     {
         public int Id { get; set; }
 
-        public int Creator { get; set; }
+        public string Creator { get; set; }
 
         public string Name { get; set; }
 
