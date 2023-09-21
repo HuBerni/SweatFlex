@@ -55,6 +55,7 @@ namespace SweatFlexEF.DBClasses
             if(id != null && updateDTO != null)
             {
                 var user = Mapping.Mapper.Map<User>(updateDTO);
+                user.Id = id;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
                 user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
