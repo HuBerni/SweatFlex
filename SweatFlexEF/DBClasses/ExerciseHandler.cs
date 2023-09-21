@@ -12,17 +12,15 @@ using AutoMapper;
 
 namespace SweatFlexEF.DBClasses
 {
-    public class DBExercise
+    public class ExerciseHandler
     {
-        ILogger _logger;
         SweatFlexContext _context;
-        public DBExercise(ILogger logger, SweatFlexContext context)
+        public ExerciseHandler(SweatFlexContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
-        public async Task<IList<ExerciseDTO>> GetExerciseAsync(string? userId = null)
+        public async Task<IList<ExerciseDTO>> GetExercisesAsync(string? userId = null)
         {
             List<Exercise> exercises = new();
 

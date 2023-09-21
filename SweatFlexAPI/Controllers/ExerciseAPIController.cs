@@ -30,7 +30,7 @@ namespace SweatFlexAPI.Controllers
         {
             try
             {
-                var exercisesDtos = await _dataHandler.GetExerciseAsync();
+                var exercisesDtos = await _dataHandler.GetExercisesAsync();
 
                 if (exercisesDtos == null)
                 {

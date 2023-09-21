@@ -45,6 +45,10 @@ public partial class SweatFlexContext : DbContext
         {
             entity.ToTable("Exercise");
 
+            entity.Property(e => e.Creator)
+                .IsRequired()
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.Description).IsUnicode(false);
             entity.Property(e => e.Name)
                 .IsRequired()
@@ -86,6 +90,10 @@ public partial class SweatFlexContext : DbContext
             entity.ToTable("TrainingExercise");
 
             entity.Property(e => e.ExerciseExecuted).HasColumnType("datetime");
+            entity.Property(e => e.UserId)
+                .IsRequired()
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.Weight).HasColumnType("numeric(18, 2)");
 
             entity.HasOne(d => d.Exercise).WithMany(p => p.TrainingExercises)
@@ -113,6 +121,12 @@ public partial class SweatFlexContext : DbContext
         {
             entity.ToTable("User");
 
+            entity.Property(e => e.Id)
+                .HasMaxLength(5)
+                .IsUnicode(false);
+            entity.Property(e => e.Coach)
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -152,6 +166,10 @@ public partial class SweatFlexContext : DbContext
         {
             entity.ToTable("Workout");
 
+            entity.Property(e => e.Creator)
+                .IsRequired()
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(100)

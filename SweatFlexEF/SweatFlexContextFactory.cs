@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SweatFlexEF.Models;
 
 namespace SweatFlexEF
 {
     public class SweatFlexContextFactory : IDesignTimeDbContextFactory<SweatFlexContext>
     {
+
+        /// <summary>
+        /// This Class is used to create a context with a ConnectionString from a config file
+        /// </summary>
+        /// <param name="args">This param is needed for convention but not used in our case</param>
+        /// <returns></returns>
         public SweatFlexContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
@@ -20,9 +21,9 @@ namespace SweatFlexEF
 
 
             var optionsBuilder = new DbContextOptionsBuilder<SweatFlexContext>();
-            #pragma warning disable CS8604 // Possible null reference argument.
-            optionsBuilder.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
-            #pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning disable CS8604 // Possible null reference argument.
+            optionsBuilder.UseSqlServer(configuration["ConnectionStrings:Azure"]);
+#pragma warning restore CS8604 // Possible null reference argument.
 
 
             return new SweatFlexContext(optionsBuilder.Options);

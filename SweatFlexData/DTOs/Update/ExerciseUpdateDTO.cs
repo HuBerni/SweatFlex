@@ -8,6 +8,7 @@ namespace SweatFlexData.DTOs.Update
 {
     public class ExerciseUpdateDTO
     {
+        public int Id { get; set; }
         public int Creator { get; set; }
 
         public string Name { get; set; }

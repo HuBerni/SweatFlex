@@ -21,7 +21,7 @@ namespace SweatFlexData.Interface
         Task<bool> DeleteUserAsync(string id);
         Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO);
        
-        Task<IList<WorkoutDTO>> GetWorkoutsAsync(int? UserId = null);
+        Task<IList<WorkoutDTO>> GetWorkoutsAsync(string? userId = null);
         Task<WorkoutDTO> GetWorkoutByIdAsync(int id);
         Task<WorkoutDTO> GetWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO);
         Task<bool> DeleteWorkoutAsync(int id);
@@ -29,14 +29,14 @@ namespace SweatFlexData.Interface
 
         //TODO: implement Method for getting Exercise with lambda function parameter for bodypart, type ...
 
-        Task<IList<ExerciseDTO>> GetExerciseAsync(int? UserId = null);        
+        Task<IList<ExerciseDTO>> GetExercisesAsync(string? userId = null);        
         Task<ExerciseDTO> GetExerciseByIdAsync(int id);
         Task<ExerciseDTO> UpdateExerciseAsync(int id, ExerciseUpdateDTO updateDTO);
         Task<bool> DeleteExerciseAsync(int id);
         Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO);
 
-        Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(int? userId, int? workoutId = null);
-        Task<TrainingExerciseDTO> GetExerciseAsync(int id);
+        Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(string? userId, int? workoutId = null);
+        Task<TrainingExerciseDTO> GetTrainingExerciseAsync(int id);
         Task<ExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO);
         Task<bool> DeleteTrainingExerciseAsync(int id);
         Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO);

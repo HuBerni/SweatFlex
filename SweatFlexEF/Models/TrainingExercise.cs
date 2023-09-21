@@ -15,7 +15,7 @@ public partial class TrainingExercise
 
     public int? TimeInSec { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public DateTime ExerciseExecuted { get; set; }
 

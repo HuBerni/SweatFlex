@@ -7,7 +7,7 @@ namespace SweatFlexEF.Models;
 
 public partial class User
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     public int Role { get; set; }
 
@@ -19,7 +19,9 @@ public partial class User
 
     public string Password { get; set; }
 
-    public int? Coach { get; set; }
+    public string Coach { get; set; }
+
+    public bool IsActive { get; set; }
 
     public virtual User CoachNavigation { get; set; }
 

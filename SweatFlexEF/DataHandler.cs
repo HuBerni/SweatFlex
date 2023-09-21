@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NLog;
+﻿using NLog;
 using SweatFlexData.Create.DTOs;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
@@ -7,150 +6,145 @@ using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
 using SweatFlexEF.DBClasses;
 using SweatFlexEF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SweatFlexEF
 {
     public class DataHandler : IDataHandler
     {
-        Logger _logger;
         SweatFlexContext _context;
-        DBExercise _dbExercise;
-        public DataHandler()
+        ExerciseHandler _dbExercise;
+        public DataHandler(SweatFlexContext context)
         {
-            _dbExercise = new DBExercise();
+            _context = context;
+            _dbExercise = new ExerciseHandler(_context);
         }
 
-        public ExerciseDTO CreateExercise(ExerciseCreateDTO createDTO)
+        public async Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO)
         {
-            throw new NotImplementedException();
+            return await _dbExercise.CreateExerciseAsync(createDTO);
         }
 
-        public TrainingExerciseDTO CreateTrainingExercise(TrainingExerciseCreateDTO createDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserDTO CreateUser(UserCreateDTO createDTO)
+        public Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
         {
             throw new NotImplementedException();
         }
 
-        public WorkoutDTO CreateWorkout(WorkoutCreateDTO creatDTO)
+        public async Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO)
         {
             throw new NotImplementedException();
         }
 
-        public WorkoutExerciseDTO CreateWorkoutExcerise(WorkoutExerciseCreateDTO createDTO)
+        public Task<WorkoutExerciseDTO> CreateWorkoutExceriseAsync(WorkoutExerciseCreateDTO createDTO)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteExercise(int id)
+        public Task<bool> DeleteExerciseAsync(int id)
+        {
+            return _dbExercise.DeleteExerciseAsync(id);
+        }
+
+        public Task<bool> DeleteTrainingExerciseAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteTrainingExercise(int id)
+        public Task<bool> DeleteUserAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteUser(int id)
+        public Task<bool> DeleteWorkoutAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteWorkout(int id)
+        public Task<bool> DeleteWorkoutExerciseAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteWorkoutExercise(int id)
+        public async Task<IList<ExerciseDTO>> GetExercisesAsync(string? userId = null)
+        {
+            return await _dbExercise.GetExercisesAsync(userId);
+        }
+
+        public Task<TrainingExerciseDTO> GetTrainingExerciseAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IList<ExerciseDTO> GetExercise(int? UserId = null)
+        public async Task<ExerciseDTO> GetExerciseByIdAsync(int id)
+        {
+            return await _dbExercise.GetExerciseByIdAsync(id);
+        }
+
+        public Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(string? userId, int? workoutId = null)
         {
             throw new NotImplementedException();
         }
 
-        public ExerciseDTO GetExerciseById(int id)
+        public Task<UserDTO> GetUserByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public IList<TrainingExerciseDTO> GetTrainingExercies(int? userId, int? workoutId = null)
+        public Task<IList<UserDTO>> GetUsersAsync()
         {
             throw new NotImplementedException();
         }
 
-        public TrainingExerciseDTO GetTrainingExercies(int id)
+        public Task<IList<UserDTO>> GetUsersByCoachIdAsync(string coachId)
         {
             throw new NotImplementedException();
         }
 
-        public UserDTO GetUserById(int id)
+        public Task<WorkoutDTO> GetWorkoutByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IList<UserDTO> GetUsers()
+        public Task<IList<WorkoutExerciseDTO>> GetWorkoutExerciseAsync(int workoutId)
         {
             throw new NotImplementedException();
         }
 
-        public IList<UserDTO> GetUsersByCoach(int coachId)
+        public Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id)
         {
             throw new NotImplementedException();
         }
 
-        public WorkoutDTO GetWorkoutById(int id)
+        public Task<IList<WorkoutDTO>> GetWorkoutsAsync(string? UserId = null)
         {
             throw new NotImplementedException();
         }
 
-        public IList<WorkoutExerciseDTO> GetWorkoutExercise(int workoutId)
+        public Task<WorkoutDTO> GetWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO)
         {
             throw new NotImplementedException();
         }
 
-        public WorkoutExerciseDTO GetWorkoutExerciseById(int id)
+        public Task<WorkoutDTO> GetWorkoutsAsynct(WorkoutCreateDTO creatDTO)
         {
             throw new NotImplementedException();
         }
 
-        public IList<WorkoutDTO> GetWorkouts(int? UserId = null)
+        public async Task<ExerciseDTO> UpdateExerciseAsync(int id, ExerciseUpdateDTO updateDTO)
+        {
+            return await _dbExercise.UpdateExerciseAsync(id, updateDTO);
+        }
+
+        public Task<ExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
         {
             throw new NotImplementedException();
         }
 
-        public ExerciseDTO UpdateExercise(int id, ExerciseUpdateDTO updateDTO)
+        public Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
         {
             throw new NotImplementedException();
         }
 
-        public ExerciseDTO UpdateTrainingExercise(int id, TrainingExerciseUpdateDTO updateDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserDTO UpdateUser(int id, UserUpdateDTO updateDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public WorkoutDTO UpdateWorkout(int id, WorkoutUpdateDTO updateDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public WorkoutExerciseDTO UpdateWorkoutExercise(int id, WorkoutExerciseUpdateDTO updateDTO)
+        public Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO)
         {
             throw new NotImplementedException();
         }
