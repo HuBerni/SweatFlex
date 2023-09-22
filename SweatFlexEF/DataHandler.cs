@@ -60,9 +60,9 @@ namespace SweatFlexEF
             return await _userHandler.DeleteUserAsync(id);
         }
 
-        public Task<bool> DeleteWorkoutAsync(int id)
+        public async Task<bool> DeleteWorkoutAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _workoutHandler.DeleteWorkoutAsync(id);
         }
 
         public Task<bool> DeleteWorkoutExerciseAsync(int id)
@@ -130,9 +130,9 @@ namespace SweatFlexEF
             return await _workoutHandler.UpdateWorkoutsAsynct(id, updateDTO);
         }
 
-        public Task<WorkoutDTO> CreateWorkoutsAsynct(WorkoutCreateDTO createDTO)
+        public async Task<WorkoutDTO> CreateWorkoutsAsynct(WorkoutCreateDTO createDTO)
         {
-            throw new NotImplementedException();
+            return await _workoutHandler.CreateWorkoutsAsynct(createDTO);
         }
 
         public async Task<ExerciseDTO> UpdateExerciseAsync(int id, ExerciseUpdateDTO updateDTO)
