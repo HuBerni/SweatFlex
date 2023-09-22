@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SweatFlexData.Create.DTOs;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
@@ -25,6 +26,10 @@ namespace SweatFlexEF
             CreateMap<WorkoutDTO, Workout>().ReverseMap();
             CreateMap<WorkoutUpdateDTO, Workout>().ReverseMap();
             CreateMap<WorkoutCreateDTO, Workout>().ReverseMap();
+
+            CreateMap<WorkoutExerciseDTO, Exercise>().ReverseMap();
+            CreateMap<WorkoutExerciseUpdateDTO, Exercise>().ReverseMap();
+            CreateMap<WorkoutExerciseCreateDTO, Exercise>().ReverseMap();
         }
     }
 }

@@ -30,11 +30,11 @@ namespace SweatFlexData.Interface
 
         Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(string? userId, int? workoutId = null);
         Task<TrainingExerciseDTO> GetTrainingExerciseAsync(int id);
-        Task<ExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO);
+        Task<TrainingExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO);
         Task<bool> DeleteTrainingExerciseAsync(int id);
         Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO);
 
-        Task<IList<WorkoutExerciseDTO>> GetWorkoutExerciseAsync(int workoutId);
+        Task<IList<WorkoutExerciseDTO>> GetWorkoutExercisesAsync(int workoutId);
         Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id);
         Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO);
         Task<bool> DeleteWorkoutExerciseAsync(int id);

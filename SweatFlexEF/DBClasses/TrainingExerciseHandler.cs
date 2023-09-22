@@ -39,7 +39,7 @@ namespace SweatFlexEF.DBClasses
         {
             return id == null ? Mapping.Mapper.Map<TrainingExerciseDTO>(_context.TrainingExercises.Where(t => t.Id == id).FirstOrDefault()) : null;
         }
-        public async Task<TrainingExercise> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
+        public async Task<TrainingExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
         {
             if (id != null && updateDTO != null)
             {
@@ -47,7 +47,7 @@ namespace SweatFlexEF.DBClasses
                 trainingExercise.Id = id;
                 _context.TrainingExercises.Update(trainingExercise);
                 await _context.SaveChangesAsync();
-                return _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefault();
+                return Mapping.Mapper.Map<TrainingExerciseDTO>(trainingExercise);
             }
             else
             {

@@ -16,6 +16,7 @@ namespace SweatFlexEF
         UserHandler _userHandler;
         TrainingExerciseHandler _trainingExerciseHandler;
         WorkoutHandler _workoutHandler;
+        WorkoutExerciseHandler _workoutExeriseHandler;
         public DataHandler(SweatFlexContext context)
         {
             _context = context;
@@ -23,6 +24,7 @@ namespace SweatFlexEF
             _userHandler = new UserHandler(_context);
             _trainingExerciseHandler = new TrainingExerciseHandler(_context);
             _workoutHandler = new WorkoutHandler(_context);
+            _workoutExeriseHandler = new WorkoutExerciseHandler(_context);
         }
 
         public async Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO)
@@ -40,9 +42,9 @@ namespace SweatFlexEF
             return await _userHandler.CreateUserAsync(createDTO);
         }
 
-        public Task<WorkoutExerciseDTO> CreateWorkoutExceriseAsync(WorkoutExerciseCreateDTO createDTO)
+        public async Task<WorkoutExerciseDTO> CreateWorkoutExceriseAsync(WorkoutExerciseCreateDTO createDTO)
         {
-            throw new NotImplementedException();
+            return await _workoutExeriseHandler.CreateWorkoutExceriseAsync(createDTO);
         }
 
         public Task<bool> DeleteExerciseAsync(int id)
@@ -65,9 +67,9 @@ namespace SweatFlexEF
             return await _workoutHandler.DeleteWorkoutAsync(id);
         }
 
-        public Task<bool> DeleteWorkoutExerciseAsync(int id)
+        public async Task<bool> DeleteWorkoutExerciseAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _workoutExeriseHandler.DeleteWorkoutExerciseAsync(id);
         }
 
         public async Task<IList<ExerciseDTO>> GetExercisesAsync(string? userId = null)
@@ -75,9 +77,9 @@ namespace SweatFlexEF
             return await _exerciseHandler.GetExercisesAsync(userId);
         }
 
-        public Task<TrainingExerciseDTO> GetTrainingExerciseAsync(int id)
+        public async Task<TrainingExerciseDTO> GetTrainingExerciseAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _trainingExerciseHandler.GetTrainingExerciseAsync(id);
         }
 
         public async Task<ExerciseDTO> GetExerciseByIdAsync(int id)
@@ -110,14 +112,14 @@ namespace SweatFlexEF
             return await _workoutHandler.GetWorkoutByIdAsync(id);
         }
 
-        public Task<IList<WorkoutExerciseDTO>> GetWorkoutExerciseAsync(int workoutId)
+        public async Task<IList<WorkoutExerciseDTO>> GetWorkoutExercisesAsync(int workoutId)
         {
-            throw new NotImplementedException();
+            return await _workoutExeriseHandler.GetWorkoutExercisesAsync(workoutId);
         }
 
-        public Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id)
+        public async Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id)
         {
-            throw new NotImplementedException();
+            return await _workoutExeriseHandler.GetWorkoutExerciseByIdAsnyc(id);
         }
 
         public async Task<IList<WorkoutDTO>> GetWorkoutsAsync(string? UserId = null)
@@ -140,9 +142,9 @@ namespace SweatFlexEF
             return await _exerciseHandler.UpdateExerciseAsync(id, updateDTO);
         }
 
-        public Task<ExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
+        public async Task<TrainingExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
         {
-            throw new NotImplementedException();
+            return await _trainingExerciseHandler.UpdateTrainingExerciseAsync(id, updateDTO);
         }
 
         public async Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
@@ -150,9 +152,9 @@ namespace SweatFlexEF
             return await _userHandler.UpdateUserAsync(id, updateDTO);
         }
 
-        public Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO)
+        public async Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO)
         {
-            throw new NotImplementedException();
+            return await _workoutExeriseHandler.UpdateWorkoutExerciseAsync(id, updateDTO);
         }
     }
 }
