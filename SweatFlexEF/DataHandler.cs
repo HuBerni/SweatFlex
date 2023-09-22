@@ -28,9 +28,9 @@ namespace SweatFlexEF
             return await _exerciseHandler.CreateExerciseAsync(createDTO);
         }
 
-        public Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
+        public async Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
         {
-            throw new NotImplementedException();
+            return await _trainingExerciseHandler.CreateTrainingExerciseAsync(createDTO);
         }
 
         public async Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO)
@@ -48,9 +48,9 @@ namespace SweatFlexEF
             return _exerciseHandler.DeleteExerciseAsync(id);
         }
 
-        public Task<bool> DeleteTrainingExerciseAsync(int id)
+        public async Task<bool> DeleteTrainingExerciseAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _trainingExerciseHandler.DeleteTrainingExerciseAsync(id);
         }
 
         public async Task<bool> DeleteUserAsync(string id)
