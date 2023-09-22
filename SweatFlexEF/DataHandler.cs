@@ -125,12 +125,12 @@ namespace SweatFlexEF
             return await _workoutHandler.GetWorkoutsAsync(UserId);
         }
 
-        public async Task<WorkoutDTO> UpdateWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO)
+        public async Task<WorkoutDTO> UpdateWorkoutAsync(int id, WorkoutUpdateDTO updateDTO)
         {
             return await _workoutHandler.UpdateWorkoutsAsynct(id, updateDTO);
         }
 
-        public async Task<WorkoutDTO> CreateWorkoutsAsynct(WorkoutCreateDTO createDTO)
+        public async Task<WorkoutDTO> CreateWorkoutAsync(WorkoutCreateDTO createDTO)
         {
             return await _workoutHandler.CreateWorkoutsAsynct(createDTO);
         }
