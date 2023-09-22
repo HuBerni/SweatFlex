@@ -9,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SweatFlexContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SweatFlexDB"));
+    options.UseLazyLoadingProxies();
 });
+
 
 builder.Services.AddScoped<IDataHandler, DataHandler>();
 

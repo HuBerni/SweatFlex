@@ -15,6 +15,6 @@ namespace SweatFlexData.DTOs.Update
 
         public int? TimeInSec { get; set; }
 
-        public DateTime ExerciseExecuted { get; set; }
+        public DateTime? ExerciseExecuted { get; set; }
     }
 }
