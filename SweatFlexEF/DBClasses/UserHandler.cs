@@ -1,14 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
-using SweatFlexData.DTOs;
-using SweatFlexEF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SweatFlexData.DTOs.Update;
-using Azure.Core;
+using SweatFlexEF.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SweatFlexEF.DBClasses
 {
@@ -23,14 +17,14 @@ namespace SweatFlexEF.DBClasses
 
         public async Task<IList<UserDTO>> GetUsersAsync()
         {
-                var users = _context.Users;
+                var users = await _context.Users.ToListAsync();
                 return users.Select(Mapping.Mapper.Map<UserDTO>).ToList();            
         }
-        public async Task<IList<UserDTO>> GetUsersByCoachIdAsync(string coachId)
+        public async Task<IList<UserDTO>?> GetUsersByCoachIdAsync(string coachId)
         {
             if(coachId != null)
             {
-                var users = _context.Users.Where(u => u.Coach == coachId);
+                var users = await _context.Users.Where(u => u.Coach == coachId).ToListAsync();
                 return users.Select(Mapping.Mapper.Map<UserDTO>).ToList();
             }
             else
@@ -38,11 +32,11 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
-        public async Task<UserDTO> GetUserByIdAsync(string id)
+        public async Task<UserDTO?> GetUserByIdAsync(string id)
         {
             if(id != null)
             {
-                var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+                var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
                 return Mapping.Mapper.Map<UserDTO>(user);
             }
             else
@@ -50,12 +44,26 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
-        public async Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
+        public async Task<UserDTO?> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
         {
             if(id != null && updateDTO != null)
             {
-                var user = Mapping.Mapper.Map<User>(updateDTO);
-                user.Id = id;
+                var user = _context.Users
+                    .Include(u => u.Password)
+                    .Where(u => u.Id == id).FirstOrDefault();
+
+                if (user == null)
+                {
+                    return null;
+                }
+
+                user.FirstName = updateDTO.FirstName;
+                user.LastName = updateDTO.LastName;
+                user.Email = updateDTO.Email;
+                user.IsActive = updateDTO.IsActive;
+                user.Coach = updateDTO.Coach;
+                user.Password.Password = updateDTO.Password;
+
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
                 user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
@@ -71,6 +79,12 @@ namespace SweatFlexEF.DBClasses
             if(id != null)
             {
                 var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+
+                if (user == null)
+                {
+                    return false;
+                }
+
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
                 return true;
@@ -80,14 +94,32 @@ namespace SweatFlexEF.DBClasses
                 return false;
             }
         }
-        public async Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO)
+        public async Task<UserDTO?> CreateUserAsync(UserCreateDTO createDTO)
         {
-            if(createDTO != null)
+            var password = new PasswordDepot()
             {
-                var user = Mapping.Mapper.Map<User>(createDTO);
+                Id = Guid.NewGuid(),
+                Password = createDTO.Password
+            };
+
+            _context.PasswordDepots.Add(password);
+
+            if (createDTO != null)
+            {
+                var user = new User()
+                {
+                    Id = createDTO.Id,
+                    Role = createDTO.Role,
+                    FirstName = createDTO.FirstName,
+                    LastName = createDTO.LastName,
+                    Email = createDTO.Email,
+                    Coach = createDTO.CoachId,
+                    IsActive = true,
+                    PasswordId = password.Id
+                };
+
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
-
                 return Mapping.Mapper.Map<UserDTO>(user);
             }
             else

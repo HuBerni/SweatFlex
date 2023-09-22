@@ -17,5 +17,7 @@ namespace SweatFlexData.DTOs.Update
         public string Password { get; set; }
 
         public string? Coach { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

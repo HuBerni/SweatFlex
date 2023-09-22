@@ -86,7 +86,7 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
-        [Route("id:string", Name = "GetUsersByCoach")]
+        [Route("coach/id:string", Name = "GetUsersByCoach")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
