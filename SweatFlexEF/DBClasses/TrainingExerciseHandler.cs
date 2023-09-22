@@ -1,13 +1,8 @@
-﻿using SweatFlexData.DTOs.Create;
-using SweatFlexData.DTOs.Update;
+﻿using Microsoft.EntityFrameworkCore;
 using SweatFlexData.DTOs;
+using SweatFlexData.DTOs.Create;
+using SweatFlexData.DTOs.Update;
 using SweatFlexEF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace SweatFlexEF.DBClasses
 {
@@ -24,11 +19,11 @@ namespace SweatFlexEF.DBClasses
         {
             List<TrainingExercise> trainingExercises = new();
 
-            if(userId == null)
+            if (userId == null)
             {
                 return null;
             }
-            else if(workoutId == null)
+            else if (workoutId == null)
             {
                 trainingExercises = await _context.TrainingExercises.Where(t => t.UserId == userId).ToListAsync();
             }
@@ -61,7 +56,7 @@ namespace SweatFlexEF.DBClasses
         }
         public async Task<bool> DeleteTrainingExerciseAsync(int id)
         {
-            if(id != null)
+            if (id != null)
             {
                 var trainingExercise = _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefault();
                 _context.TrainingExercises.Remove(trainingExercise);
@@ -75,7 +70,7 @@ namespace SweatFlexEF.DBClasses
         }
         public async Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
         {
-            if(createDTO != null)
+            if (createDTO != null)
             {
                 var trainingExercise = Mapping.Mapper.Map<TrainingExercise>(createDTO);
                 await _context.TrainingExercises.AddAsync(trainingExercise);

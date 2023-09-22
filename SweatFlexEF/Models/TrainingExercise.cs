@@ -17,7 +17,7 @@ public partial class TrainingExercise
 
     public string UserId { get; set; } = null!;
 
-    public DateTime ExerciseExecuted { get; set; }
+    public DateTime? ExerciseExecuted { get; set; }
 
     public int ExerciseId { get; set; }
 

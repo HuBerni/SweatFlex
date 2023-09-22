@@ -3,11 +3,6 @@ using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexEF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SweatFlexEF
 {
@@ -15,7 +10,7 @@ namespace SweatFlexEF
     {
         public MappingConfig()
         {
-            CreateMap<ExerciseDTO, Exercise> ().ReverseMap();
+            CreateMap<ExerciseDTO, Exercise>().ReverseMap();
             CreateMap<ExerciseUpdateDTO, Exercise>().ReverseMap();
             CreateMap<ExerciseCreateDTO, Exercise>().ReverseMap();
 
@@ -26,6 +21,10 @@ namespace SweatFlexEF
             CreateMap<TrainingExerciseDTO, TrainingExercise>().ReverseMap();
             CreateMap<TrainingExerciseUpdateDTO, TrainingExercise>().ReverseMap();
             CreateMap<TrainingExerciseCreateDTO, TrainingExercise>().ReverseMap();
+
+            CreateMap<WorkoutDTO, Workout>().ReverseMap();
+            CreateMap<WorkoutUpdateDTO, Workout>().ReverseMap();
+            CreateMap<WorkoutCreateDTO, Workout>().ReverseMap();
         }
     }
 }

@@ -15,12 +15,14 @@ namespace SweatFlexEF
         ExerciseHandler _exerciseHandler;
         UserHandler _userHandler;
         TrainingExerciseHandler _trainingExerciseHandler;
+        WorkoutHandler _workoutHandler;
         public DataHandler(SweatFlexContext context)
         {
             _context = context;
             _exerciseHandler = new ExerciseHandler(_context);
             _userHandler = new UserHandler(_context);
             _trainingExerciseHandler = new TrainingExerciseHandler(_context);
+            _workoutHandler = new WorkoutHandler(_context);
         }
 
         public async Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO)
@@ -103,9 +105,9 @@ namespace SweatFlexEF
             return await _userHandler.GetUsersByCoachIdAsync(coachId);
         }
 
-        public Task<WorkoutDTO> GetWorkoutByIdAsync(int id)
+        public async Task<WorkoutDTO> GetWorkoutByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _workoutHandler.GetWorkoutByIdAsync(id);
         }
 
         public Task<IList<WorkoutExerciseDTO>> GetWorkoutExerciseAsync(int workoutId)
@@ -118,17 +120,17 @@ namespace SweatFlexEF
             throw new NotImplementedException();
         }
 
-        public Task<IList<WorkoutDTO>> GetWorkoutsAsync(string? UserId = null)
+        public async Task<IList<WorkoutDTO>> GetWorkoutsAsync(string? UserId = null)
         {
-            throw new NotImplementedException();
+            return await _workoutHandler.GetWorkoutsAsync(UserId);
         }
 
-        public Task<WorkoutDTO> GetWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO)
+        public async Task<WorkoutDTO> UpdateWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO)
         {
-            throw new NotImplementedException();
+            return await _workoutHandler.UpdateWorkoutsAsynct(id, updateDTO);
         }
 
-        public Task<WorkoutDTO> GetWorkoutsAsynct(WorkoutCreateDTO creatDTO)
+        public Task<WorkoutDTO> CreateWorkoutsAsynct(WorkoutCreateDTO createDTO)
         {
             throw new NotImplementedException();
         }
