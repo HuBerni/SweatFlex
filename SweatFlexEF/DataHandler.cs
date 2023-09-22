@@ -14,11 +14,13 @@ namespace SweatFlexEF
         SweatFlexContext _context;
         ExerciseHandler _exerciseHandler;
         UserHandler _userHandler;
+        TrainingExerciseHandler _trainingExerciseHandler;
         public DataHandler(SweatFlexContext context)
         {
             _context = context;
             _exerciseHandler = new ExerciseHandler(_context);
             _userHandler = new UserHandler(_context);
+            _trainingExerciseHandler = new TrainingExerciseHandler(_context);
         }
 
         public async Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO)
@@ -81,9 +83,9 @@ namespace SweatFlexEF
             return await _exerciseHandler.GetExerciseByIdAsync(id);
         }
 
-        public Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(string? userId, int? workoutId = null)
+        public async Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(string? userId, int? workoutId = null)
         {
-            throw new NotImplementedException();
+            return await _trainingExerciseHandler.GetTrainingExerciesAsync(userId, workoutId);
         }
 
         public async Task<UserDTO> GetUserByIdAsync(string id)
