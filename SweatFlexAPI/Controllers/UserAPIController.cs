@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SweatFlexAPI.Models;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
+using SweatFlexData.Enum;
 using SweatFlexData.Interface;
 using System.Net;
 
@@ -21,6 +23,7 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

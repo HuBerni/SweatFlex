@@ -157,7 +157,7 @@ namespace SweatFlexEF
             return await _workoutExeriseHandler.UpdateWorkoutExerciseAsync(id, updateDTO);
         }
 
-        public async Task<UserDTO> Login(string eMail, string password)
+        public async Task<UserDTO> LoginAsync(string eMail, string password)
         {
             return await _userHandler.Login(eMail, password);
         }
