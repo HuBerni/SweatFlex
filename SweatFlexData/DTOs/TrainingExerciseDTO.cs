@@ -18,7 +18,7 @@ namespace SweatFlexData.DTOs
 
         public UserDTO User { get; set; }
 
-        public DateTime ExerciseExecuted { get; set; }
+        public DateTime? ExerciseExecuted { get; set; }
 
         public ExerciseDTO Exercise { get; set; }
     }

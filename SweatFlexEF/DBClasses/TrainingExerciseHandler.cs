@@ -15,7 +15,7 @@ namespace SweatFlexEF.DBClasses
             _context = context;
         }
 
-        public async Task<IList<TrainingExerciseDTO>> GetTrainingExerciesAsync(string? userId, int? workoutId = null)
+        public async Task<IList<TrainingExerciseDTO>?> GetTrainingExerciesAsync(string? userId, int? workoutId = null)
         {
             List<TrainingExercise> trainingExercises = new();
 
@@ -35,16 +35,26 @@ namespace SweatFlexEF.DBClasses
             return trainingExercises.Select(Mapping.Mapper.Map<TrainingExerciseDTO>).ToList();
 
         }
-        public async Task<TrainingExerciseDTO> GetTrainingExerciseAsync(int id)
+        public async Task<TrainingExerciseDTO?> GetTrainingExerciseAsync(int id)
         {
-            return id == null ? Mapping.Mapper.Map<TrainingExerciseDTO>(_context.TrainingExercises.Where(t => t.Id == id).FirstOrDefault()) : null;
+            return Mapping.Mapper.Map<TrainingExerciseDTO>(await _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefaultAsync());
         }
-        public async Task<TrainingExerciseDTO> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
+        public async Task<TrainingExerciseDTO?> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
         {
-            if (id != null && updateDTO != null)
+            if (updateDTO != null)
             {
-                var trainingExercise = Mapping.Mapper.Map<TrainingExercise>(updateDTO);
-                trainingExercise.Id = id;
+                var trainingExercise = await _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefaultAsync();
+
+                if (trainingExercise == null)
+                {
+                    return null;
+                }
+
+                trainingExercise.Weight = updateDTO.Weight;
+                trainingExercise.Reputations = updateDTO.Reputations; 
+                trainingExercise.TimeInSec = updateDTO.TimeInSec;
+                trainingExercise.ExerciseExecuted = updateDTO.ExerciseExecuted;
+
                 _context.TrainingExercises.Update(trainingExercise);
                 await _context.SaveChangesAsync();
                 return Mapping.Mapper.Map<TrainingExerciseDTO>(trainingExercise);
@@ -56,19 +66,19 @@ namespace SweatFlexEF.DBClasses
         }
         public async Task<bool> DeleteTrainingExerciseAsync(int id)
         {
-            if (id != null)
-            {
-                var trainingExercise = _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefault();
-                _context.TrainingExercises.Remove(trainingExercise);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            else
+            var trainingExercise = await _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefaultAsync();
+
+            if(trainingExercise == null)
             {
                 return false;
             }
+
+            _context.TrainingExercises.Remove(trainingExercise);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
-        public async Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
+        public async Task<TrainingExerciseDTO?> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
         {
             if (createDTO != null)
             {

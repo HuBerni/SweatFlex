@@ -112,6 +112,7 @@ namespace SweatFlexAPI.Controllers
                 _response.IsSuccess = false;
                 _response.StatusCode = HttpStatusCode.InternalServerError;
                 _response.ErrorMessages.Add($"Error creating training exercise: {ex.Message}");
+                _response.ErrorMessages.Add(ex.InnerException?.Message);
                 return StatusCode((int)_response.StatusCode, _response);
             }
         }
