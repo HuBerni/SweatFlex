@@ -26,8 +26,12 @@ namespace SweatFlexEF.DBClasses
 
             return workoutExercises.Select(Mapping.Mapper.Map<WorkoutExerciseDTO>).ToList();
         }
-        public async Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id) => 
-            Mapping.Mapper.Map<WorkoutExerciseDTO>(await _context.WorkoutExercises.Where(w => w.Id == id).ToListAsync());
+        public async Task<WorkoutExerciseDTO?> GetWorkoutExerciseByIdAsnyc(int id)
+        {
+            var trainingExercise = await _context.WorkoutExercises.Where(w => w.Id == id).FirstOrDefaultAsync();
+            
+            return Mapping.Mapper.Map<WorkoutExerciseDTO>(trainingExercise);
+        }
         
         public async Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO)
         {

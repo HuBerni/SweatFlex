@@ -9,9 +9,8 @@ namespace SweatFlexData.DTOs
     public class WorkoutExerciseDTO
     {
         public int Id { get; set; }
-
         public ExerciseDTO Exercise { get; set; }
-
         public WorkoutDTO Workout { get; set; }
+        public int WorkoutIndex { get; set; }
     }
 }
