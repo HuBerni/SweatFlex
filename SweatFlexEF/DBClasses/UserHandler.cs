@@ -127,5 +127,17 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        public async Task<UserDTO> Login(string eMail, string password)
+        {
+            var user = await _context.fn_ValidatLogin(eMail, password).FirstOrDefaultAsync();
+
+            var dtoUser = Mapping.Mapper.Map<UserDTO>(user);            
+
+            var coach = await _context.Users.Where(u => u.Id == user.CoachId).FirstOrDefaultAsync();
+            dtoUser.Coach = Mapping.Mapper.Map<UserDTO>(coach);
+
+            return dtoUser;
+        }
     }
 }

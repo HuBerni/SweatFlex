@@ -54,6 +54,10 @@
       {
          "Name": "[dbo].[WorkoutExercise]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[fn_ValidatLogin]",
+         "ObjectType": 2
       }
    ],
    "UiHint": "sweatflexsqlserver.sweatflexdb.dbo",

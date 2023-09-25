@@ -22,7 +22,6 @@ namespace SweatFlexAPIClient
 
         public Task<T> Register<T>(UserCreateDTO createDTO)
         {
-            
             return SendAsync<T>(new ApiRequest()
             {
                 ApiType = Enum.ApiType.POST,

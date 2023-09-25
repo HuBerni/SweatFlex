@@ -130,6 +130,8 @@ public partial class SweatFlexContext : DbContext
         {
             entity.ToTable("User");
 
+            entity.HasIndex(e => e.Email, "UQ__User__A9D10534450BBB58").IsUnique();
+
             entity.Property(e => e.Id)
                 .HasMaxLength(5)
                 .IsUnicode(false);
@@ -200,6 +202,7 @@ public partial class SweatFlexContext : DbContext
                 .HasConstraintName("FK_WorkoutExercise_Workout");
         });
 
+        OnModelCreatingGeneratedFunctions(modelBuilder);
         OnModelCreatingPartial(modelBuilder);
     }
 
