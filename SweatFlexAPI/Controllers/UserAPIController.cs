@@ -53,7 +53,7 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
-        [Route("id:string", Name ="GetUserById")]
+        [Route("{id}", Name ="GetUserById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -86,7 +86,7 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
-        [Route("coach/id:string", Name = "GetUsersByCoach")]
+        [Route("coach/{id}", Name = "GetUsersByCoach")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -149,7 +149,6 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpPut]
-        [Route("id:string")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -192,7 +191,6 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("id:string")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
