@@ -24,9 +24,9 @@ namespace SweatFlexEF.DBClasses
         {
             List<Workout> workouts = new();
 
-            if(userId != null)
+            if(userId is null)
             {
-                var nonCustomerIds = _context.Users.Where(u => u.Role != 1).Select(s => s.Id).ToList();
+                var nonCustomerIds = _context.Users.Where(u => u.Role == 3).Select(s => s.Id).ToList();
                 workouts = await _context.Workouts.Where(e => nonCustomerIds.Any(i => i == e.Creator)).ToListAsync();
             }
             else
@@ -42,11 +42,19 @@ namespace SweatFlexEF.DBClasses
             return Mapping.Mapper.Map<WorkoutDTO>(workout);
      
         }
-        public async Task<WorkoutDTO> UpdateWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO)
+        public async Task<WorkoutDTO?> UpdateWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO)
         {
-            var workout = Mapping.Mapper.Map<Workout>(updateDTO);
-            workout.Id = id;
+            var workout = _context.Workouts.Where(w => w.Id == id).FirstOrDefault();
+            
+            if (workout == null)
+            {
+                return null;
+            }
+
+            workout.Name = updateDTO.Name;
+
             _context.Workouts.Update(workout);
+            await _context.SaveChangesAsync();
 
             return Mapping.Mapper.Map<WorkoutDTO>(await _context.Workouts.Where(w => w.Id == id).FirstOrDefaultAsync());
         }
@@ -54,7 +62,13 @@ namespace SweatFlexEF.DBClasses
         {
             var workout = await _context.Workouts.Where(w => w.Id == id).FirstOrDefaultAsync();
 
+            if (workout == null)
+            {
+                return false;
+            }
+
             _context.Remove(workout);
+            await _context.SaveChangesAsync();
 
             return true;
         }
@@ -62,6 +76,7 @@ namespace SweatFlexEF.DBClasses
         {
             var workout = Mapping.Mapper.Map<Workout>(creatDTO);
             _context.Workouts.Add(workout);
+            await _context.SaveChangesAsync();
 
             return Mapping.Mapper.Map<WorkoutDTO>(workout);
         }

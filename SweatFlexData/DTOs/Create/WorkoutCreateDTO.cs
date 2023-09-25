@@ -8,7 +8,7 @@ namespace SweatFlexData.DTOs.Create
 {
     public class WorkoutCreateDTO
     {
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
 
         public string Name { get; set; }
     }
