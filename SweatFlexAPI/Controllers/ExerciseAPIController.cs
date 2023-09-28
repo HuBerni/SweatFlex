@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SweatFlexAPI.Models;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
-using System.Data;
 using System.Net;
 
 namespace SweatFlexAPI.Controllers
@@ -160,7 +158,7 @@ namespace SweatFlexAPI.Controllers
             }
 
             var result = _response.Result as ExerciseDTO;
-         
+
             return CreatedAtRoute("GetExerciseById", new { id = result?.Id }, _response);
         }
 
