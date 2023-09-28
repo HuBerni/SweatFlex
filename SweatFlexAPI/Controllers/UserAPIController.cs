@@ -250,6 +250,7 @@ namespace SweatFlexAPI.Controllers
         //TODO: Implement Berni
 
         [HttpDelete]
+        [Route("setInactive/{id}")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
