@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SweatFlexAPI.Models;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
+using System.Data;
 using System.Net;
 
 namespace SweatFlexAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ExerciseAPIController : ControllerBase
     {
@@ -23,9 +26,11 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> GetExercises()
         {
             try
@@ -55,10 +60,46 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<ApiResponse>> GetExercises(string id)
+        {
+            try
+            {
+                var exercisesDtos = await _dataHandler.GetExercisesAsync(id);
+
+                if (exercisesDtos == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.StatusCode = HttpStatusCode.NotFound;
+                    _response.ErrorMessages.Add("No exercises found");
+                    return NotFound(_response);
+                }
+
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.Result = exercisesDtos;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.ErrorMessages.Add($"Error getting exercises: {ex.Message}");
+                return StatusCode((int)_response.StatusCode, _response);
+            }
+
+            return Ok(_response);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Customer,Coach,Admin")]
         [Route("{id:int}", Name = "GetExerciseById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> GetExercise(int id)
         {
             try
@@ -88,8 +129,10 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> CreateExercise(ExerciseCreateDTO createDTO)
         {
             try
@@ -121,8 +164,11 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> UpdateExercise(int id, ExerciseUpdateDTO updateDTO)
         {
             try
@@ -152,8 +198,11 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ApiResponse>> DeleteExercise(int id)
         {
             try

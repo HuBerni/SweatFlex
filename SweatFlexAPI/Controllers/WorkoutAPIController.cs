@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SweatFlexAPI.Models;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
+using System.Data;
 using System.Net;
 
 namespace SweatFlexAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class WorkoutAPIController : ControllerBase
     {
@@ -22,6 +25,8 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ApiResponse>> GetWorkouts(string? userId)
@@ -54,6 +59,8 @@ namespace SweatFlexAPI.Controllers
 
         [HttpGet]
         [Route("{id:int}", Name = "GetWorkoutById")]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -86,6 +93,8 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ApiResponse>> CreateWorkout(WorkoutCreateDTO createDTO)
@@ -117,6 +126,8 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ApiResponse>> UpdateWorkout(int id, WorkoutUpdateDTO updateDTO)
@@ -149,6 +160,8 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ApiResponse>> DeleteWorkout(int id)

@@ -10,6 +10,7 @@ using System.Net;
 namespace SweatFlexAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UserAPIController : ControllerBase
     {
@@ -22,11 +23,12 @@ namespace SweatFlexAPI.Controllers
             _response = new();
         }
 
-        [HttpGet]
-        [Authorize(Roles = "1")]
+        [HttpGet]        
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> GetUsers()
         {
             try
@@ -57,9 +59,11 @@ namespace SweatFlexAPI.Controllers
 
         [HttpGet]
         [Route("{id}", Name ="GetUserById")]
+        [Authorize(Roles = "Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> GetUser(string id)
         {
             try
@@ -89,10 +93,12 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Coach,Admin")]
         [Route("coach/{id}", Name = "GetUsersByCoach")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> GetUserByCoach(string coachId)
         {
             try
@@ -104,7 +110,7 @@ namespace SweatFlexAPI.Controllers
                     _response.IsSuccess = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
                     _response.ErrorMessages.Add("No users for the coach found");
-                    return BadRequest(_response);
+                    return NotFound(_response);
                 }
 
                 _response.StatusCode = HttpStatusCode.OK;
@@ -122,8 +128,10 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> CreateUser(UserCreateDTO createDTO)
         {
             try
@@ -152,9 +160,11 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> UpdateUser(string id, UserUpdateDTO updateDTO)
         {
             try
@@ -166,7 +176,7 @@ namespace SweatFlexAPI.Controllers
                     _response.IsSuccess = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
                     _response.ErrorMessages.Add("User for update operation not found");
-                    return BadRequest(_response);
+                    return NotFound(_response);
                 }
 
                 userDto = await _dataHandler.UpdateUserAsync(id, updateDTO);
@@ -194,9 +204,11 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse>> DeleteUser(string id)
         {
             try
@@ -208,7 +220,7 @@ namespace SweatFlexAPI.Controllers
                     _response.IsSuccess = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
                     _response.ErrorMessages.Add("User for delete operation not found");
-                    return BadRequest(_response);
+                    return NotFound(_response);
                 }
 
                 var result = await _dataHandler.DeleteUserAsync(id);
@@ -234,5 +246,18 @@ namespace SweatFlexAPI.Controllers
 
             return Ok(_response);
         }
-    }
+
+        //TODO: Implement Berni
+
+        [HttpDelete]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<ApiResponse>> SetUserInactive(string id)
+        {
+            throw new NotImplementedException();
+        }
+    }    
 }

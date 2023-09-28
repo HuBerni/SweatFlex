@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SweatFlexAPI.Models;
 using SweatFlexData.DTOs;
+using SweatFlexData.DTOs.Create;
+using SweatFlexData.Enum;
 using SweatFlexData.Interface;
 using SweatFlexEF.Models;
 using System.IdentityModel.Tokens.Jwt;
@@ -45,7 +47,41 @@ namespace SweatFlexAPI.Controllers
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, userDto.Id),
-                    new Claim(ClaimTypes.Role, userDto.Role.ToString()),
+                    new Claim(ClaimTypes.Role, ((RoleEnum)userDto.Role).ToString()),
+                };
+
+                string token = GenerateToken(authClaims);
+
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.Result = token;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, $"Error logging in: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<string>> Register([FromBody] UserCreateDTO dto)
+        {
+            //TODO Berni
+            try
+            {
+                var userDto = await _dataHandler.LoginAsync(dto.Email, dto.Password);
+
+                if (userDto == null)
+                {
+                    return BadRequest("Invalid username or password");
+                }
+
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, userDto.Id),
+                    new Claim(ClaimTypes.Role, ((RoleEnum)userDto.Role).ToString()),
                 };
 
                 string token = GenerateToken(authClaims);
