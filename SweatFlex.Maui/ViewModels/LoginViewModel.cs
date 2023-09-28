@@ -24,7 +24,7 @@ namespace SweatFlex.Maui.ViewModels
         [RelayCommand]
         private async Task NavigateToRegister()
         {             
-            await Shell.Current.GoToAsync(nameof(Register));
+            await Shell.Current.GoToAsync($"//{nameof(Register)}");
         }
     }
 }
