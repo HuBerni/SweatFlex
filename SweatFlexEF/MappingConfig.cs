@@ -15,7 +15,9 @@ namespace SweatFlexEF
             CreateMap<ExerciseUpdateDTO, Exercise>().ReverseMap();
             CreateMap<ExerciseCreateDTO, Exercise>().ReverseMap();
 
-            CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<UserDTO, User>()
+                .ForMember(x => x.CoachNavigation, opt => opt.MapFrom(src => src.Coach))
+                .ReverseMap();
             CreateMap<UserUpdateDTO, User>().ReverseMap();
             CreateMap<UserCreateDTO, User>().ReverseMap();
 
