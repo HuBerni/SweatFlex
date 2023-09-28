@@ -60,6 +60,7 @@ namespace SweatFlexAPI.Controllers
         }
 
         [HttpGet]
+        [Route("user/{id}", Name = "GetExercisesByUserId")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
