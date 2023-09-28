@@ -64,7 +64,7 @@ namespace SweatFlexAPI.Controllers
 
 
         /// <summary>
-        /// Returning an ApiResponse with a list of all exercises for a specific user from the database
+        /// Returning an ApiResponse with a list of all exercises for a specific user
         /// </summary>
         /// <param name="id">The user, from which the exercises should be returned</param>
         /// <returns></returns>
@@ -145,7 +145,7 @@ namespace SweatFlexAPI.Controllers
         }
 
         /// <summary>
-        /// Adding a new exercise to the database
+        /// Adding a new exercise
         /// </summary>
         /// <param name="createDTO">The object for the object which is getting created</param>
         /// <returns></returns>
@@ -186,7 +186,7 @@ namespace SweatFlexAPI.Controllers
 
 
         /// <summary>
-        /// Updating an exercise in the database
+        /// Updating an exercise
         /// </summary>
         /// <param name="id">the id of the exercise</param>
         /// <param name="updateDTO">the object with the new data</param>
@@ -226,7 +226,7 @@ namespace SweatFlexAPI.Controllers
         }
 
         /// <summary>
-        /// Deleting an exercise from the database
+        /// Deleting an exercise
         /// </summary>
         /// <param name="id">The id of the exercise</param>
         /// <returns></returns>

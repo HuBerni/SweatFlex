@@ -25,6 +25,11 @@ namespace SweatFlexAPI.Controllers
             _response = new();
         }
 
+        /// <summary>
+        /// Getting all workout exercises for a workout
+        /// </summary>
+        /// <param name="workoutId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -58,6 +63,12 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+
+        /// <summary>
+        /// Getting a workout exercise by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id:int}", Name = "GetWorkoutExerciseById")]
         [Authorize(Roles = "Customer,Coach,Admin")]
@@ -92,6 +103,12 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+
+        /// <summary>
+        /// Adding a new workout exercise
+        /// </summary>
+        /// <param name="workoutExerciseDto"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -132,6 +149,13 @@ namespace SweatFlexAPI.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Updating a workout exercise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateDTO"></param>
+        /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -165,6 +189,11 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+        /// <summary>
+        /// Deleting a workout exercise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
