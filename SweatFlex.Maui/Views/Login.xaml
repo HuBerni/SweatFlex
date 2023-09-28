@@ -1,0 +1,28 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SweatFlex.Maui.Views.Login"
+             xmlns:mvvm="clr-namespace:SweatFlex.Maui.ViewModels"
+             x:DataType="mvvm:LoginViewModel"
+             Title=""
+             NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label 
+            Text="SweatFlex"
+            HorizontalOptions="Center"
+            FontSize="50"
+            TextColor="{DynamicResource Primary}" />
+        <Entry Placeholder="E-Mail" Keyboard="Email" Text="{Binding LoginProp.Email}"/>
+        <Entry Placeholder="Passwort" IsPassword="True" Text="{Binding LoginProp.Password}"/>
+        <Grid x:Name="LoginGrid" VerticalOptions="End" RowSpacing="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Text="Login" Command="{Binding LoginCommand}"/>
+            <Button Grid.Row="2" Text="Regestrieren" BackgroundColor="{DynamicResource Secondary}"/>
+            <Button Grid.Row="3" Text="Passwort vergessen?" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="Blue"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
