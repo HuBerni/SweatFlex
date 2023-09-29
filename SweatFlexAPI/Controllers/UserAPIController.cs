@@ -23,6 +23,11 @@ namespace SweatFlexAPI.Controllers
             _response = new();
         }
 
+
+        /// <summary>
+        /// Getting all users, only for admin
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]        
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -57,6 +62,11 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+        /// <summary>
+        /// Getting a user by id, available for admin and coach
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}", Name ="GetUserById")]
         [Authorize(Roles = "Coach,Admin")]
@@ -92,6 +102,12 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+
+        /// <summary>
+        /// Getting a list of users, which got a coach assigned, available for admin and coach
+        /// </summary>
+        /// <param name="coachId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Coach,Admin")]
         [Route("coach/{id}", Name = "GetUsersByCoach")]
@@ -194,6 +210,13 @@ namespace SweatFlexAPI.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Updating a user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateDTO"></param>
+        /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -238,6 +261,11 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+        /// <summary>
+        /// Deleting a user, only for admin, to insure data integrity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -284,6 +312,12 @@ namespace SweatFlexAPI.Controllers
 
         //TODO: Implement Berni
 
+        /// <summary>
+        /// Setting a user to inactive to insure data integrity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [HttpDelete]
         [Route("setInactive/{id}")]
         [Authorize(Roles = "Customer,Coach,Admin")]

@@ -24,6 +24,12 @@ namespace SweatFlexAPI.Controllers
             _response = new();
         }
 
+        /// <summary>
+        /// Getting all training exercises for a user, optionally for a specific workout
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="workoutId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -58,6 +64,11 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+        /// <summary>
+        /// Getting a training exercise by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id:int}", Name = "GetTrainingExercise")]
         [Authorize(Roles = "Customer,Coach,Admin")]
@@ -93,6 +104,12 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+
+        /// <summary>
+        /// Creating a new training exercise
+        /// </summary>
+        /// <param name="createDTO"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -126,6 +143,13 @@ namespace SweatFlexAPI.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Updating a training exercise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateDTO"></param>
+        /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -159,6 +183,12 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+
+        /// <summary>
+        /// Deleting a training exercise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

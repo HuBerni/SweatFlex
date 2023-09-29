@@ -2,6 +2,9 @@
 
 namespace SweatFlexAPI.Models
 {
+    /// <summary>
+    /// A class to hold the response data for the API
+    /// </summary>
     public class ApiResponse
     {
         public ApiResponse() => ErrorMessages = new List<string>();

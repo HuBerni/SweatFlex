@@ -23,6 +23,11 @@ namespace SweatFlexAPI.Controllers
             _response = new();
         }
 
+
+        /// <summary>
+        /// Returning an ApiResponse with a list of all exercises from the database
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -57,6 +62,12 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+
+        /// <summary>
+        /// Returning an ApiResponse with a list of all exercises for a specific user
+        /// </summary>
+        /// <param name="id">The user, from which the exercises should be returned</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("user/{id}", Name = "GetExercisesByUserId")]
         [Authorize(Roles = "Customer,Coach,Admin")]
@@ -92,6 +103,12 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+
+        /// <summary>
+        /// Getting an exercise by id
+        /// </summary>
+        /// <param name="id">The id of the specific exercise</param>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [Route("{id:int}", Name = "GetExerciseById")]
@@ -127,6 +144,11 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+        /// <summary>
+        /// Adding a new exercise
+        /// </summary>
+        /// <param name="createDTO">The object for the object which is getting created</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -162,6 +184,13 @@ namespace SweatFlexAPI.Controllers
             return CreatedAtRoute("GetExerciseById", new { id = result?.Id }, _response);
         }
 
+
+        /// <summary>
+        /// Updating an exercise
+        /// </summary>
+        /// <param name="id">the id of the exercise</param>
+        /// <param name="updateDTO">the object with the new data</param>
+        /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -196,6 +225,11 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+        /// <summary>
+        /// Deleting an exercise
+        /// </summary>
+        /// <param name="id">The id of the exercise</param>
+        /// <returns></returns>
         [HttpDelete]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
