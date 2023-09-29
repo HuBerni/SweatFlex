@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SweatFlex.Maui.Views.Register"
-             Title="Register">
+             xmlns:vm="clr-namespace:SweatFlex.Maui.ViewModels"
+             x:DataType="vm:RegisterViewModel"
+             Title=""
+             NavigationPage.HasNavigationBar="False">
     <VerticalStackLayout Padding="20" Spacing="15">
         <Label 
             Text="SweatFlex"
@@ -22,8 +25,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Button Grid.Row="1" Text="Regestrieren"/>
-            <Button Grid.Row="2" Text="Abbrechen" BackgroundColor="{DynamicResource Secondary}"/>
+            <Button Grid.Row="1" Text="Regestrieren" Command="{Binding RegisterCommand}"/>
+            <Button Grid.Row="2" Text="Abbrechen" BackgroundColor="{DynamicResource Secondary}" Command="{Binding NavigateToLoginCommand}"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

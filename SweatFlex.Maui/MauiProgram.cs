@@ -28,7 +28,9 @@ public static class MauiProgram
 		builder.Services.AddTransient<Home>();
 		builder.Services.AddTransient<Workouts>();
 
+		//Registering ViewModels
 		builder.Services.AddTransient<LoginViewModel>();
+		builder.Services.AddTransient<RegisterViewModel>();
 
 		return builder.Build();
 	}

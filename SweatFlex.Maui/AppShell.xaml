@@ -7,21 +7,26 @@
     xmlns:views="clr-namespace:SweatFlex.Maui.Views"
     Shell.FlyoutBehavior="Disabled">
 
-
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate views:Login}"
         Route="MainPage" />
-    
+
     <ShellContent
         Title="Register"
         ContentTemplate="{DataTemplate views:Register}"
         Route="Register" />
 
-    <ShellContent
+    <TabBar>
+        <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate views:Home}"
         Route="Home"
         />
-
+        <ShellContent
+        Title="Workouts"
+        ContentTemplate="{DataTemplate views:Workouts}"
+        Route="Workouts"
+        />
+    </TabBar>
 </Shell>
