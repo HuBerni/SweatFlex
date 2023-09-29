@@ -6,4 +6,11 @@ public partial class Home : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        Shell.SetTabBarIsVisible(Application.Current.MainPage, true);
+    }
 }
