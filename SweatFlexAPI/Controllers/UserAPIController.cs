@@ -127,6 +127,41 @@ namespace SweatFlexAPI.Controllers
             return Ok(_response);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [Route("mail/{id}", Name = "GetUserByMail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<ApiResponse>> GetUserByMail(string eMail)
+        {
+            try
+            {
+                var userDto = await _dataHandler.GetUserByMailAsync(eMail);
+
+                if (userDto == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.StatusCode = HttpStatusCode.NotFound;
+                    _response.ErrorMessages.Add("No users for the coach found");
+                    return NotFound(_response);
+                }
+
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.Result = userDto;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.ErrorMessages.Add($"Error getting users: {ex.Message}");
+                return StatusCode((int)_response.StatusCode, _response);
+            }
+
+            return Ok(_response);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]

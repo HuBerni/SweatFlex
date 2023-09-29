@@ -10,6 +10,7 @@ namespace SweatFlexAPIClient
 {
     public class BaseService : IBaseService
     {
+        protected string SweatFlexURL;
         public ApiResponse responseModel { get; set; }
         public IHttpClientFactory httpClient { get; set; }
         public BaseService(IHttpClientFactory httpClient)
@@ -17,10 +18,15 @@ namespace SweatFlexAPIClient
             this.responseModel = new();
             this.httpClient = httpClient;
         }
-        public async Task<T> SendAsync<T>(ApiRequest apiRequest)
+        public async Task<ApiResponse> SendAsync(ApiRequest apiRequest)
         {
             try
             {
+                if (!String.IsNullOrEmpty(TokenStorage.Token))
+                {
+                    apiRequest.Token = TokenStorage.Token;
+                }
+
                 var client = httpClient.CreateClient("SweatFlexAPI");
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
@@ -66,16 +72,16 @@ namespace SweatFlexAPIClient
                         ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
                         ApiResponse.IsSuccess = false;
                         var res = JsonConvert.SerializeObject(ApiResponse);
-                        var returnObj = JsonConvert.DeserializeObject<T>(res);
+                        var returnObj = JsonConvert.DeserializeObject<ApiResponse>(res);
                         return returnObj;
                     }
                 }
                 catch (Exception e)
                 {
-                    var exceptionResponse = JsonConvert.DeserializeObject<T>(apiContent);
+                    var exceptionResponse = JsonConvert.DeserializeObject<ApiResponse>(apiContent);
                     return exceptionResponse;
                 }
-                var APIResponse = JsonConvert.DeserializeObject<T>(apiContent);
+                var APIResponse = JsonConvert.DeserializeObject<ApiResponse>(apiContent);
                 return APIResponse;
 
             }
@@ -87,7 +93,7 @@ namespace SweatFlexAPIClient
                     IsSuccess = false
                 };
                 var res = JsonConvert.SerializeObject(dto);
-                var APIResponse = JsonConvert.DeserializeObject<T>(res);
+                var APIResponse = JsonConvert.DeserializeObject<ApiResponse>(res);
                 return APIResponse;
             }
         }
