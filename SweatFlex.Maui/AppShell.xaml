@@ -20,13 +20,33 @@
     <TabBar>
         <ShellContent
         Title="Home"
+        Icon="home.svg"
         ContentTemplate="{DataTemplate views:Home}"
         Route="Home"
         />
         <ShellContent
         Title="Workouts"
+        Icon="gym_weight.svg"
         ContentTemplate="{DataTemplate views:Workouts}"
         Route="Workouts"
+        />
+        <ShellContent
+        Title="Progress"
+        Icon="graph_up_arrow.svg"
+        ContentTemplate="{DataTemplate views:Progress}"
+        Route="Porgress"
+        />
+        <ShellContent
+        Title="Exercises"
+        Icon="gym_weight.svg"
+        ContentTemplate="{DataTemplate views:Exercises}"
+        Route="Exercises"
+        />
+        <ShellContent
+        Title="Settings"
+        Icon="gear_fill.svg"
+        ContentTemplate="{DataTemplate views:Settings}"
+        Route="Settings"
         />
     </TabBar>
 </Shell>

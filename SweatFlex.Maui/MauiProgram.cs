@@ -31,6 +31,7 @@ public static class MauiProgram
 		//Registering ViewModels
 		builder.Services.AddTransient<LoginViewModel>();
 		builder.Services.AddTransient<RegisterViewModel>();
+		builder.Services.AddTransient<WorkoutsViewModel>();
 
 		return builder.Build();
 	}

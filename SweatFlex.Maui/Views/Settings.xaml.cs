@@ -1,8 +1,8 @@
 namespace SweatFlex.Maui.Views;
 
-public partial class Home : ContentPage
+public partial class Settings : ContentPage
 {
-	public Home()
+	public Settings()
 	{
 		InitializeComponent();
 	}
