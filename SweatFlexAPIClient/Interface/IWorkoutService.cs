@@ -11,10 +11,10 @@ namespace SweatFlexAPIClient.Interface
 {
     public interface IWorkoutService
     {
-        Task<ApiResponse> GetWorkoutsAsync(string? userId);
-        Task<ApiResponse> GetWorkoutByIdAsync(int id);
-        Task<ApiResponse> CreateWorkoutAsync(WorkoutCreateDTO createDTO);
-        Task<ApiResponse> UpdateWorkoutAsync(int id, WorkoutUpdateDTO updateDTO);
-        Task<ApiResponse> DeleteWorkoutAsync(int id);        
+        //Task<ApiResponse> GetWorkoutsAsync(string? userId);
+        //Task<ApiResponse> GetWorkoutByIdAsync(int id);
+        //Task<ApiResponse> CreateWorkoutAsync(WorkoutCreateDTO createDTO);
+        //Task<ApiResponse> UpdateWorkoutAsync(int id, WorkoutUpdateDTO updateDTO);
+        //Task<ApiResponse> DeleteWorkoutAsync(int id);        
     }
 }

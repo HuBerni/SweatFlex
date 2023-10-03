@@ -2,24 +2,27 @@
 using Newtonsoft.Json;
 using SweatFlexAPI.Models;
 using SweatFlexAPIClient.Enum;
+using SweatFlexData.DTOs;
 using System.Net.Http.Headers;
 using System.Text;
 
 
 namespace SweatFlexAPIClient
 {
-    public class BaseService : IBaseService
+    public class BaseService<T> : IBaseService<T>
     {
         protected string SweatFlexURL;
-        public ApiResponse responseModel { get; set; }
         public IHttpClientFactory httpClient { get; set; }
         public BaseService(IHttpClientFactory httpClient)
         {
-            this.responseModel = new();
+            //this.responseModel = new();
             this.httpClient = httpClient;
         }
-        public async Task<ApiResponse> SendAsync(ApiRequest apiRequest)
+        public async Task<ApiResponse<T>> SendAsync<T>(ApiRequest apiRequest)
         {
+
+        ApiResponse<T> responseModel = new();
+
             try
             {
                 if (!String.IsNullOrEmpty(TokenStorage.Token))
@@ -65,35 +68,35 @@ namespace SweatFlexAPIClient
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();
                 try
                 {
-                    ApiResponse ApiResponse = JsonConvert.DeserializeObject<ApiResponse>(apiContent);
+                    ApiResponse<T> ApiResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(apiContent);
                     if (ApiResponse != null && (apiResponse.StatusCode == System.Net.HttpStatusCode.BadRequest
                         || apiResponse.StatusCode == System.Net.HttpStatusCode.NotFound))
                     {
                         ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
                         ApiResponse.IsSuccess = false;
                         var res = JsonConvert.SerializeObject(ApiResponse);
-                        var returnObj = JsonConvert.DeserializeObject<ApiResponse>(res);
+                        var returnObj = JsonConvert.DeserializeObject<ApiResponse<T>>(res);
                         return returnObj;
                     }
                 }
                 catch (Exception e)
                 {
-                    var exceptionResponse = JsonConvert.DeserializeObject<ApiResponse>(apiContent);
+                    var exceptionResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(apiContent);
                     return exceptionResponse;
                 }
-                var APIResponse = JsonConvert.DeserializeObject<ApiResponse>(apiContent);
+                var APIResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(apiContent);
                 return APIResponse;
 
             }
             catch (Exception e)
             {
-                var dto = new ApiResponse
+                var dto = new ApiResponse<T>
                 {
                     ErrorMessages = new List<string> { Convert.ToString(e.Message) },
                     IsSuccess = false
                 };
                 var res = JsonConvert.SerializeObject(dto);
-                var APIResponse = JsonConvert.DeserializeObject<ApiResponse>(res);
+                var APIResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(res);
                 return APIResponse;
             }
         }

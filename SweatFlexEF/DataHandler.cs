@@ -161,5 +161,10 @@ namespace SweatFlexEF
         {
             return await _userHandler.Login(eMail, password);
         }
+
+        public async Task<UserDTO> GetUserByMailAsync(string eMail)
+        {
+            return await _userHandler.GetUserByMailAsync(eMail);
+        }
     }
 }

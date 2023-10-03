@@ -3,9 +3,8 @@ using SweatFlexAPI.Models;
 
 namespace MagicVilla_Web.Services.IServices
 {
-    public interface IBaseService
+    public interface IBaseService<T>
     {
-        ApiResponse responseModel { get; set; }
-        Task<ApiResponse> SendAsync(ApiRequest apiRequest);
+        Task<ApiResponse<T>> SendAsync<T>(ApiRequest apiRequest);
     }
 }

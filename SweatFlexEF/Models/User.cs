@@ -17,17 +17,17 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
-    public string? Coach { get; set; }
+    public string? CoachId { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
     public Guid PasswordId { get; set; }
 
-    public virtual User? CoachNavigation { get; set; }
+    public virtual User? Coach { get; set; }
 
     public virtual ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
 
-    public virtual ICollection<User> InverseCoachNavigation { get; set; } = new List<User>();
+    public virtual ICollection<User> InverseCoach { get; set; } = new List<User>();
 
     public virtual PasswordDepot Password { get; set; } = null!;
 

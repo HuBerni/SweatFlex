@@ -24,7 +24,7 @@ namespace SweatFlexEF.DBClasses
         {
             if(coachId != null)
             {
-                var users = await _context.Users.Where(u => u.Coach == coachId).ToListAsync();
+                var users = await _context.Users.Where(u => u.CoachId == coachId).ToListAsync();
                 return users.Select(Mapping.Mapper.Map<UserDTO>).ToList();
             }
             else
@@ -44,6 +44,13 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        public async Task<UserDTO> GetUserByMailAsync(string eMail)
+        {
+            var user = await _context.Users.Where(u => u.Email == eMail).FirstOrDefaultAsync();
+            return Mapping.Mapper.Map<UserDTO>(user);
+        }
+
         public async Task<UserDTO?> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
         {
             if(id != null && updateDTO != null)
@@ -61,7 +68,7 @@ namespace SweatFlexEF.DBClasses
                 user.LastName = updateDTO.LastName;
                 user.Email = updateDTO.Email;
                 user.IsActive = updateDTO.IsActive;
-                user.Coach = updateDTO.Coach;
+                user.CoachId = updateDTO.Coach;
                 user.Password.Password = updateDTO.Password;
 
                 _context.Users.Update(user);
@@ -113,7 +120,7 @@ namespace SweatFlexEF.DBClasses
                     FirstName = createDTO.FirstName,
                     LastName = createDTO.LastName,
                     Email = createDTO.Email,
-                    Coach = createDTO.CoachId,
+                    CoachId = createDTO.CoachId,
                     IsActive = true,
                     PasswordId = password.Id
                 };

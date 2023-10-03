@@ -1,4 +1,5 @@
 ﻿using SweatFlexData.DTOs;
+using SweatFlexData.Interface.IDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SweatFlexData.DTOs.Update
 {
-    public class TrainingExerciseUpdateDTO
+    public class TrainingExerciseUpdateDTO : ITrainingExerciseDTO
     {
         public decimal? Weight { get; set; }
 

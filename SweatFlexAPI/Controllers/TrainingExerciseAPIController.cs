@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SweatFlexAPI.Models;
+using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
@@ -16,12 +17,10 @@ namespace SweatFlexAPI.Controllers
     public class TrainingExerciseAPIController : ControllerBase
     {
         private readonly IDataHandler _dataHandler;
-        private ApiResponse _response;
 
         public TrainingExerciseAPIController(IDataHandler dataHandler)
         {
             _dataHandler = dataHandler;
-            _response = new();
         }
 
         /// <summary>
@@ -36,32 +35,34 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ApiResponse>> GetTrainingExercises(string userId, int? workoutId = null)
+        public async Task<ActionResult<ApiResponse<IList<TrainingExerciseDTO>>>> GetTrainingExercises(string userId, int? workoutId = null)
         {
+            ApiResponse<IList<TrainingExerciseDTO>> response = new();
+
             try
             {
                 var trainingExerciseDtos = await _dataHandler.GetTrainingExerciesAsync(userId, workoutId);
 
                 if (trainingExerciseDtos == null)
                 {
-                    _response.IsSuccess = false;
-                    _response.StatusCode = HttpStatusCode.NotFound;
-                    _response.ErrorMessages.Add("No training exercises found");
-                    return NotFound(_response);
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.ErrorMessages.Add("No training exercises found");
+                    return NotFound(response);
                 }
 
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.Result = trainingExerciseDtos;
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = trainingExerciseDtos;
             }
             catch (Exception ex)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.InternalServerError;
-                _response.ErrorMessages.Add($"Error getting training exercises: {ex.Message}");
-                return StatusCode((int)_response.StatusCode, _response);
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error getting training exercises: {ex.Message}");
+                return StatusCode((int)response.StatusCode, response);
             }
 
-            return Ok(_response);
+            return Ok(response);
         }
 
         /// <summary>
@@ -76,32 +77,34 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ApiResponse>> GetTrainingExerciseById(int id)
+        public async Task<ActionResult<ApiResponse<TrainingExerciseDTO>>> GetTrainingExerciseById(int id)
         {
+            ApiResponse<TrainingExerciseDTO> response = new();
+
             try
             {
                 var trainingExerciseDto = await _dataHandler.GetTrainingExerciseAsync(id);
 
                 if (trainingExerciseDto == null)
                 {
-                    _response.IsSuccess = false;
-                    _response.StatusCode = HttpStatusCode.NotFound;
-                    _response.ErrorMessages.Add("No training exercise found");
-                    return NotFound(_response);
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.ErrorMessages.Add("No training exercise found");
+                    return NotFound(response);
                 }
 
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.Result = trainingExerciseDto;
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = trainingExerciseDto;
             }
             catch (Exception ex)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.InternalServerError;
-                _response.ErrorMessages.Add($"Error getting training exercise: {ex.Message}");
-                return StatusCode((int)_response.StatusCode, _response);
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error getting training exercise: {ex.Message}");
+                return StatusCode((int)response.StatusCode, response);
             }
 
-            return Ok(_response);
+            return Ok(response);
         }
 
 
@@ -115,31 +118,33 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApiResponse>> CreateTrainingExercise(TrainingExerciseCreateDTO createDTO)
+        public async Task<ActionResult<ApiResponse<TrainingExerciseDTO>>> CreateTrainingExercise(TrainingExerciseCreateDTO createDTO)
         {
+            ApiResponse<TrainingExerciseDTO> response = new();
+
             try
             {
                 var trainingExerciseDto = await _dataHandler.CreateTrainingExerciseAsync(createDTO);
 
                 if (trainingExerciseDto == null)
                 {
-                    _response.IsSuccess = false;
-                    _response.StatusCode = HttpStatusCode.BadRequest;
-                    _response.ErrorMessages.Add("Error creating training exercise");
-                    return BadRequest(_response);
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.ErrorMessages.Add("Error creating training exercise");
+                    return BadRequest(response);
                 }
 
-                _response.StatusCode = HttpStatusCode.Created;
-                _response.Result = trainingExerciseDto;
-                return CreatedAtRoute("GetTrainingExercise", new { id = trainingExerciseDto.Id }, _response);
+                response.StatusCode = HttpStatusCode.Created;
+                response.Result = trainingExerciseDto;
+                return CreatedAtRoute("GetTrainingExercise", new { id = trainingExerciseDto.Id }, response);
             }
             catch (Exception ex)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.InternalServerError;
-                _response.ErrorMessages.Add($"Error creating training exercise: {ex.Message}");
-                _response.ErrorMessages.Add(ex.InnerException?.Message);
-                return StatusCode((int)_response.StatusCode, _response);
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error creating training exercise: {ex.Message}");
+                response.ErrorMessages.Add(ex.InnerException?.Message);
+                return StatusCode((int)response.StatusCode, response);
             }
         }
 
@@ -155,32 +160,34 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApiResponse>> UpdateTrainingExercise(int id, TrainingExerciseUpdateDTO updateDTO)
+        public async Task<ActionResult<ApiResponse<TrainingExerciseDTO>>> UpdateTrainingExercise(int id, TrainingExerciseUpdateDTO updateDTO)
         {
+            ApiResponse<TrainingExerciseDTO> response = new();
+
             try
             {
                 var trainingExerciseDto = await _dataHandler.UpdateTrainingExerciseAsync(id, updateDTO);
 
                 if (trainingExerciseDto == null)
                 {
-                    _response.IsSuccess = false;
-                    _response.StatusCode = HttpStatusCode.BadRequest;
-                    _response.ErrorMessages.Add("Error updating training exercise");
-                    return BadRequest(_response);
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.ErrorMessages.Add("Error updating training exercise");
+                    return BadRequest(response);
                 }
 
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.Result = trainingExerciseDto;
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = trainingExerciseDto;
             }
             catch (Exception ex)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.InternalServerError;
-                _response.ErrorMessages.Add($"Error updating training exercise: {ex.Message}");
-                return StatusCode((int)_response.StatusCode, _response);
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error updating training exercise: {ex.Message}");
+                return StatusCode((int)response.StatusCode, response);
             }
 
-            return Ok(_response);
+            return Ok(response);
         }
 
 
@@ -194,32 +201,44 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApiResponse>> DeleteTrainingExercise(int id)
+        public async Task<ActionResult<ApiResponse<bool>>> DeleteTrainingExercise(int id)
         {
+            ApiResponse<bool> response = new();
+
             try
             {
-                var result = await _dataHandler.DeleteTrainingExerciseAsync(id);
+                var trainingExerciseDto = await _dataHandler.GetTrainingExerciseAsync(id);
 
-                if (!result)
+                if (trainingExerciseDto == null)
                 {
-                    _response.IsSuccess = false;
-                    _response.StatusCode = HttpStatusCode.BadRequest;
-                    _response.ErrorMessages.Add("Error deleting training exercise");
-                    return BadRequest(_response);
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.ErrorMessages.Add("TrainingExercise for delete operation not found");
+                    return NotFound(response);
                 }
 
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.Result = result;
+                var isDeleted = await _dataHandler.DeleteTrainingExerciseAsync(id);
+
+                if (!isDeleted)
+                {
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.ErrorMessages.Add("Error deleting training exercise");
+                    return BadRequest(response);
+                }
+
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = isDeleted;
             }
             catch (Exception ex)
             {
-                _response.IsSuccess = false;
-                _response.StatusCode = HttpStatusCode.InternalServerError;
-                _response.ErrorMessages.Add($"Error deleting training exercise: {ex.Message}");
-                return StatusCode((int)_response.StatusCode, _response);
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error deleting training exercise: {ex.Message}");
+                return StatusCode((int)response.StatusCode, response);
             }
 
-            return Ok(_response);
+            return Ok(response);
         }
     }
 }

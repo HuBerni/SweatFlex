@@ -13,6 +13,7 @@ namespace SweatFlexData.Interface
         Task<IList<UserDTO>> GetUsersAsync();
         Task<IList<UserDTO>> GetUsersByCoachIdAsync(string coachId);
         Task<UserDTO> GetUserByIdAsync(string id);
+        Task<UserDTO> GetUserByMailAsync(string eMail);
         Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO);
         Task<bool> DeleteUserAsync(string id);
         Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO);

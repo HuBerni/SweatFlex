@@ -3,10 +3,11 @@ using SweatFlexAPI.Models;
 using SweatFlexAPIClient.Interface;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
+using SweatFlexData.Interface.IDTOs;
 
 namespace SweatFlexAPIClient.Services
 {
-    internal class AuthService : BaseService, IAuthService
+    public class AuthService : BaseService<IAuthDTO>, IAuthService
     {
         string _suffix;
         public AuthService(IHttpClientFactory httpClient) : base(httpClient)
@@ -18,47 +19,40 @@ namespace SweatFlexAPIClient.Services
 
         public async Task<UserDTO> RegisterAsync(UserCreateDTO createDTO)
         {
-            //TODO: This API Action should return a bool
-            var registerSuccess = await SendAsync(new ApiRequest()
+            //TODO: Create Stored Procedure for register in DB
+            var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
             {
                 ApiType = Enum.ApiType.POST,
                 Data = createDTO,
-                Url = $"{SweatFlexURL}{_suffix}"
+                Url = $"{SweatFlexURL}{_suffix}/register"
             });
-           
-            if ((bool)registerSuccess.Result)
-            {
-                var userDto = SendAsync(new ApiRequest()
-                {
-                    ApiType = Enum.ApiType.GET,
-                    Url = $"{SweatFlexURL}{_suffix}/mail/{createDTO.Email}"
-                }).Result;
 
-                if(userDto is UserDTO)
-                {
-                    return userDto as UserDTO;
-                }
-
-            }
+            throw new NotImplementedException();
         }
 
         public async Task<UserDTO> LoginAsync(LoginDTO dto)
         {
-            var result = await SendAsync(new ApiRequest()
+            var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
             {
                 ApiType = Enum.ApiType.POST,
                 Data = dto,
-                Url = $"{SweatFlexURL}{_suffix}"
+                Url = $"{SweatFlexURL}{_suffix}/login"
             });
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK && result.Result != null)
             {
-                TokenStorage.Token = result.Result.ToString();
+                TokenStorage.Token = result.Result.Token;
             }
 
-            //getUserWithEmail \(*.*)/
-
-            return result;
+            return new UserDTO()
+            {
+                Coach = result.Result.Coach,
+                Email = result.Result.Email,
+                FirstName = result.Result.FirstName,
+                LastName = result.Result.LastName,
+                Id = result.Result.Id,
+                Role = result.Result.Role
+            };
         }
     }
 }
