@@ -3,68 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SweatFlex.Maui.ViewModels;assembly=SweatFlex.Maui"
              x:Class="SweatFlex.Maui.Views.Workouts"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Workouts">
     <ContentPage.BindingContext>
         <vm:WorkoutsViewModel />
     </ContentPage.BindingContext>
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="0,0,0,20" Grid.Row="1"/>
-        <ListView RowHeight="75" ItemsSource="{Binding MyWorkouts}">
+    <Grid RowDefinitions="Auto,*,Auto,Auto,*">
+        
+        <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>
+
+        <CollectionView Grid.Row="1" 
+                        ItemsSource="{Binding MyWorkouts}" 
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding WorkoutSelectedCommand}"
+                        SelectedItem="{Binding SelectedWorkout}"
+                        SelectionChanged="MyWorkouts_SelectionChanged"
+                        Margin="0,0,0,10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" RowDefinitions="Auto" ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0"
+                       Text="{Binding Name}"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       />
+                        <Button Grid.Column="1"
+                        ImageSource="play_circle_fill.svg"
+                        CornerRadius="5"
+                        Padding="10,5" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2" ImageSource="plus.svg" HorizontalOptions="EndAndExpand" Margin="0, 0, 10, 0" Command="{Binding ShowPopupCommand}"/>
+
+        <Label Text="Suggested Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="3"/>
+
+        <ListView Grid.Row="4" RowHeight="75" ItemsSource="{Binding PreBuiltWorkouts}" Margin="0,0,0,30">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*, Auto" Padding="10">
                             <Label Grid.Column="0"
-                                     Text="{Binding Name}"
-                                     FontSize="Medium"
-                                     FontAttributes="Bold"
-                                     />
+                                   Text="{Binding Name}"
+                                   FontSize="Medium"
+                                   FontAttributes="Bold"
+                                   />
                             <Button Grid.Column="1"
-                                      ImageSource="play_circle_fill.svg"
-                                      CornerRadius="5"
-                                      Padding="10,5" />
+                                    ImageSource="three_dots_vertical.svg"
+                                    CornerRadius="5"
+                                    Padding="10,5" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-        <Label Text="Suggested Workouts" FontSize="Title" FontAttributes="Bold" Margin="0,0,0,20" Grid.Row="2"/>
-        <ListView RowHeight="75" ItemsSource="{Binding PreBuiltWorkouts}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
-                                     Text="{Binding Name}"
-                                     FontSize="Medium"
-                                     FontAttributes="Bold"
-                                     />
-                            <Button Grid.Column="1"
-                                      ImageSource="play_circle_fill.svg"
-                                      CornerRadius="5"
-                                      Padding="10,5" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

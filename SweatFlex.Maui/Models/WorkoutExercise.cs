@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SweatFlex.Maui.Models
 {
-    public class Workout
+    public class WorkoutExercise
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public User Creator { get; set; }
-        public List<WorkoutExercise>? WorkoutExercises { get; set; }
+        public Exercise Exercise { get; set; }
+        public Workout Workout { get; set; }
+        public int WorkoutIndex { get; set; }
     }
 }

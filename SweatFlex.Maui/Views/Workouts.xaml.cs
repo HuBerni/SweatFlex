@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using SweatFlex.Maui.ViewModels;
 
 namespace SweatFlex.Maui.Views;
@@ -11,4 +13,9 @@ public partial class Workouts : ContentPage
 		BindingContext = _viewModel = new WorkoutsViewModel();
 		InitializeComponent();
 	}
+
+    private void MyWorkouts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+		
+    }
 }
