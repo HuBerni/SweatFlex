@@ -30,6 +30,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<Exercises>();
 		builder.Services.AddTransient<Progress>();
 		builder.Services.AddTransient<Settings>();
+		builder.Services.AddTransient<CurrentWorkout>();
 
 
 		//Registering ViewModels
@@ -38,6 +39,9 @@ public static class MauiProgram
 		builder.Services.AddTransient<WorkoutsViewModel>();
 		builder.Services.AddTransient<ExercisesViewModel>();
 		builder.Services.AddTransient<ConfirmationPopupViewModel>();
+		builder.Services.AddTransient<CurrentWorkoutViewModel>();
+
+		//Registering Services
 
 		return builder.Build();
 	}

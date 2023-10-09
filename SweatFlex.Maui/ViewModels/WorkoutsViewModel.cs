@@ -251,17 +251,18 @@ namespace SweatFlex.Maui.ViewModels
         [RelayCommand]
         public async Task WorkoutSelected()
         {
-            var result = await Application.Current.MainPage.ShowPopupAsync(new ConfirmationPopup("Are you sure you want to start this workout?"));
+            var result = await Application.Current.MainPage.ShowPopupAsync(new ConfirmationPopup($"Wollen sie das Workout {SelectedWorkout?.Name} starten?"));
 
             if(result is bool confirmed)
             {
                 if (confirmed)
                 {
-                    //TODO, add navigation to workout page
+                    await Shell.Current.GoToAsync(nameof(CurrentWorkout));
+                    return;
                 }
-
-                SelectedWorkout = null;
             }
+                
+            SelectedWorkout = null;
         }
     }
 }

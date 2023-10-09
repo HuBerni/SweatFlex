@@ -12,14 +12,9 @@ namespace SweatFlex.Maui.ViewModels
         public ObservableCollection<WorkoutExercise>? WorkoutExercises { get; set; }
 
 
-        public CurrentWorkoutViewModel(Workout workout)
+        public CurrentWorkoutViewModel()
         {
-            Workout = workout;
 
-            if (Workout.WorkoutExercises != null)
-            {
-                WorkoutExercises = new ObservableCollection<WorkoutExercise>(workout.WorkoutExercises!);
-            }
         }
     }
 }

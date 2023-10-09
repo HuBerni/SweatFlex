@@ -13,9 +13,4 @@ public partial class Workouts : ContentPage
 		BindingContext = _viewModel = new WorkoutsViewModel();
 		InitializeComponent();
 	}
-
-    private void MyWorkouts_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-		
-    }
 }

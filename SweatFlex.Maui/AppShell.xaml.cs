@@ -13,6 +13,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(Progress), typeof(Progress));
 		Routing.RegisterRoute(nameof(Settings), typeof(Settings));
 		Routing.RegisterRoute(nameof(Exercises), typeof(Exercises));
+		Routing.RegisterRoute(nameof(CurrentWorkout), typeof(CurrentWorkout));
 		InitializeComponent();
 	}
 }

@@ -17,7 +17,6 @@
                         SelectionMode="Single"
                         SelectionChangedCommand="{Binding WorkoutSelectedCommand}"
                         SelectedItem="{Binding SelectedWorkout}"
-                        SelectionChanged="MyWorkouts_SelectionChanged"
                         Margin="0,0,0,10">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -28,7 +27,7 @@
                        FontAttributes="Bold"
                        />
                         <Button Grid.Column="1"
-                        ImageSource="play_circle_fill.svg"
+                        ImageSource="three_dots_vertical.svg"
                         CornerRadius="5"
                         Padding="10,5" />
                     </Grid>
@@ -40,24 +39,27 @@
 
         <Label Text="Suggested Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="3"/>
 
-        <ListView Grid.Row="4" RowHeight="75" ItemsSource="{Binding PreBuiltWorkouts}" Margin="0,0,0,30">
-            <ListView.ItemTemplate>
+        <CollectionView Grid.Row="4" 
+                        ItemsSource="{Binding PreBuiltWorkouts}" 
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding WorkoutSelectedCommand}"
+                        SelectedItem="{Binding SelectedWorkout}"
+                        Margin="0,0,0,10">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*, Auto" Padding="10">
-                            <Label Grid.Column="0"
-                                   Text="{Binding Name}"
-                                   FontSize="Medium"
-                                   FontAttributes="Bold"
-                                   />
-                            <Button Grid.Column="1"
-                                    ImageSource="three_dots_vertical.svg"
-                                    CornerRadius="5"
-                                    Padding="10,5" />
-                        </Grid>
-                    </ViewCell>
+                    <Grid Padding="10" RowDefinitions="Auto" ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0"
+                       Text="{Binding Name}"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       />
+                        <Button Grid.Column="1"
+                        ImageSource="three_dots_vertical.svg"
+                        CornerRadius="5"
+                        Padding="10,5" />
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentPage>
