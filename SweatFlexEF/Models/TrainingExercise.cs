@@ -17,15 +17,13 @@ public partial class TrainingExercise
 
     public string UserId { get; set; } = null!;
 
-    public DateTime? ExerciseExecuted { get; set; }
-
     public int ExerciseId { get; set; }
 
     public int WorkoutExerciseId { get; set; }
 
+    public DateTime? ExerciseExecuted { get; set; }
+
     public virtual Exercise Exercise { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
-
-    public virtual WorkoutExercise WorkoutExercise { get; set; } = null!;
 }

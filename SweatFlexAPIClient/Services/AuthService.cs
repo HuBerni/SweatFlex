@@ -3,10 +3,11 @@ using SweatFlexAPI.Models;
 using SweatFlexAPIClient.Interface;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
+using SweatFlexData.Interface.IDTOs;
 
 namespace SweatFlexAPIClient.Services
 {
-    internal class AuthService : BaseService, IAuthService
+    public class AuthService : BaseService<IAuthDTO>, IAuthService
     {
         string _suffix;
         public AuthService(IHttpClientFactory httpClient) : base(httpClient)
@@ -16,49 +17,58 @@ namespace SweatFlexAPIClient.Services
             _suffix = "AuthAPI";
         }
 
-        public async Task<UserDTO> RegisterAsync(UserCreateDTO createDTO)
+        public async Task<ApiResponse<UserDTO>> RegisterAsync(UserCreateDTO createDTO)
         {
-            //TODO: This API Action should return a bool
-            var registerSuccess = await SendAsync(new ApiRequest()
+            //TODO: Create Stored Procedure for register in DB
+            var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
             {
                 ApiType = Enum.ApiType.POST,
                 Data = createDTO,
-                Url = $"{SweatFlexURL}{_suffix}"
-            });
-           
-            if ((bool)registerSuccess.Result)
-            {
-                var userDto = SendAsync(new ApiRequest()
-                {
-                    ApiType = Enum.ApiType.GET,
-                    Url = $"{SweatFlexURL}{_suffix}/mail/{createDTO.Email}"
-                }).Result;
-
-                if(userDto is UserDTO)
-                {
-                    return userDto as UserDTO;
-                }
-
-            }
-        }
-
-        public async Task<UserDTO> LoginAsync(LoginDTO dto)
-        {
-            var result = await SendAsync(new ApiRequest()
-            {
-                ApiType = Enum.ApiType.POST,
-                Data = dto,
-                Url = $"{SweatFlexURL}{_suffix}"
+                Url = $"{SweatFlexURL}{_suffix}/register"
             });
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK && result.Result != null)
             {
-                TokenStorage.Token = result.Result.ToString();
+                TokenStorage.Token = result.Result.Token;
             }
 
-            //getUserWithEmail \(*.*)/
+            return MapReturn(result);
+        }
 
-            return result;
+        public async Task<ApiResponse<UserDTO>> LoginAsync(LoginDTO dto)
+        {
+            var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
+            {
+                ApiType = Enum.ApiType.POST,
+                Data = dto,
+                Url = $"{SweatFlexURL}{_suffix}/login"
+            });
+
+            if (result.StatusCode == System.Net.HttpStatusCode.OK && result.Result != null)
+            {
+                TokenStorage.Token = result.Result.Token;
+            }
+
+            return MapReturn(result);
+        }
+
+        private ApiResponse<UserDTO> MapReturn(ApiResponse<UserLoggedInDTO> apiResponse)
+        {
+            return new ApiResponse<UserDTO>()
+            {
+                ErrorMessages = apiResponse.ErrorMessages,
+                IsSuccess = apiResponse.IsSuccess,
+                Result = new UserDTO()
+                {
+                    Coach = apiResponse.Result.Coach,
+                    Email = apiResponse.Result.Email,
+                    FirstName = apiResponse.Result.FirstName,
+                    LastName = apiResponse.Result.LastName,
+                    Id = apiResponse.Result.Id,
+                    Role = apiResponse.Result.Role
+                },
+                StatusCode = apiResponse.StatusCode
+            };
         }
     }
 }

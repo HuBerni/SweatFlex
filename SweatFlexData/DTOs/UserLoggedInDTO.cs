@@ -1,4 +1,5 @@
-﻿using SweatFlexData.Interface.IDTOs;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SweatFlexData.Interface.IDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SweatFlexData.DTOs
 {
-    public class UserDTO : IUserDTO
+    public class UserLoggedInDTO : IAuthDTO
     {
         public string Id { get; set; }
 
@@ -20,5 +21,7 @@ namespace SweatFlexData.DTOs
         public string Email { get; set; }
 
         public UserDTO? Coach { get; set; }
+        public string Token { get; set; }
+
     }
 }

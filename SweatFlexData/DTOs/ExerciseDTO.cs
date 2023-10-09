@@ -1,6 +1,8 @@
-﻿namespace SweatFlexData.DTOs
+﻿using SweatFlexData.Interface.IDTOs;
+
+namespace SweatFlexData.DTOs
 {
-    public class ExerciseDTO
+    public class ExerciseDTO : IExerciseDTO
     {
         public int Id { get; set; }
 

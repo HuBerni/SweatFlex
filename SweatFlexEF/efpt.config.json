@@ -56,11 +56,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[CreateUser]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[fn_ValidatLogin]",
          "ObjectType": 2
       }
    ],
-   "UiHint": "sweatflexsqlserver.sweatflexdb.dbo",
+   "UiHint": "(localdb)\\MSSQLLocalDB.SweatFlex",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,

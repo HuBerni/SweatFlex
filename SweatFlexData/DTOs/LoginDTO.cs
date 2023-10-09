@@ -1,6 +1,8 @@
-﻿namespace SweatFlexData.DTOs
+﻿using SweatFlexData.Interface.IDTOs;
+
+namespace SweatFlexData.DTOs
 {
-    public class LoginDTO
+    public class LoginDTO : IAuthDTO
     {
         public string Email { get; set; }
         public string Password { get; set; }

@@ -20,21 +20,21 @@ namespace SweatFlexAPI.Controllers
     {
         private readonly IDataHandler _dataHandler;
         private IConfiguration _configuration;
-        private ApiResponse _response;
 
         public AuthAPIController(IDataHandler dataHandler)
         {
             _dataHandler = dataHandler;
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            _response = new();
         }
 
         [HttpPost]
         [Route("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<string>> Login([FromBody]LoginDTO dto)
+        public async Task<ActionResult<string>> Login([FromBody] LoginDTO dto)
         {
+            ApiResponse<UserLoggedInDTO> response = new();
+
             try
             {
                 var userDto = await _dataHandler.LoginAsync(dto.Email, dto.Password);
@@ -48,13 +48,23 @@ namespace SweatFlexAPI.Controllers
                 {
                     new Claim(ClaimTypes.Name, userDto.Id),
                     new Claim(ClaimTypes.Role, ((RoleEnum)userDto.Role).ToString()),
-                };
+                };                
 
                 string token = GenerateToken(authClaims);
 
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.Result = token;
-                return Ok(_response);
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = new UserLoggedInDTO()
+                {
+                    Coach = userDto.Coach,
+                    Email = userDto.Email,
+                    FirstName = userDto.FirstName,
+                    Id = userDto.Id,
+                    LastName = userDto.LastName,
+                    Role = userDto.Role,
+                    Token = token
+
+                };
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -68,14 +78,15 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<string>> Register([FromBody] UserCreateDTO dto)
         {
-            //TODO Berni
+            ApiResponse<UserLoggedInDTO> response = new();
+
             try
             {
-                var userDto = await _dataHandler.LoginAsync(dto.Email, dto.Password);
+                var userDto = await _dataHandler.CreateUserAsync(dto);
 
                 if (userDto == null)
                 {
-                    return BadRequest("Invalid username or password");
+                    return BadRequest("User could not be created");
                 }
 
                 var authClaims = new List<Claim>
@@ -86,9 +97,19 @@ namespace SweatFlexAPI.Controllers
 
                 string token = GenerateToken(authClaims);
 
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.Result = token;
-                return Ok(_response);
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = new UserLoggedInDTO()
+                {
+                    Coach = userDto.Coach,
+                    Email = userDto.Email,
+                    FirstName = userDto.FirstName,
+                    Id = userDto.Id,
+                    LastName = userDto.LastName,
+                    Role = userDto.Role,
+                    Token = token
+
+                };
+                return Ok(response);
             }
             catch (Exception ex)
             {

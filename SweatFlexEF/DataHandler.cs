@@ -117,7 +117,7 @@ namespace SweatFlexEF
             return await _workoutExeriseHandler.GetWorkoutExercisesAsync(workoutId);
         }
 
-        public async Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id)
+        public async Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsync(int id)
         {
             return await _workoutExeriseHandler.GetWorkoutExerciseByIdAsnyc(id);
         }
@@ -160,6 +160,11 @@ namespace SweatFlexEF
         public async Task<UserDTO> LoginAsync(string eMail, string password)
         {
             return await _userHandler.Login(eMail, password);
+        }
+
+        public async Task<UserDTO> GetUserByMailAsync(string eMail)
+        {
+            return await _userHandler.GetUserByMailAsync(eMail);
         }
     }
 }

@@ -47,7 +47,7 @@ public partial class SweatFlexContext : DbContext
             entity.ToTable("Exercise");
 
             entity.Property(e => e.Creator)
-                .HasMaxLength(5)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Description).IsUnicode(false);
             entity.Property(e => e.Name)
@@ -85,10 +85,12 @@ public partial class SweatFlexContext : DbContext
 
         modelBuilder.Entity<PasswordDepot>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK__Password__3214EC07C520E1B2");
+
             entity.ToTable("PasswordDepot");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(100);
         });
 
         modelBuilder.Entity<TrainingExercise>(entity =>
@@ -97,7 +99,7 @@ public partial class SweatFlexContext : DbContext
 
             entity.Property(e => e.ExerciseExecuted).HasColumnType("datetime");
             entity.Property(e => e.UserId)
-                .HasMaxLength(5)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Weight).HasColumnType("numeric(18, 2)");
 
@@ -110,11 +112,6 @@ public partial class SweatFlexContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TrainingExercise_User");
-
-            entity.HasOne(d => d.WorkoutExercise).WithMany(p => p.TrainingExercises)
-                .HasForeignKey(d => d.WorkoutExerciseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_WorkoutExercise_Id");
         });
 
         modelBuilder.Entity<Type>(entity =>
@@ -128,32 +125,35 @@ public partial class SweatFlexContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC076FFACB64");
+
             entity.ToTable("User");
 
-            entity.HasIndex(e => e.Email, "UQ__User__A9D10534450BBB58").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(5)
+                .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Coach)
-                .HasMaxLength(5)
+            entity.Property(e => e.CoachId)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FirstName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.IsActive)
+                .IsRequired()
+                .HasDefaultValueSql("((1))");
             entity.Property(e => e.LastName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.CoachNavigation).WithMany(p => p.InverseCoachNavigation)
-                .HasForeignKey(d => d.Coach)
+            entity.HasOne(d => d.Coach).WithMany(p => p.InverseCoach)
+                .HasForeignKey(d => d.CoachId)
                 .HasConstraintName("FK_User_User");
 
             entity.HasOne(d => d.Password).WithMany(p => p.Users)
                 .HasForeignKey(d => d.PasswordId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("Password_PasswordDepot");
+                .HasConstraintName("FK_User_PasswordDepot");
 
             entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Role)
@@ -175,7 +175,7 @@ public partial class SweatFlexContext : DbContext
             entity.ToTable("Workout");
 
             entity.Property(e => e.Creator)
-                .HasMaxLength(5)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
@@ -202,6 +202,7 @@ public partial class SweatFlexContext : DbContext
                 .HasConstraintName("FK_WorkoutExercise_Workout");
         });
 
+        OnModelCreatingGeneratedProcedures(modelBuilder);
         OnModelCreatingGeneratedFunctions(modelBuilder);
         OnModelCreatingPartial(modelBuilder);
     }

@@ -1,4 +1,5 @@
 ﻿using SweatFlexAPI.Models;
+using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using System;
@@ -11,10 +12,10 @@ namespace SweatFlexAPIClient.Interface
 {
     public interface IWorkoutService
     {
-        Task<ApiResponse> GetWorkoutsAsync(string? userId);
-        Task<ApiResponse> GetWorkoutByIdAsync(int id);
-        Task<ApiResponse> CreateWorkoutAsync(WorkoutCreateDTO createDTO);
-        Task<ApiResponse> UpdateWorkoutAsync(int id, WorkoutUpdateDTO updateDTO);
-        Task<ApiResponse> DeleteWorkoutAsync(int id);        
+        Task<ApiResponse<IList<WorkoutDTO>>> GetWorkoutsAsync(string? userId);
+        Task<ApiResponse<WorkoutDTO>> GetWorkoutByIdAsync(int id);
+        Task<ApiResponse<WorkoutDTO>> CreateWorkoutAsync(WorkoutCreateDTO createDTO);
+        Task<ApiResponse<WorkoutDTO>> UpdateWorkoutAsync(int id, WorkoutUpdateDTO updateDTO);
+        Task<ApiResponse<bool>> DeleteWorkoutAsync(int id);
     }
 }
