@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Core;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using Microsoft.Extensions.Logging;
 using SweatFlex.Maui.ViewModels;
 using SweatFlex.Maui.Views;
@@ -11,8 +12,7 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
-			.UseMauiApp<App>()
-            .UseMauiCommunityToolkitCore()
+			.UseMauiApp<App>().UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -27,10 +27,17 @@ public static class MauiProgram
 		builder.Services.AddTransient<Register>();
 		builder.Services.AddTransient<Home>();
 		builder.Services.AddTransient<Workouts>();
+		builder.Services.AddTransient<Exercises>();
+		builder.Services.AddTransient<Progress>();
+		builder.Services.AddTransient<Settings>();
+
 
 		//Registering ViewModels
 		builder.Services.AddTransient<LoginViewModel>();
 		builder.Services.AddTransient<RegisterViewModel>();
+		builder.Services.AddTransient<WorkoutsViewModel>();
+		builder.Services.AddTransient<ExercisesViewModel>();
+		builder.Services.AddTransient<ConfirmationPopupViewModel>();
 
 		return builder.Build();
 	}
