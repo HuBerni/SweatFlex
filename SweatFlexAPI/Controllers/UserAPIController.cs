@@ -237,7 +237,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="updateDTO"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("{id}", Name = "GetUsersByCoach")]
+        [Route("{id}", Name = "UpdateUser")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
