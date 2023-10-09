@@ -11,7 +11,7 @@ namespace SweatFlexAPIClient
 {
     public class BaseService<T> : IBaseService<T>
     {
-        protected string SweatFlexURL;
+        protected string? SweatFlexURL;
         public IHttpClientFactory httpClient { get; set; }
         public BaseService(IHttpClientFactory httpClient)
         {
