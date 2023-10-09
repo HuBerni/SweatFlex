@@ -29,7 +29,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("workouts/{userId}", Name = "GetWorkoutById")]
+        [Route("workouts/{userId}", Name = "GetWorkouts")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
