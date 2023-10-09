@@ -6,7 +6,7 @@ namespace SweatFlexAPIClient.Interface
 {
     public interface IAuthService
     {
-        Task<UserDTO> LoginAsync(LoginDTO loginDto);
-        Task<UserDTO> RegisterAsync(UserCreateDTO createDto);
+        Task<ApiResponse<UserDTO>> LoginAsync(LoginDTO loginDto);
+        Task<ApiResponse<UserDTO>> RegisterAsync(UserCreateDTO createDto);
     }
 }

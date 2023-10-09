@@ -29,6 +29,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route("workouts/{userId}", Name = "GetWorkoutById")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -199,6 +200,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Route("{id:int}", Name = "DeleteWorkout")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]

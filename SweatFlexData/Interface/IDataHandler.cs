@@ -39,7 +39,7 @@ namespace SweatFlexData.Interface
         Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO);
 
         Task<IList<WorkoutExerciseDTO>> GetWorkoutExercisesAsync(int workoutId);
-        Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id);
+        Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsync(int id);
         Task<WorkoutExerciseDTO> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO);
         Task<bool> DeleteWorkoutExerciseAsync(int id);
         Task<WorkoutExerciseDTO> CreateWorkoutExceriseAsync(WorkoutExerciseCreateDTO createDTO);

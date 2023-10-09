@@ -117,7 +117,7 @@ namespace SweatFlexEF
             return await _workoutExeriseHandler.GetWorkoutExercisesAsync(workoutId);
         }
 
-        public async Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsnyc(int id)
+        public async Task<WorkoutExerciseDTO> GetWorkoutExerciseByIdAsync(int id)
         {
             return await _workoutExeriseHandler.GetWorkoutExerciseByIdAsnyc(id);
         }

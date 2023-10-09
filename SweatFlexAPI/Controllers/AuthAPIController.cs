@@ -80,14 +80,13 @@ namespace SweatFlexAPI.Controllers
         {
             ApiResponse<UserLoggedInDTO> response = new();
 
-            //TODO Berni
             try
             {
-                var userDto = await _dataHandler.LoginAsync(dto.Email, dto.Password);
+                var userDto = await _dataHandler.CreateUserAsync(dto);
 
                 if (userDto == null)
                 {
-                    return BadRequest("Invalid username or password");
+                    return BadRequest("User could not be created");
                 }
 
                 var authClaims = new List<Claim>

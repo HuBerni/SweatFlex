@@ -29,6 +29,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="workoutId"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route("{workoutId:int}", Name = "GetWorkoutExercises")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -70,7 +71,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id:int}", Name = "GetWorkoutExerciseById")]
+        [Route("GetWorkoutExerciseById/{id:int}", Name = "GetWorkoutExerciseById")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -81,7 +82,7 @@ namespace SweatFlexAPI.Controllers
 
             try
             {
-                var workoutExerciseDto = await _dataHandler.GetWorkoutExerciseByIdAsnyc(id);
+                var workoutExerciseDto = await _dataHandler.GetWorkoutExerciseByIdAsync(id);
 
                 if (workoutExerciseDto == null)
                 {
@@ -161,6 +162,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="updateDTO"></param>
         /// <returns></returns>
         [HttpPut]
+        [Route("{id:int}", Name = "UpdateWorkoutExercise")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -201,6 +203,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Route("{id:int}", Name = "DeleteWorkoutExercise")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -211,7 +214,7 @@ namespace SweatFlexAPI.Controllers
 
             try
             {
-                var workoutExerciseDto = await _dataHandler.GetWorkoutExerciseByIdAsnyc(id);
+                var workoutExerciseDto = await _dataHandler.GetWorkoutExerciseByIdAsync(id);
 
                 if (workoutExerciseDto == null)
                 {

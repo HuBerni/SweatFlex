@@ -85,7 +85,7 @@ public partial class SweatFlexContext : DbContext
 
         modelBuilder.Entity<PasswordDepot>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Password__3214EC075ED1A475");
+            entity.HasKey(e => e.Id).HasName("PK__Password__3214EC07C520E1B2");
 
             entity.ToTable("PasswordDepot");
 
@@ -125,7 +125,7 @@ public partial class SweatFlexContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC0772546124");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC076FFACB64");
 
             entity.ToTable("User");
 

@@ -31,6 +31,7 @@ namespace SweatFlexAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Customer,Coach,Admin")]
+        [Route("getExercises/{userId}/{workoutId:int?}", Name = "GetTrainingExercises")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -157,6 +158,7 @@ namespace SweatFlexAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Customer,Coach,Admin")]
+        [Route("{id:int}", Name = "UpdateTrainingExercise")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -198,6 +200,7 @@ namespace SweatFlexAPI.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Authorize(Roles = "Customer,Coach,Admin")]
+        [Route("{id:int}", Name = "DeleteTrainingExercise")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

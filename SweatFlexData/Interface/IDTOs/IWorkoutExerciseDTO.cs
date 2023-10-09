@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SweatFlexData.Interface.IDTOs
 {
-    internal interface IWorkoutExerciseDTO
+    public interface IWorkoutExerciseDTO
     {
     }
 }

@@ -17,7 +17,7 @@ namespace SweatFlexAPIClient.Services
             _suffix = "AuthAPI";
         }
 
-        public async Task<UserDTO> RegisterAsync(UserCreateDTO createDTO)
+        public async Task<ApiResponse<UserDTO>> RegisterAsync(UserCreateDTO createDTO)
         {
             //TODO: Create Stored Procedure for register in DB
             var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
@@ -27,10 +27,15 @@ namespace SweatFlexAPIClient.Services
                 Url = $"{SweatFlexURL}{_suffix}/register"
             });
 
-            throw new NotImplementedException();
+            if (result.StatusCode == System.Net.HttpStatusCode.OK && result.Result != null)
+            {
+                TokenStorage.Token = result.Result.Token;
+            }
+
+            return MapReturn(result);
         }
 
-        public async Task<UserDTO> LoginAsync(LoginDTO dto)
+        public async Task<ApiResponse<UserDTO>> LoginAsync(LoginDTO dto)
         {
             var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
             {
@@ -44,14 +49,25 @@ namespace SweatFlexAPIClient.Services
                 TokenStorage.Token = result.Result.Token;
             }
 
-            return new UserDTO()
+            return MapReturn(result);
+        }
+
+        private ApiResponse<UserDTO> MapReturn(ApiResponse<UserLoggedInDTO> apiResponse)
+        {
+            return new ApiResponse<UserDTO>()
             {
-                Coach = result.Result.Coach,
-                Email = result.Result.Email,
-                FirstName = result.Result.FirstName,
-                LastName = result.Result.LastName,
-                Id = result.Result.Id,
-                Role = result.Result.Role
+                ErrorMessages = apiResponse.ErrorMessages,
+                IsSuccess = apiResponse.IsSuccess,
+                Result = new UserDTO()
+                {
+                    Coach = apiResponse.Result.Coach,
+                    Email = apiResponse.Result.Email,
+                    FirstName = apiResponse.Result.FirstName,
+                    LastName = apiResponse.Result.LastName,
+                    Id = apiResponse.Result.Id,
+                    Role = apiResponse.Result.Role
+                },
+                StatusCode = apiResponse.StatusCode
             };
         }
     }

@@ -1,30 +1,19 @@
-﻿
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Http;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using SweatFlexAPI.Models;
-using SweatFlexAPIClient;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SweatFlexAPIClient.Services;
-using SweatFlexData.DTOs;
-using SweatFlexData.DTOs.Create;
+using SweatFlexData.DTOs.Update;
 using SweatFlexEF;
 using SweatFlexEF.Models;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
+using System.Diagnostics;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        test2(args);
+        //test2(args);
 
         //Console.ReadLine();
 
-        //test();
+        test();
 
         Console.ReadLine();
     }
@@ -34,14 +23,27 @@ internal class Program
         var serviceProvider = new ServiceCollection().AddHttpClient().BuildServiceProvider();
         var httpClient = serviceProvider.GetService<IHttpClientFactory>();
 
-        AuthService client = new(httpClient);
+        ExerciseService client = new(httpClient);
+        AuthService auth = new(httpClient);
 
-        var test = await client.LoginAsync(new SweatFlexData.DTOs.LoginDTO()
+        var user = await auth.LoginAsync(new SweatFlexData.DTOs.LoginDTO()
         {
-            Email = "alexander@lbs4.com",
-            Password = "test"
+            Email = "henry@yahoo.com",
+            Password = "12345"
         });
-        
+
+        var test = await client.UpdateExerciseAsync(2, new ExerciseUpdateDTO()
+        {
+            Creator = "10102",
+            Description = "big chest for big men",
+            Equipment = 3,
+            Musclegroup = 1,
+            Name = "Bench Press",
+            Type = 1
+        });
+
+        await Console.Out.WriteLineAsync("somsing");
+
         return;
     }
 
@@ -73,7 +75,7 @@ internal class Program
         var test = new SweatFlexContextProcedures(context);
         var output = new OutputParameter<int>();
 
-        test.CreateUserAsync("10101", 1, "Sue", "Storm", "sue.Storm@yahoo.com", "PASSWORD", null);
+        var test2 = await test.CreateUserAsync("10102", 2, "Henry", "Jones", "henry@yahoo.com", "12345", null, output);
 
         //var validationUser = await dh.LoginAsync("alexander@lbs4.com", "test");
 

@@ -103,36 +103,34 @@ namespace SweatFlexEF.DBClasses
         }
         public async Task<UserDTO?> CreateUserAsync(UserCreateDTO createDTO)
         {
-            var password = new PasswordDepot()
-            {
-                Id = Guid.NewGuid(),
-                Password = createDTO.Password
-            };
+            var spContext = new SweatFlexContextProcedures(_context);
+            var outputParam = new OutputParameter<int>();
 
-            _context.PasswordDepots.Add(password);
+            var cts = new CancellationTokenSource();
+            var ct = cts.Token;
 
-            if (createDTO != null)
-            {
-                var user = new User()
-                {
-                    Id = createDTO.Id,
-                    Role = createDTO.Role,
-                    FirstName = createDTO.FirstName,
-                    LastName = createDTO.LastName,
-                    Email = createDTO.Email,
-                    CoachId = createDTO.CoachId,
-                    IsActive = true,
-                    PasswordId = password.Id
-                };
+            var task = spContext.CreateUserAsync(
+                createDTO.Id,
+                createDTO.Role,
+                createDTO.FirstName,
+                createDTO.LastName,
+                createDTO.Email,
+                createDTO.Password,
+                createDTO.CoachId,
+                outputParam,
+                ct
+                );
 
-                await _context.Users.AddAsync(user);
-                await _context.SaveChangesAsync();
-                return Mapping.Mapper.Map<UserDTO>(user);
-            }
-            else
+            if (!task.Wait(10000))
             {
+                cts.Cancel();
                 return null;
             }
+            //else if(!outputParam.)
+
+            var user = _context.Users.Where(u => u.Id == createDTO.Id).FirstOrDefault();
+
+            return Mapping.Mapper.Map<UserDTO>(user);         
         }
 
         public async Task<UserDTO> Login(string eMail, string password)
