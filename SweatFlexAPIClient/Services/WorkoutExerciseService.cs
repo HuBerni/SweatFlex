@@ -1,16 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SweatFlexAPI.Models;
-using SweatFlexAPIClient.Enum;
+using SweatFlexAPIClient.APIModels;
 using SweatFlexAPIClient.Interface;
 using SweatFlexData.Create.DTOs;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.Interface.IDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SweatFlexAPIClient.Services
 {
@@ -93,7 +87,7 @@ namespace SweatFlexAPIClient.Services
             {
                 ApiType = Enum.ApiType.PUT,
                 Url = $"{SweatFlexURL}{_suffix}/{id}",
-                Data = updateDTO                
+                Data = updateDTO
             });
         }
     }

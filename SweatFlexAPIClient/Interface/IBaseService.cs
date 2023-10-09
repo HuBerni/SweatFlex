@@ -1,5 +1,5 @@
 ﻿using AutoMapper.Internal;
-using SweatFlexAPI.Models;
+using SweatFlexAPIClient.APIModels;
 
 namespace MagicVilla_Web.Services.IServices
 {

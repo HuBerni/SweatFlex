@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SweatFlexAPI.Models;
+using SweatFlexAPIClient.APIModels;
 using SweatFlexData.Create.DTOs;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.Interface;
-using System.Data;
 using System.Net;
 
 namespace SweatFlexAPI.Controllers
@@ -16,7 +14,7 @@ namespace SweatFlexAPI.Controllers
     [ApiController]
     public class WorkoutExerciseAPIController : ControllerBase
     {
-        private readonly IDataHandler _dataHandler;       
+        private readonly IDataHandler _dataHandler;
 
         public WorkoutExerciseAPIController(IDataHandler dataHandler)
         {

@@ -1,6 +1,6 @@
 ﻿using MagicVilla_Web.Services.IServices;
 using Newtonsoft.Json;
-using SweatFlexAPI.Models;
+using SweatFlexAPIClient.APIModels;
 using SweatFlexAPIClient.Enum;
 using SweatFlexData.DTOs;
 using System.Net.Http.Headers;

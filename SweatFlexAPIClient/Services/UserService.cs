@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using SweatFlexAPI.Models;
+using SweatFlexAPIClient.APIModels;
 using SweatFlexAPIClient.Interface;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;

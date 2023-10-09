@@ -1,6 +1,7 @@
 ﻿using SweatFlexAPIClient.Enum;
 
-namespace SweatFlexAPI.Models
+namespace SweatFlexAPIClient.APIModels
+
 {
     /// <summary>
     /// A class to hold the request data for the API

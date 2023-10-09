@@ -1,12 +1,7 @@
-﻿using SweatFlexAPI.Models;
+﻿using SweatFlexAPIClient.APIModels;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SweatFlexAPIClient.Interface
 {

@@ -1,4 +1,4 @@
-﻿using SweatFlexAPI.Models;
+﻿using SweatFlexAPIClient.APIModels;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 

@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace SweatFlexAPI.Models
+namespace SweatFlexAPIClient.APIModels
 {
     /// <summary>
     /// A class to hold the response data for the API
