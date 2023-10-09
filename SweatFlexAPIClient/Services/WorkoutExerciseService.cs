@@ -24,6 +24,11 @@ namespace SweatFlexAPIClient.Services
             _suffix = "WorkoutExerciseAPI";
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a new created WorkoutExercise
+        /// </summary>
+        /// <param name="workoutExerciseDto">WorkoutExercise Model for creation</param>
+        /// <returns></returns>
         public async Task<ApiResponse<WorkoutExerciseDTO>> CreateWorkoutExerciseAsync(WorkoutExerciseCreateDTO workoutExerciseDto)
         {
             return await SendAsync<WorkoutExerciseDTO>(new ApiRequest()
@@ -34,6 +39,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and deletes a WorkoutExercise
+        /// </summary>
+        /// <param name="id">WorkoutExercise Id for deletion</param>
+        /// <returns></returns>
         public async Task<ApiResponse<bool>> DeleteWorkoutExerciseAsync(int id)
         {
             return await SendAsync<bool>(new ApiRequest()
@@ -43,6 +53,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a WorkoutExercise
+        /// </summary>
+        /// <param name="id">WorkoutExercise Id</param>
+        /// <returns></returns>
         public async Task<ApiResponse<WorkoutExerciseDTO>> GetWorkoutExerciseByIdAsync(int id)
         {
             return await SendAsync<WorkoutExerciseDTO>(new ApiRequest()
@@ -52,6 +67,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a List of WorkoutExercises
+        /// </summary>
+        /// <param name="workoutId">Workout Id</param>
+        /// <returns></returns>
         public async Task<ApiResponse<IList<WorkoutExerciseDTO>>> GetWorkoutExercisesAsync(int workoutId)
         {
             return await SendAsync<IList<WorkoutExerciseDTO>>(new ApiRequest()
@@ -61,6 +81,12 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a updated WorkoutExercise
+        /// </summary>
+        /// <param name="id">WorkoutExercise Id for update</param>
+        /// <param name="updateDTO">WorkoutExercise Model for Update</param>
+        /// <returns></returns>
         public async Task<ApiResponse<WorkoutExerciseDTO>> UpdateWorkoutExerciseAsync(int id, WorkoutExerciseUpdateDTO updateDTO)
         {
             return await SendAsync<WorkoutExerciseDTO>(new ApiRequest()

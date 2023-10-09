@@ -18,6 +18,10 @@ namespace SweatFlexAPIClient.Services
             _suffix = "UserAPI";
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns all Users
+        /// </summary>
+        /// <returns></returns>
         public async Task<ApiResponse<IList<UserDTO>>> GetUsersAsync()
         {
             return await SendAsync<IList<UserDTO>>(new ApiRequest()
@@ -27,6 +31,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a user
+        /// </summary>
+        /// <param name="id">User Id</param>
+        /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> GetUserAsync(string id)
         {
             return await SendAsync<UserDTO>(new ApiRequest()
@@ -36,6 +45,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a List of User
+        /// </summary>
+        /// <param name="coachId">Coach Id for Users</param>
+        /// <returns></returns>
         public async Task<ApiResponse<IList<UserDTO>>> GetUserByCoachAsync(string coachId)
         {
             return await SendAsync<IList<UserDTO>>(new ApiRequest()
@@ -45,6 +59,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a new created User
+        /// </summary>
+        /// <param name="createDTO">User Model for creation</param>
+        /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> CreateUserAsync(UserCreateDTO createDTO)
         {
             return await SendAsync<UserDTO>(new ApiRequest()
@@ -55,6 +74,12 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and returns a updated User
+        /// </summary>
+        /// <param name="id">User iD for update</param>
+        /// <param name="updateDTO">User Model for update</param>
+        /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
         {
             return await SendAsync<UserDTO>(new ApiRequest()
@@ -65,6 +90,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and deletes a User
+        /// </summary>
+        /// <param name="id">User Id for deletion</param>
+        /// <returns></returns>
         public async Task<ApiResponse<bool>> DeleteUserAsync(string id)
         {
             return await SendAsync<bool>(new ApiRequest()
@@ -74,6 +104,11 @@ namespace SweatFlexAPIClient.Services
             });
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and sets a User inaktive
+        /// </summary>
+        /// <param name="id">User Id for setting inactive</param>
+        /// <returns></returns>
         public async Task<ApiResponse<bool>> SetUserInactiveAsync(string id)
         {
             return await SendAsync<bool>(new ApiRequest()
