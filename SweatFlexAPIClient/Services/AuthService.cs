@@ -17,6 +17,11 @@ namespace SweatFlexAPIClient.Services
             _suffix = "AuthAPI";
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and on success sets the session Token and returns a UserDTO
+        /// </summary>
+        /// <param name="createDTO">User Model for creation</param>
+        /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> RegisterAsync(UserCreateDTO createDTO)
         {
             //TODO: Create Stored Procedure for register in DB
@@ -35,6 +40,11 @@ namespace SweatFlexAPIClient.Services
             return MapReturn(result);
         }
 
+        /// <summary>
+        /// calls the coresponding API HTTPAction and on success sets the session Token and returns a UserDTO
+        /// </summary>
+        /// <param name="dto">Model for Login in</param>
+        /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> LoginAsync(LoginDTO dto)
         {
             var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
@@ -52,6 +62,11 @@ namespace SweatFlexAPIClient.Services
             return MapReturn(result);
         }
 
+        /// <summary>
+        /// mapps a UserLoggedInDTO to a UserDTO
+        /// </summary>
+        /// <param name="apiResponse">Model that needs to be mapped</param>
+        /// <returns></returns>
         private ApiResponse<UserDTO> MapReturn(ApiResponse<UserLoggedInDTO> apiResponse)
         {
             return new ApiResponse<UserDTO>()
