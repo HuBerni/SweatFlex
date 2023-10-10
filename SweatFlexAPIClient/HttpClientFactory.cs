@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SweatFlexAPIClient
 {
-    public class HttpClientFactory
+    public static class HttpClientFactory
     {
-        public IHttpClientFactory CreateFactory()
+        public static IHttpClientFactory CreateFactory()
         {
             return new ServiceCollection().AddHttpClient().BuildServiceProvider().GetService<IHttpClientFactory>();
         }
