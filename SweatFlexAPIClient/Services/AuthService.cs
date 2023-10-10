@@ -10,7 +10,7 @@ namespace SweatFlexAPIClient.Services
     public class AuthService : BaseService<IAuthDTO>, IAuthService
     {
         string _suffix;
-        public AuthService(IHttpClientFactory httpClient) : base(httpClient)
+        public AuthService() : base()
         {
             var config = new ConfigurationBuilder().AddJsonFile("settings.json").Build();
             SweatFlexURL = config.GetValue<string>("URL:SweatFlexRestAPI");

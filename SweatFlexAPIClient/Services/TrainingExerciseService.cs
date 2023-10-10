@@ -11,7 +11,7 @@ namespace SweatFlexAPIClient.Services
     public class TrainingExerciseService : BaseService<ITrainingExerciseDTO>, ITrainingExerciseService
     {
         string _suffix;
-        public TrainingExerciseService(IHttpClientFactory httpClient) : base(httpClient)
+        public TrainingExerciseService() : base()
         {
             var config = new ConfigurationBuilder().AddJsonFile("settings.json").Build();
             SweatFlexURL = config.GetValue<string>("URL:SweatFlexRestAPI");

@@ -11,7 +11,7 @@ namespace SweatFlexAPIClient.Services
     public class UserService : BaseService<IUserDTO>, IUserService
     {
         string _suffix;
-        public UserService(IHttpClientFactory httpClient) : base(httpClient)
+        public UserService() : base()
         {
             var config = new ConfigurationBuilder().AddJsonFile("settings.json").Build();
             SweatFlexURL = config.GetValue<string>("URL:SweatFlexRestAPI");

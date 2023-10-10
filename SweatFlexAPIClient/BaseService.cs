@@ -13,9 +13,9 @@ namespace SweatFlexAPIClient
     {
         protected string? SweatFlexURL;
         public IHttpClientFactory httpClient { get; set; }
-        public BaseService(IHttpClientFactory httpClient)
+        public BaseService()
         {
-            //this.responseModel = new();
+            httpClient = HttpClientFactory.CreateFactory();
             this.httpClient = httpClient;
         }
         public async Task<ApiResponse<T>> SendAsync<T>(ApiRequest apiRequest)
