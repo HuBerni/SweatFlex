@@ -21,7 +21,7 @@ namespace SweatFlex.Maui.ViewModels
             }
             else
             {
-                Title = "Are you sure?";
+                Title = "Bist du dir sicher?";
             }
         }
     }

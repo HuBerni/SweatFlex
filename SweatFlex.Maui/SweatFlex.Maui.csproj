@@ -73,6 +73,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\SweatFlexAPIClient\SweatFlexAPIClient.csproj" />
 	  <ProjectReference Include="..\SweatFlexData\SweatFlexData.csproj" />
 	</ItemGroup>
 

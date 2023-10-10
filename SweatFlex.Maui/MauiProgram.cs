@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using Microsoft.Extensions.Logging;
+using SweatFlex.Maui.Services;
 using SweatFlex.Maui.ViewModels;
 using SweatFlex.Maui.Views;
+using SweatFlexAPIClient.APIModels;
+using API = SweatFlexAPIClient.Services;
 
 namespace SweatFlex.Maui;
 
@@ -22,26 +25,33 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+		//Registering Views with ViewModels and Routes
+		builder.Services.AddTransientWithShellRoute<Login, LoginViewModel>(nameof(Login));
+		builder.Services.AddTransientWithShellRoute<Register, RegisterViewModel>(nameof(Register));
+		//builder.Services.AddTransientWithShellRoute<Home, HomeViewModel>(nameof(Home));
+		builder.Services.AddTransientWithShellRoute<Workouts, WorkoutsViewModel>(nameof(Workouts));
+		builder.Services.AddTransientWithShellRoute<Exercises, ExercisesViewModel>(nameof(Exercises));
+		//builder.Services.AddTransientWithShellRoute<Progress, ProgressViewModel>(nameof(Progress));
+		//builder.Services.AddTransientWithShellRoute<Settings, SettingsViewModel>(nameof(Settings));
+		builder.Services.AddTransientWithShellRoute<CurrentWorkout, CurrentWorkoutViewModel>(nameof(CurrentWorkout));
+
 		//Registering Views
-		builder.Services.AddTransient<Login>();
-		builder.Services.AddTransient<Register>();
 		builder.Services.AddTransient<Home>();
-		builder.Services.AddTransient<Workouts>();
-		builder.Services.AddTransient<Exercises>();
 		builder.Services.AddTransient<Progress>();
 		builder.Services.AddTransient<Settings>();
-		builder.Services.AddTransient<CurrentWorkout>();
-
 
 		//Registering ViewModels
-		builder.Services.AddTransient<LoginViewModel>();
-		builder.Services.AddTransient<RegisterViewModel>();
-		builder.Services.AddTransient<WorkoutsViewModel>();
-		builder.Services.AddTransient<ExercisesViewModel>();
 		builder.Services.AddTransient<ConfirmationPopupViewModel>();
-		builder.Services.AddTransient<CurrentWorkoutViewModel>();
 
-		//Registering Services
+		//Registering Maui Services
+		builder.Services.AddSingleton<AuthService>();
+		
+		//Registering API Services
+		builder.Services.AddSingleton<API.AuthService>();
+		builder.Services.AddSingleton<API.ExerciseService>();
+
+
 
 		return builder.Build();
 	}
