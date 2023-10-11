@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using SweatFlexAPIClient.APIModels;
 using SweatFlexAPIClient.Enum;
-using SweatFlexData.DTOs;
 using System.Net.Http.Headers;
 using System.Text;
 

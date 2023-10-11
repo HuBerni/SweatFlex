@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SweatFlexAPIClient.APIModels;
 using SweatFlexAPIClient.Interface;
 using SweatFlexData.DTOs;
@@ -15,7 +14,7 @@ namespace SweatFlexAPIClient.Services
         public ExerciseService() : base()
         {
             var config = new ConfigurationBuilder().AddJsonFile("settings.json").Build();
-            SweatFlexURL = config.GetValue<string>("URL:SweatFlexRestAPI");
+            SweatFlexURL = config["URL:SweatFlexRestAPI"];
             _suffix = "ExerciseAPI";
         }
 

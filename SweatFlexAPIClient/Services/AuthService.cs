@@ -4,6 +4,7 @@ using SweatFlexAPIClient.Interface;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.Interface.IDTOs;
+using System.Reflection;
 
 namespace SweatFlexAPIClient.Services
 {
@@ -13,7 +14,7 @@ namespace SweatFlexAPIClient.Services
         public AuthService() : base()
         {
             var config = new ConfigurationBuilder().AddJsonFile("settings.json").Build();
-            SweatFlexURL = config.GetValue<string>("URL:SweatFlexRestAPI");
+            SweatFlexURL = config["URL:SweatFlexRestAPI"];
             _suffix = "AuthAPI";
         }
 
