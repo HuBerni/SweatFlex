@@ -5,6 +5,7 @@ using SweatFlexData.Create.DTOs;
 using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.Interface.IDTOs;
+using SweatFlexUtility;
 
 namespace SweatFlexAPIClient.Services
 {
@@ -13,8 +14,7 @@ namespace SweatFlexAPIClient.Services
         string _suffix;
         public WorkoutExerciseService() : base()
         {
-            var config = new ConfigurationBuilder().AddJsonFile("settings.json").Build();
-            SweatFlexURL = config["URL:SweatFlexRestAPI"];
+            SweatFlexURL = StaticResources.SweatFlexRestAPIURL;
             _suffix = "WorkoutExerciseAPI";
         }
 

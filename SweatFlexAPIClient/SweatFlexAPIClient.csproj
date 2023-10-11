@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SweatFlexData\SweatFlexData.csproj" />
+    <ProjectReference Include="..\SweatFlexUtility\SweatFlexUtility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
