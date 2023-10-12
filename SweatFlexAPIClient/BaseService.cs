@@ -11,11 +11,11 @@ namespace SweatFlexAPIClient
     public class BaseService<T> : IBaseService<T>
     {
         protected string? SweatFlexURL;
-        public IHttpClientFactory httpClient { get; set; }
+        private IHttpClientFactory _httpClient { get; set; }
         public BaseService()
         {
-            httpClient = HttpClientFactory.CreateFactory();
-            this.httpClient = httpClient;
+            _httpClient = HttpClientFactory.CreateFactory();
+            _httpClient = _httpClient;
         }
         public async Task<ApiResponse<T>> SendAsync<T>(ApiRequest apiRequest)
         {
@@ -29,7 +29,7 @@ namespace SweatFlexAPIClient
                     apiRequest.Token = TokenStorage.Token;
                 }
 
-                var client = httpClient.CreateClient("SweatFlexAPI");
+                var client = _httpClient.CreateClient("SweatFlexAPI");
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
                 message.RequestUri = new Uri(apiRequest.Url);
