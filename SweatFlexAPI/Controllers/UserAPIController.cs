@@ -334,8 +334,6 @@ namespace SweatFlexAPI.Controllers
             return Ok(response);
         }
 
-        //TODO: Implement Berni
-
         /// <summary>
         /// Setting a user to inactive to insure data integrity
         /// </summary>
@@ -351,7 +349,43 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<ApiResponse<bool>>> SetUserInactive(string id)
         {
-            throw new NotImplementedException();
+            ApiResponse<bool> response = new();
+
+            try
+            {
+                var userDto = await _dataHandler.GetUserByIdAsync(id);
+
+                if (userDto == null)
+                {
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.ErrorMessages.Add("User for setting inactive operation not found");
+                    return NotFound(response);
+                }
+
+                //TODO implement set inactive in datahandler
+                var isInactive = false; /*= await _dataHandler.(id);*/
+
+                if (!isInactive)
+                {
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.ErrorMessages.Add("Error setting user inactive");
+                    return BadRequest(response);
+                }
+
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = isInactive;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error setting user inactive: {ex.Message}");
+                return StatusCode((int)response.StatusCode, response);
+            }
+
+            return Ok(response);
         }
     }    
 }
