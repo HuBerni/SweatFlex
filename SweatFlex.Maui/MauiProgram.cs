@@ -29,17 +29,14 @@ public static class MauiProgram
 		//Registering Views with ViewModels and Routes
 		builder.Services.AddTransientWithShellRoute<Login, LoginViewModel>(nameof(Login));
 		builder.Services.AddTransientWithShellRoute<Register, RegisterViewModel>(nameof(Register));
-		//builder.Services.AddTransientWithShellRoute<Home, HomeViewModel>(nameof(Home));
+		builder.Services.AddTransientWithShellRoute<Home, HomeViewModel>(nameof(Home));
 		builder.Services.AddTransientWithShellRoute<Workouts, WorkoutsViewModel>(nameof(Workouts));
 		builder.Services.AddTransientWithShellRoute<Exercises, ExercisesViewModel>(nameof(Exercises));
-		//builder.Services.AddTransientWithShellRoute<Progress, ProgressViewModel>(nameof(Progress));
-		//builder.Services.AddTransientWithShellRoute<Settings, SettingsViewModel>(nameof(Settings));
+		builder.Services.AddTransientWithShellRoute<Progress, ProgressViewModel>(nameof(Progress));
+		builder.Services.AddTransientWithShellRoute<Settings, SettingsViewModel>(nameof(Settings));
 		builder.Services.AddTransientWithShellRoute<CurrentWorkout, CurrentWorkoutViewModel>(nameof(CurrentWorkout));
 
 		//Registering Views
-		builder.Services.AddTransient<Home>();
-		builder.Services.AddTransient<Progress>();
-		builder.Services.AddTransient<Settings>();
 
 		//Registering ViewModels
 		builder.Services.AddTransient<ConfirmationPopupViewModel>();
