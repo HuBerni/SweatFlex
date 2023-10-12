@@ -92,6 +92,7 @@ namespace SweatFlexAPIClient
                 var dto = new ApiResponse<T>
                 {
                     ErrorMessages = new List<string> { Convert.ToString(e.Message) },
+                    StatusCode = System.Net.HttpStatusCode.InternalServerError,
                     IsSuccess = false
                 };
                 var res = JsonConvert.SerializeObject(dto);

@@ -9,18 +9,20 @@ namespace SweatFlex.Maui.ViewModels
     public partial class LoginViewModel : ObservableObject
     {
         private readonly AuthService _authService;
+        
         [ObservableProperty]
-        private LoginDTO _loginProp;
+        private LoginDTO _loginDto;
 
         public LoginViewModel(AuthService authService)
         {
+            LoginDto = new LoginDTO();
             _authService = authService;
         }
 
         [RelayCommand]
         private async Task Login()
         {
-            var result = await _authService.LoginAsync(_loginProp);
+            var result = await _authService.LoginAsync(LoginDto);
 
             if (!result.IsSuccess)
             {
