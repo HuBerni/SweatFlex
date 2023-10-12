@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
     "Local": "Server=(localdb)\\MSSQLLocalDB; Database=SweatFlex; Trusted_Connection=True; MultipleActiveResultSets=true",
-    "Azure": "Data Source=sweatflexsqlserver.database.windows.net;Initial Catalog=sweatflexdb;Persist Security Info=True;User ID=SweatFlexAdmin;Password=Liebherr123"   
+    "Azure": "Data Source=sweatflexsqlserver2.database.windows.net;Initial Catalog=sweatflexdb;Persist Security Info=True;User ID=SweatFlexAdmin;Password=Liebherr123"   
   }
 }

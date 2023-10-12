@@ -30,7 +30,6 @@ namespace SweatFlexAPIClient.Services
             createDTO.Password = passwordHash;
             createDTO.Salt = salt;
 
-            //TODO: Create Stored Procedure for register in DB
             var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
             {
                 ApiType = Enum.ApiType.POST,
@@ -57,15 +56,21 @@ namespace SweatFlexAPIClient.Services
             {
                 ApiType = Enum.ApiType.POST,
                 Data = dto,
-                Url = $"{SweatFlexURL}{_suffix}/login"
+                Url = $"{SweatFlexURL}{_suffix}/login"   
             });
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK && result.Result != null)
             {
                 TokenStorage.Token = result.Result.Token;
             }
-
-            return MapReturn(result);
+            if(result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return MapReturn(result);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

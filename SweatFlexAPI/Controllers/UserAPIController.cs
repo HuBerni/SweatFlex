@@ -339,8 +339,7 @@ namespace SweatFlexAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        [HttpDelete]
+        [HttpPut]
         [Route("setInactive/{id}")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -363,8 +362,7 @@ namespace SweatFlexAPI.Controllers
                     return NotFound(response);
                 }
 
-                //TODO implement set inactive in datahandler
-                var isInactive = false; /*= await _dataHandler.(id);*/
+                var isInactive = await _dataHandler.SetUserInactive(id);
 
                 if (!isInactive)
                 {

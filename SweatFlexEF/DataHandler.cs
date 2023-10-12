@@ -172,5 +172,10 @@ namespace SweatFlexEF
         {
             return await _userHandler.GetUserByMailAsync(eMail);
         }
+
+        public async Task<bool> SetUserInactive(string id)
+        {
+            return await _userHandler.SetUserInactive(id);
+        }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SweatFlexAPIClient.Services;
+using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexEF;
 using SweatFlexEF.Models;
+using SweatFlexUtility;
 using System.Diagnostics;
 
 internal class Program
@@ -11,20 +13,71 @@ internal class Program
     {
         //test2(args);
 
+        //testHash();
+
+        //registerUser();
+
+        testSetUserInactive();
+
         //Console.ReadLine();
 
-        test();
+        //test();
 
         Console.ReadLine();
     }
 
-    public async static void test()
+    public async static void registerUser()
     {
-        var serviceProvider = new ServiceCollection().AddHttpClient().BuildServiceProvider();
-        var httpClient = serviceProvider.GetService<IHttpClientFactory>();
+        AuthService auth = new();
 
-        ExerciseService client = new(httpClient);
-        AuthService auth = new(httpClient);
+        var user = await auth.RegisterAsync(new UserCreateDTO()
+        {
+            CoachId = null,
+            Email = "Test@User.com",
+            FirstName = "FirstName",
+            Id = "00001",
+            LastName = "LastName",
+            Password = "test",
+            Role = 1,
+        });
+
+
+        string test = "test";
+    }
+
+    public async static void testSetUserInactive()
+    {
+        UserService userService = new();
+        AuthService auth = new();
+
+        var user = await auth.LoginAsync(new SweatFlexData.DTOs.LoginDTO()
+        {
+            Email = "Test@User.com",
+            Password = "test"
+        });
+
+
+        var isInactive = await userService.SetUserInactiveAsync("10102");
+
+        string test = "test";
+    }
+
+    public static void testHash()
+    {
+        string clearString = "TestPassword";
+        string soiz;
+
+        string hashedPW = PasswordHash.Hash(clearString, out soiz);
+
+        var isValid = PasswordHash.ValidatePssword(hashedPW, "someString", soiz);
+
+        string test = "test";
+    }
+
+    public async static void test()
+    {           
+        ExerciseService client = new();
+        AuthService auth = new();
 
         var user = await auth.LoginAsync(new SweatFlexData.DTOs.LoginDTO()
         {
@@ -75,7 +128,7 @@ internal class Program
         var test = new SweatFlexContextProcedures(context);
         var output = new OutputParameter<int>();
 
-        var test2 = await test.CreateUserAsync("10102", 2, "Henry", "Jones", "henry@yahoo.com", "12345", null, output);
+        var test2 = await test.CreateUserAsync("10102", 2, "Henry", "Jones", "henry@yahoo.com", "12345", null, "salt", output);
 
         //var validationUser = await dh.LoginAsync("alexander@lbs4.com", "test");
 

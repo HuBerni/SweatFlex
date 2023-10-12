@@ -145,5 +145,14 @@ namespace SweatFlexEF.DBClasses
                 Salt = user.Password.Salt
             };
         }
+
+        public async Task<bool> SetUserInactive(string id)
+        {
+            var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            user.IsActive = false;
+            _context.Users.Update(user);
+            var updatedUser = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            return !(bool)updatedUser.IsActive;
+        }
     }
 }

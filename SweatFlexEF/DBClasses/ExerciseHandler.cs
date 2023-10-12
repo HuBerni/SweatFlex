@@ -22,7 +22,6 @@ namespace SweatFlexEF.DBClasses
             {
                 var nonCustomerIds = _context.Users.Where(u => u.Role != 1).Select(s => s.Id).ToList();
                 exercises = await _context.Exercises.Where(e => nonCustomerIds.Any(i => i == e.Creator)).ToListAsync();
-                //TODO: needs to be tested
             }
             else
             {

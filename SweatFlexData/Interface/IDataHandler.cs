@@ -7,7 +7,6 @@ namespace SweatFlexData.Interface
 {
     public interface IDataHandler
     {
-        //TODO: return Token
         Task<UserDTO> LoginAsync(LoginDTO loginDto);
 
         Task<IList<UserDTO>> GetUsersAsync();
@@ -17,6 +16,7 @@ namespace SweatFlexData.Interface
         Task<UserDTO> UpdateUserAsync(string id, UserUpdateDTO updateDTO);
         Task<bool> DeleteUserAsync(string id);
         Task<UserDTO> CreateUserAsync(UserCreateDTO createDTO);
+        Task<bool> SetUserInactive(string id);
 
         Task<IList<WorkoutDTO>> GetWorkoutsAsync(string? userId = null);
         Task<WorkoutDTO> GetWorkoutByIdAsync(int id);
@@ -24,7 +24,6 @@ namespace SweatFlexData.Interface
         Task<bool> DeleteWorkoutAsync(int id);
         Task<WorkoutDTO> CreateWorkoutAsync(WorkoutCreateDTO creatDTO);
 
-        //TODO: implement Method for getting Exercise with lambda function parameter for bodypart, type ...
 
         Task<IList<ExerciseDTO>> GetExercisesAsync(string? userId = null);
         Task<ExerciseDTO> GetExerciseByIdAsync(int id);
