@@ -19,9 +19,6 @@ namespace SweatFlexAPIClient
         }
         public async Task<ApiResponse<T>> SendAsync<T>(ApiRequest apiRequest)
         {
-
-        ApiResponse<T> responseModel = new();
-
             try
             {
                 if (!String.IsNullOrEmpty(TokenStorage.Token))
