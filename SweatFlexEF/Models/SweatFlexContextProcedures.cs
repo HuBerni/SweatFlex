@@ -46,7 +46,7 @@ namespace SweatFlexEF.Models
             _context = context;
         }
 
-        public virtual async Task<int> CreateUserAsync(string UserIdInput, int? RoleInput, string FirstNameInput, string LastNameInput, string EmailInput, string PasswordInput, string CoachIdInput, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<int> CreateUserAsync(string UserIdInput, int? RoleInput, string FirstNameInput, string LastNameInput, string EmailInput, string PasswordInput, string CoachIdInput, string SaltInput, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -105,9 +105,16 @@ namespace SweatFlexEF.Models
                     Value = CoachIdInput ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
+                new SqlParameter
+                {
+                    ParameterName = "SaltInput",
+                    Size = 200,
+                    Value = SaltInput ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
                 parameterreturnValue,
             };
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[CreateUser] @UserIdInput, @RoleInput, @FirstNameInput, @LastNameInput, @EmailInput, @PasswordInput, @CoachIdInput", sqlParameters, cancellationToken);
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[CreateUser] @UserIdInput, @RoleInput, @FirstNameInput, @LastNameInput, @EmailInput, @PasswordInput, @CoachIdInput, @SaltInput", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

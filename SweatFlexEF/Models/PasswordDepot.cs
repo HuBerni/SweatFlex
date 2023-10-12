@@ -11,5 +11,7 @@ public partial class PasswordDepot
 
     public string Password { get; set; } = null!;
 
+    public string Salt { get; set; } = null!;
+
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

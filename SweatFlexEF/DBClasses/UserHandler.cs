@@ -1,8 +1,8 @@
-﻿using SweatFlexData.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexEF.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace SweatFlexEF.DBClasses
 {
@@ -117,6 +117,7 @@ namespace SweatFlexEF.DBClasses
                 createDTO.Email,
                 createDTO.Password,
                 createDTO.CoachId,
+                createDTO.Salt,
                 outputParam,
                 ct
                 );
@@ -133,16 +134,16 @@ namespace SweatFlexEF.DBClasses
             return Mapping.Mapper.Map<UserDTO>(user);         
         }
 
-        public async Task<UserDTO> Login(string eMail, string password)
+        public async Task<LoginDTO> Login(LoginDTO loginDTO)
         {
-            var user = await _context.fn_ValidatLogin(eMail, password).FirstOrDefaultAsync();
+            User user = await _context.Users.Where(u => u.Email == loginDTO.Email).FirstOrDefaultAsync();
 
-            var dtoUser = Mapping.Mapper.Map<UserDTO>(user);            
-
-            var coach = await _context.Users.Where(u => u.Id == user.CoachId).FirstOrDefaultAsync();
-            dtoUser.Coach = Mapping.Mapper.Map<UserDTO>(coach);
-
-            return dtoUser;
+            return new LoginDTO()
+            {
+                Email = loginDTO.Email,
+                Password = user.Password.Password,
+                Salt = user.Password.Salt
+            };
         }
     }
 }

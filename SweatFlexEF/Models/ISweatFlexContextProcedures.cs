@@ -12,6 +12,6 @@ namespace SweatFlexEF.Models
 {
     public partial interface ISweatFlexContextProcedures
     {
-        Task<int> CreateUserAsync(string UserIdInput, int? RoleInput, string FirstNameInput, string LastNameInput, string EmailInput, string PasswordInput, string CoachIdInput, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> CreateUserAsync(string UserIdInput, int? RoleInput, string FirstNameInput, string LastNameInput, string EmailInput, string PasswordInput, string CoachIdInput, string SaltInput, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
     }
 }

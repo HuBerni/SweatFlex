@@ -8,7 +8,7 @@ namespace SweatFlexData.Interface
     public interface IDataHandler
     {
         //TODO: return Token
-        Task<UserDTO> LoginAsync(string eMail, string password);
+        Task<UserDTO> LoginAsync(LoginDTO loginDto);
 
         Task<IList<UserDTO>> GetUsersAsync();
         Task<IList<UserDTO>> GetUsersByCoachIdAsync(string coachId);

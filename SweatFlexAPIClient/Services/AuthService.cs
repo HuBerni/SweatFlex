@@ -18,12 +18,18 @@ namespace SweatFlexAPIClient.Services
         }
 
         /// <summary>
-        /// calls the coresponding API HTTPAction and on success sets the session Token and returns a UserDTO
+        /// Hashes the Password and calls the coresponding API HTTPAction and on success sets the session Token and returns a UserDTO
         /// </summary>
         /// <param name="createDTO">User Model for creation</param>
         /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> RegisterAsync(UserCreateDTO createDTO)
         {
+            string salt;
+            string passwordHash = PasswordHash.Hash(createDTO.Password, out salt);
+
+            createDTO.Password = passwordHash;
+            createDTO.Salt = salt;
+
             //TODO: Create Stored Procedure for register in DB
             var result = await SendAsync<UserLoggedInDTO>(new ApiRequest()
             {

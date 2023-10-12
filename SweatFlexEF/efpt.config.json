@@ -64,7 +64,7 @@
          "ObjectType": 2
       }
    ],
-   "UiHint": "(localdb)\\MSSQLLocalDB.SweatFlex",
+   "UiHint": "sweatflexsqlserver2.sweatflexDB.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,

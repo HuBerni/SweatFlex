@@ -37,7 +37,7 @@ namespace SweatFlexAPI.Controllers
 
             try
             {
-                var userDto = await _dataHandler.LoginAsync(dto.Email, dto.Password);
+                var userDto = await _dataHandler.LoginAsync(dto);
 
                 if (userDto == null)
                 {

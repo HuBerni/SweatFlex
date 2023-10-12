@@ -6,6 +6,7 @@ using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
 using SweatFlexEF.DBClasses;
 using SweatFlexEF.Models;
+using SweatFlexUtility;
 
 namespace SweatFlexEF
 {
@@ -157,9 +158,14 @@ namespace SweatFlexEF
             return await _workoutExeriseHandler.UpdateWorkoutExerciseAsync(id, updateDTO);
         }
 
-        public async Task<UserDTO> LoginAsync(string eMail, string password)
+        public async Task<UserDTO> LoginAsync(LoginDTO loginDTO)
         {
-            return await _userHandler.Login(eMail, password);
+            var password = await _userHandler.Login(loginDTO);
+
+            var valid = PasswordHash.ValidatePssword(password.Password, loginDTO.Password, password.Salt);
+
+            if (valid) { return await GetUserByMailAsync(loginDTO.Email); }
+            else { return null; }
         }
 
         public async Task<UserDTO> GetUserByMailAsync(string eMail)

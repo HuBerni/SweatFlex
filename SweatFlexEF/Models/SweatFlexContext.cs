@@ -38,8 +38,8 @@ public partial class SweatFlexContext : DbContext
         modelBuilder.Entity<Equipment>(entity =>
         {
             entity.Property(e => e.Name)
-                .HasMaxLength(10)
-                .IsFixedLength();
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Exercise>(entity =>
@@ -85,12 +85,13 @@ public partial class SweatFlexContext : DbContext
 
         modelBuilder.Entity<PasswordDepot>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Password__3214EC07C520E1B2");
+            entity.HasKey(e => e.Id).HasName("PK__Password__3214EC07F6187D9B");
 
             entity.ToTable("PasswordDepot");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Password).HasMaxLength(100);
+            entity.Property(e => e.Salt).HasMaxLength(100);
         });
 
         modelBuilder.Entity<TrainingExercise>(entity =>
@@ -125,7 +126,7 @@ public partial class SweatFlexContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC076FFACB64");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC076BCA3269");
 
             entity.ToTable("User");
 

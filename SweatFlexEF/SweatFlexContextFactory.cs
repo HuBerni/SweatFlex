@@ -22,7 +22,7 @@ namespace SweatFlexEF
 
             var optionsBuilder = new DbContextOptionsBuilder<SweatFlexContext>();
 #pragma warning disable CS8604 // Possible null reference argument.
-            optionsBuilder.UseSqlServer(configuration["ConnectionStrings:Local"]);
+            optionsBuilder.UseSqlServer(configuration["ConnectionStrings:Azure"]);
 #pragma warning restore CS8604 // Possible null reference argument.
 
 
