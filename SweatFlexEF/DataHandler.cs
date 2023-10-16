@@ -162,7 +162,7 @@ namespace SweatFlexEF
         {
             var password = await _userHandler.Login(loginDTO);
 
-            var valid = PasswordHash.ValidatePssword(password.Password, loginDTO.Password, password.Salt);
+            var valid = PasswordHash.ValidatePassword(password.Password, loginDTO.Password, password.Salt);
 
             if (valid) { return await GetUserByMailAsync(loginDTO.Email); }
             else { return null; }

@@ -40,8 +40,11 @@ namespace SweatFlexAPI.Controllers
                 var userDto = await _dataHandler.LoginAsync(dto);
 
                 if (userDto == null)
-                {
-                    return BadRequest("Invalid username or password");
+                {               
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.ErrorMessages.Add("Invalid username or password");
+                    return BadRequest(response);
                 }
 
                 var authClaims = new List<Claim>

@@ -11,44 +11,49 @@ namespace SweatFlexUtility
     {
         public static string Hash (string clearPassword, out string clearSalt)
         {
-            clearSalt = GetSalt();
+            var utils = new HashUtils();
+
+            clearSalt = utils.GetSalt();
 
             using (var sha256 = SHA256.Create())
             {
                 var hashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(clearPassword));
                 var hashedSalt = sha256.ComputeHash(Encoding.UTF8.GetBytes(clearSalt));
-                var hashedPepper = sha256.ComputeHash(Encoding.UTF8.GetBytes(GetPepper()));
+                var hashedPepper = sha256.ComputeHash(Encoding.UTF8.GetBytes(utils.GetPepper()));
                 return Encoding.Default.GetString(hashedSalt) + Encoding.Default.GetString(hashedPassword) + Encoding.Default.GetString(hashedPepper);
             }
 
         }
 
-        private static string GetSalt()
-        {
-            byte[] bytes = new byte[128 / 8];
-            using (var keyGenerator = RandomNumberGenerator.Create())
-            {
-                keyGenerator.GetBytes(bytes);
-                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
-            }
-        }
+        
 
-        private static string GetPepper()
+        public static bool ValidatePassword(string dbPassword, string clearPassword, string clearSalt)
         {
-            return "5098f4b6-33c4-47d5-bd19-2a1d7f6bbf49";
-        }
+            var utils = new HashUtils();
 
-        public static bool ValidatePssword(string dbPassword, string clearPassword, string clearSalt)
-        {
             using (var sha256 = SHA256.Create())
             {
                 var hashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(clearPassword));
                 var hashedSalt = sha256.ComputeHash(Encoding.UTF8.GetBytes(clearSalt));
-                var hashedPepper = sha256.ComputeHash(Encoding.UTF8.GetBytes(GetPepper()));
+                var hashedPepper = sha256.ComputeHash(Encoding.UTF8.GetBytes(utils.GetPepper()));
                 string password = Encoding.Default.GetString(hashedSalt) + Encoding.Default.GetString(hashedPassword) + Encoding.Default.GetString(hashedPepper);
 
                 return dbPassword == password;
             }            
+        }
+
+        public static string HashNew(string clearPassword, out string clearSalt, HashUtils hashUtils)
+        {
+            clearSalt = hashUtils.GetSalt();
+
+            using (var sha256 = SHA256.Create())
+            {
+                var hashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(clearPassword));
+                var hashedSalt = sha256.ComputeHash(Encoding.UTF8.GetBytes(clearSalt));
+                var hashedPepper = sha256.ComputeHash(Encoding.UTF8.GetBytes(hashUtils.GetPepper()));
+                return Encoding.Default.GetString(hashedSalt) + Encoding.Default.GetString(hashedPassword) + Encoding.Default.GetString(hashedPepper);
+            }
+
         }
     }
 }
