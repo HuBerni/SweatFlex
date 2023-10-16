@@ -23,6 +23,8 @@ public partial class TrainingExercise
 
     public DateTime? ExerciseExecuted { get; set; }
 
+    public int SessionId { get; set; }
+
     public virtual Exercise Exercise { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
