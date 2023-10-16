@@ -151,6 +151,7 @@ namespace SweatFlexEF.DBClasses
             var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
             user.IsActive = false;
             _context.Users.Update(user);
+            _context.SaveChanges();
             var updatedUser = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
             return !(bool)updatedUser.IsActive;
         }
