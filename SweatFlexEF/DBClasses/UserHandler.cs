@@ -114,7 +114,7 @@ namespace SweatFlexEF.DBClasses
                 createDTO.Role,
                 createDTO.FirstName,
                 createDTO.LastName,
-                createDTO.Email,
+                createDTO.Email.ToLower(),
                 createDTO.Password,
                 createDTO.CoachId,
                 createDTO.Salt,
@@ -136,11 +136,11 @@ namespace SweatFlexEF.DBClasses
 
         public async Task<LoginDTO> Login(LoginDTO loginDTO)
         {
-            User user = await _context.Users.Where(u => u.Email == loginDTO.Email).FirstOrDefaultAsync();
+            User user = await _context.Users.Where(u => u.Email == loginDTO.Email.ToLower()).FirstOrDefaultAsync();
 
             return new LoginDTO()
             {
-                Email = loginDTO.Email,
+                Email = loginDTO.Email.ToLower(),
                 Password = user.Password.Password,
                 Salt = user.Password.Salt
             };
