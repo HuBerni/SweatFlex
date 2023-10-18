@@ -10,14 +10,14 @@
     </ContentPage.BindingContext>
     <Grid RowDefinitions="Auto,*,Auto,Auto,*">
         
-        <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>
+        <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0" HorizontalOptions="Center"/>
 
         <CollectionView Grid.Row="1" 
                         ItemsSource="{Binding MyWorkouts}" 
                         SelectionMode="Single"
                         SelectionChangedCommand="{Binding WorkoutSelectedCommand}"
                         SelectedItem="{Binding SelectedWorkout}"
-                        Margin="0,0,0,10">
+                        Margin="0,0,0,20">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10" RowDefinitions="Auto" ColumnDefinitions="*, Auto">
@@ -35,9 +35,9 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Grid.Row="2" ImageSource="plus.svg" HorizontalOptions="EndAndExpand" Margin="0, 0, 10, 0" Command="{Binding ShowPopupCommand}"/>
+        <Button Grid.Row="2" ImageSource="plus.svg" HorizontalOptions="EndAndExpand" Margin="0, 0, 20, 0" Command="{Binding ShowPopupCommand}"/>
 
-        <Label Text="Suggested Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="3"/>
+        <Label Text="Suggested Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="3" HorizontalOptions="Center"/>
 
         <CollectionView Grid.Row="4" 
                         ItemsSource="{Binding PreBuiltWorkouts}" 

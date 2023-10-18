@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Services;
 using SweatFlex.Maui.Views;
 using SweatFlexData.DTOs;
@@ -22,6 +23,12 @@ namespace SweatFlex.Maui.ViewModels
         [RelayCommand]
         private async Task Login()
         {
+            if (LoginDto.Email.IsNullOrEmpty() || LoginDto.Password.IsNullOrEmpty())
+            {
+                //error handling
+                return;
+            }
+
             var result = await _authService.LoginAsync(LoginDto);
 
             if (!result.IsSuccess)

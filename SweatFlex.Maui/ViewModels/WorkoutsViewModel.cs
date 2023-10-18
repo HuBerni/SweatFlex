@@ -50,7 +50,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 1
+                            Index = 1
                         },
                         new WorkoutExercise()
                         {
@@ -60,7 +60,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 2
+                            Index = 2
                         },
                         new WorkoutExercise()
                         {
@@ -70,7 +70,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 3
+                            Index = 3
                         },
                         new WorkoutExercise()
                         {
@@ -80,7 +80,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Squat",
                                 Description = "Put a bar on your back and squat up and down"
                             },
-                            WorkoutIndex = 4
+                            Index = 4
                         },
                         new WorkoutExercise()
                         {
@@ -90,7 +90,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Squat",
                                 Description = "Put a bar on your back and squat up and down"
                             },
-                            WorkoutIndex = 5
+                            Index = 5
                         }
                     }
                 },
@@ -115,7 +115,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 1
+                            Index = 1
                         },
                         new WorkoutExercise()
                         {
@@ -125,7 +125,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 2
+                            Index = 2
                         },
                         new WorkoutExercise()
                         {
@@ -135,7 +135,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 3
+                            Index = 3
                         },
                         new WorkoutExercise()
                         {
@@ -145,7 +145,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Squat",
                                 Description = "Put a bar on your back and squat up and down"
                             },
-                            WorkoutIndex = 4
+                            Index = 4
                         },
                         new WorkoutExercise()
                         {
@@ -155,7 +155,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Squat",
                                 Description = "Put a bar on your back and squat up and down"
                             },
-                            WorkoutIndex = 5
+                            Index = 5
                         }
                     }
                 },
@@ -180,7 +180,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 1
+                            Index = 1
                         },
                         new WorkoutExercise()
                         {
@@ -190,7 +190,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 2
+                            Index = 2
                         },
                         new WorkoutExercise()
                         {
@@ -200,7 +200,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Bench Press",
                                 Description = "Lay on a bench and press the bar up and down"
                             },
-                            WorkoutIndex = 3
+                            Index = 3
                         },
                         new WorkoutExercise()
                         {
@@ -210,7 +210,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Squat",
                                 Description = "Put a bar on your back and squat up and down"
                             },
-                            WorkoutIndex = 4
+                            Index = 4
                         },
                         new WorkoutExercise()
                         {
@@ -220,7 +220,7 @@ namespace SweatFlex.Maui.ViewModels
                                 Name = "Squat",
                                 Description = "Put a bar on your back and squat up and down"
                             },
-                            WorkoutIndex = 5
+                            Index = 5
                         }
                     }
                 }
@@ -257,7 +257,8 @@ namespace SweatFlex.Maui.ViewModels
             {
                 if (confirmed)
                 {
-                    await Shell.Current.GoToAsync(nameof(CurrentWorkout));
+                    var navigationParams = new Dictionary<string, object> {{ nameof(Workout), SelectedWorkout }};
+                    await Shell.Current.GoToAsync(nameof(CurrentWorkout), navigationParams);
                     return;
                 }
             }

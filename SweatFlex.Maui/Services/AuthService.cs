@@ -45,7 +45,8 @@ namespace SweatFlex.Maui.Services
                 Password = password,
                 FirstName = firstName,
                 LastName = lastName,
-                Role = roleId
+                Role = roleId,
+                CoachId = null
             };
 
             var result = await _apiService.RegisterAsync(userCreateDto);

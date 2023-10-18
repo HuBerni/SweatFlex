@@ -10,5 +10,6 @@
         public DateTime? ExerciseExecuted { get; set; }
         public Exercise Exercise { get; set; }
         public int WorkoutExerciseId { get; set; }
+        public int SessionId { get; set; }
     }
 }

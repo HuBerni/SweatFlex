@@ -12,12 +12,12 @@
             HorizontalOptions="Center"
             FontSize="50"
             TextColor="{DynamicResource Primary}" />
-        <Entry Placeholder="Kundennummer"/>
-        <Entry Placeholder="Vorname"/>
-        <Entry Placeholder="Nachname"/>
-        <Entry Placeholder="E-Mail" Keyboard="Email"/>
-        <Entry Placeholder="Password" IsPassword="True"/>
-        <Entry Placeholder="Password wiederholen" IsPassword="True"/>
+        <Entry Placeholder="Kundennummer" Text="{Binding Id}"/>
+        <Entry Placeholder="Vorname" Text="{Binding FirstName}"/>
+        <Entry Placeholder="Nachname" Text="{Binding LastName}"/>
+        <Entry Placeholder="E-Mail" Keyboard="Email" Text="{Binding Email}"/>
+        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"/>
+        <Entry Placeholder="Password wiederholen" IsPassword="True" Text="{Binding PasswordConfirmation}"/>
         <Grid x:Name="LoginGrid" VerticalOptions="End" RowSpacing="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

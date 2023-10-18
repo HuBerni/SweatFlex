@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui;
+﻿using AutoMapper;
+using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using Microsoft.Extensions.Logging;
 using SweatFlex.Maui.Services;
@@ -25,6 +26,15 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+		//Adding AutoMapper
+		var mappingConfig = new MapperConfiguration(mc =>
+		{
+            mc.AddProfile(new MappingProfile());
+        });
+
+		IMapper mapper = mappingConfig.CreateMapper();
+		builder.Services.AddSingleton(mapper);
 
 		//Registering Views with ViewModels and Routes
 		builder.Services.AddTransientWithShellRoute<Login, LoginViewModel>(nameof(Login));

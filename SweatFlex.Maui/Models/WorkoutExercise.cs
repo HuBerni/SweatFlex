@@ -11,6 +11,6 @@ namespace SweatFlex.Maui.Models
         public int Id { get; set; }
         public Exercise Exercise { get; set; }
         public Workout Workout { get; set; }
-        public int WorkoutIndex { get; set; }
+        public int Index { get; set; }
     }
 }
