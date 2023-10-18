@@ -8,6 +8,6 @@ namespace SweatFlexUtility
 {
     public static class StaticResources
     {
-        public const string SweatFlexRestAPIURL = "https://localhost:7290/api/";
+        public const string SweatFlexRestAPIURL = "https://sweatflexapi2.azurewebsites.net/api/";
     }
 }
