@@ -63,14 +63,8 @@ namespace SweatFlexAPIClient.Services
             {
                 TokenStorage.Token = result.Result.Token;
             }
-            if(result.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return MapReturn(result);
-            }
-            else
-            {
-                return null;
-            }
+
+            return MapReturn(result);
         }
 
         /// <summary>
