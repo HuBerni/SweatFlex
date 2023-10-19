@@ -21,5 +21,6 @@ namespace SweatFlexData.DTOs.Create
         public int WorkoutExerciseId { get; set; }
 
         public int ExerciseId { get; set; }
+        public int? SessionId { get; set; }
     }
 }

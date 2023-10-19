@@ -82,6 +82,8 @@ namespace SweatFlexEF.DBClasses
         {
             if (createDTO != null)
             {
+                var result = _context.fn_getNextSessionId(createDTO.UserId).FirstOrDefault();
+                createDTO.SessionId = result.nextSessionId;
                 var trainingExercise = Mapping.Mapper.Map<TrainingExercise>(createDTO);
                 await _context.TrainingExercises.AddAsync(trainingExercise);
                 await _context.SaveChangesAsync();

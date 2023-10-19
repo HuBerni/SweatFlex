@@ -60,7 +60,7 @@
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[fn_ValidatLogin]",
+         "Name": "[dbo].[fn_getNextSessionId]",
          "ObjectType": 2
       }
    ],

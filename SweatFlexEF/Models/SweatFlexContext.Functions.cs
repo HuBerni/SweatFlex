@@ -10,15 +10,15 @@ namespace SweatFlexEF.Models
     public partial class SweatFlexContext
     {
 
-        [DbFunction("fn_ValidatLogin", "dbo")]
-        public IQueryable<fn_ValidatLoginResult> fn_ValidatLogin(string EmailInput, string PasswordInput)
+        [DbFunction("fn_getNextSessionId", "dbo")]
+        public IQueryable<fn_getNextSessionIdResult> fn_getNextSessionId(string UserIdInput)
         {
-            return FromExpression(() => fn_ValidatLogin(EmailInput, PasswordInput));
+            return FromExpression(() => fn_getNextSessionId(UserIdInput));
         }
 
         protected void OnModelCreatingGeneratedFunctions(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<fn_ValidatLoginResult>().HasNoKey();
+            modelBuilder.Entity<fn_getNextSessionIdResult>().HasNoKey();
         }
     }
 }

@@ -130,6 +130,8 @@ public partial class SweatFlexContext : DbContext
 
             entity.ToTable("User");
 
+            entity.HasIndex(e => e.Email, "UQ__User__A9D105349069FD86").IsUnique();
+
             entity.Property(e => e.Id)
                 .HasMaxLength(50)
                 .IsUnicode(false);
