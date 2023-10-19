@@ -29,12 +29,12 @@ namespace SweatFlexAPI.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("workouts/{userId}", Name = "GetWorkouts")]
+        [Route("workouts/{userId?}", Name = "GetWorkouts")]
         [Authorize(Roles = "Customer,Coach,Admin")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApiResponse<IList<WorkoutDTO>>>> GetWorkouts(string? userId)
+        public async Task<ActionResult<ApiResponse<IList<WorkoutDTO>>>> GetWorkouts(string? userId = null)
         {
             ApiResponse<IList<WorkoutDTO>> response = new();
 

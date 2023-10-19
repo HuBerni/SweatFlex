@@ -11,13 +11,16 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        //loginUser();
+        registerUser();
+
         //test2(args);
 
         //testHash();
 
         //registerUser();
 
-        testSetUserInactive();
+        //testSetUserInactive();
 
         //Console.ReadLine();
 
@@ -33,16 +36,29 @@ internal class Program
         var user = await auth.RegisterAsync(new UserCreateDTO()
         {
             CoachId = null,
-            Email = "Test@User.com",
-            FirstName = "FirstName",
-            Id = "00001",
-            LastName = "LastName",
+            Email = "TestC@User.com",
+            FirstName = "FirstNameC",
+            Id = "21111",
+            LastName = "LastNameC",
             Password = "test",
             Role = 1,
         });
 
+        await Console.Out.WriteLineAsync("test");
+    }
 
-        string test = "test";
+    public async static void loginUser()
+    {
+        UserService userService = new();
+        AuthService auth = new();//
+
+        var user = await auth.LoginAsync(new SweatFlexData.DTOs.LoginDTO()
+        {
+            Email = "Test@User.com",
+            Password = "test"
+        });
+
+        await Console.Out.WriteLineAsync("test");
     }
 
     public async static void testSetUserInactive()
@@ -69,7 +85,7 @@ internal class Program
 
         string hashedPW = PasswordHash.Hash(clearString, out soiz);
 
-        var isValid = PasswordHash.ValidatePssword(hashedPW, "someString", soiz);
+        var isValid = PasswordHash.ValidatePassword(hashedPW, "someString", soiz);
 
         string test = "test";
     }
@@ -83,7 +99,7 @@ internal class Program
         {
             Email = "henry@yahoo.com",
             Password = "12345"
-        });
+        });        
 
         var test = await client.UpdateExerciseAsync(2, new ExerciseUpdateDTO()
         {

@@ -100,8 +100,32 @@ namespace SweatFlexAPI.Controllers
 
                 string token = GenerateToken(authClaims);
 
-                response.StatusCode = HttpStatusCode.OK;
-                response.Result = new UserLoggedInDTO()
+
+
+
+
+
+                response.StatusCode = HttpStatusCode.
+                    OK;
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+        
+               
+               
+                      response.Result = new UserLoggedInDTO()
                 {
                     Coach = userDto.Coach,
                     Email = userDto.Email,

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweatFlexAPI", "SweatFlexAP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweatFlexAPIClient", "SweatFlexAPIClient\SweatFlexAPIClient.csproj", "{2B160515-429C-4179-BAF1-46A4C2D6760E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatFlexUtility", "SweatFlexUtility\SweatFlexUtility.csproj", "{E566FE5B-D541-4ADE-8CEA-EBEDD9B144B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SweatFlexUtility", "SweatFlexUtility\SweatFlexUtility.csproj", "{E566FE5B-D541-4ADE-8CEA-EBEDD9B144B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweatFlexUT", "SweatFlexUT\SweatFlexUT.csproj", "{C607A72B-79E8-4F40-B7A5-AC1FBE2E3E97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{E566FE5B-D541-4ADE-8CEA-EBEDD9B144B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E566FE5B-D541-4ADE-8CEA-EBEDD9B144B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E566FE5B-D541-4ADE-8CEA-EBEDD9B144B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C607A72B-79E8-4F40-B7A5-AC1FBE2E3E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C607A72B-79E8-4F40-B7A5-AC1FBE2E3E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C607A72B-79E8-4F40-B7A5-AC1FBE2E3E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C607A72B-79E8-4F40-B7A5-AC1FBE2E3E97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
