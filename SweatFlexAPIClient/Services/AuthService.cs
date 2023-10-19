@@ -74,6 +74,17 @@ namespace SweatFlexAPIClient.Services
         /// <returns></returns>
         private ApiResponse<UserDTO> MapReturn(ApiResponse<UserLoggedInDTO> apiResponse)
         {
+            if (!apiResponse.IsSuccess)
+            {
+                return new ApiResponse<UserDTO>()
+                {
+                    ErrorMessages = apiResponse.ErrorMessages,
+                    IsSuccess = apiResponse.IsSuccess,
+                    Result = null,
+                    StatusCode = apiResponse.StatusCode
+                };
+            }
+
             return new ApiResponse<UserDTO>()
             {
                 ErrorMessages = apiResponse.ErrorMessages,

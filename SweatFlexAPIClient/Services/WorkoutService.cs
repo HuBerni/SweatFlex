@@ -67,7 +67,7 @@ namespace SweatFlexAPIClient.Services
         /// </summary>
         /// <param name="userId">User Id</param>
         /// <returns></returns>
-        public async Task<ApiResponse<IList<WorkoutDTO>>> GetWorkoutsAsync(string? userId)
+        public async Task<ApiResponse<IList<WorkoutDTO>>> GetWorkoutsAsync(string? userId = null)
         {
             return await SendAsync<IList<WorkoutDTO>>(new ApiRequest()
             {
