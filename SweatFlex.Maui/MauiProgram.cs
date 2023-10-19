@@ -57,6 +57,7 @@ public static class MauiProgram
 		//Registering API Services
 		builder.Services.AddSingleton<API.AuthService>();
 		builder.Services.AddSingleton<API.ExerciseService>();
+		builder.Services.AddSingleton<API.WorkoutService>();
 
 
 
