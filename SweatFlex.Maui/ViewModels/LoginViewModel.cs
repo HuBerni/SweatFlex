@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Services;
@@ -25,7 +27,9 @@ namespace SweatFlex.Maui.ViewModels
         {
             if (LoginDto.Email.IsNullOrEmpty() || LoginDto.Password.IsNullOrEmpty())
             {
-                //error handling
+                var toast = Toast.Make("Bitte fülle alle Felder aus", ToastDuration.Short);
+                await toast.Show();
+
                 return;
             }
 
@@ -33,7 +37,8 @@ namespace SweatFlex.Maui.ViewModels
 
             if (!result.IsSuccess)
             {
-                //error handling
+                var toast = Toast.Make($"Login Fehlgeschlagen!", ToastDuration.Short);
+                await toast.Show();
                 return;
             }
 

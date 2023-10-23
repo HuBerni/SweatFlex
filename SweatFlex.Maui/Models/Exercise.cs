@@ -10,7 +10,7 @@ namespace SweatFlex.Maui.Models
     {
         public int Id { get; set; }
 
-        public User Creator { get; set; }
+        public string Creator { get; set; }
 
         public string Name { get; set; }
 

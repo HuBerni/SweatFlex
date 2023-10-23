@@ -10,4 +10,10 @@ public partial class Exercises : ContentPage
 		BindingContext = _viewModel = viewModel;
 		InitializeComponent();
 	}
+
+    protected override async void OnNavigatedTo(NavigatedToEventArgs parameters)
+    {
+        base.OnNavigatedTo(parameters);
+        await _viewModel.InitializeAsnyc();
+    }
 }

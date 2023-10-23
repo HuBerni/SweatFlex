@@ -5,9 +5,9 @@
              x:Class="SweatFlex.Maui.Views.Workouts"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Workouts">
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:WorkoutsViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <Grid RowDefinitions="Auto,*,Auto,Auto,*">
         
         <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0" HorizontalOptions="Center"/>
@@ -35,7 +35,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Grid.Row="2" ImageSource="plus.svg" HorizontalOptions="EndAndExpand" Margin="0, 0, 20, 0" Command="{Binding ShowPopupCommand}"/>
+        <Button Grid.Row="2" ImageSource="plus.svg" HorizontalOptions="EndAndExpand" Margin="0, 0, 20, 0" Command="{Binding ShowAddWorkoutPopupCommand}"/>
 
         <Label Text="Suggested Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="3" HorizontalOptions="Center"/>
 
