@@ -78,7 +78,7 @@ namespace SweatFlexEF.DBClasses
 
             return true;
         }
-        public async Task<List<TrainingExerciseDTO>?> CreateTrainingExerciseAsync(List<TrainingExerciseCreateDTO> createDTO)
+        public async Task<IList<TrainingExerciseDTO>?> CreateTrainingExerciseAsync(IList<TrainingExerciseCreateDTO> createDTO)
         {
             if (createDTO != null)
             {

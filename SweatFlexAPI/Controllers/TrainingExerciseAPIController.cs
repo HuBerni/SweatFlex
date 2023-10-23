@@ -125,9 +125,9 @@ namespace SweatFlexAPI.Controllers
 
             try
             {
-                var trainingExerciseDto = await _dataHandler.CreateTrainingExerciseAsync(createDTO);
+                var trainingExerciseDTOs = await _dataHandler.CreateTrainingExerciseAsync(createDTO);
 
-                if (trainingExerciseDto == null)
+                if (trainingExerciseDTOs == null)
                 {
                     response.IsSuccess = false;
                     response.StatusCode = HttpStatusCode.BadRequest;
@@ -136,7 +136,7 @@ namespace SweatFlexAPI.Controllers
                 }
 
                 response.StatusCode = HttpStatusCode.Created;
-                response.Result = trainingExerciseDto;
+                response.Result = trainingExerciseDTOs;
                 return Ok(response);
             }
             catch (Exception ex)
