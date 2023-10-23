@@ -1,11 +1,13 @@
-﻿using CommunityToolkit.Maui.Views;
+﻿using AutoMapper;
+using CommunityToolkit.Maui.Core.Extensions;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Models;
 using SweatFlex.Maui.Views;
+using SweatFlexAPIClient.Services;
+using SweatFlexData.DTOs.Create;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace SweatFlex.Maui.ViewModels
 {
@@ -19,218 +21,26 @@ namespace SweatFlex.Maui.ViewModels
         [ObservableProperty]
         private Workout? _selectedWorkout;
 
-        public WorkoutsViewModel()
+        private readonly WorkoutService _workoutService;
+        private readonly IMapper _mapper;
+
+        public WorkoutsViewModel(WorkoutService workoutService, IMapper mapper)
         {
-            MyWorkouts = PopulateWorkoutList();
-            PreBuiltWorkouts = PopulateWorkoutList();
+            _workoutService = workoutService;
+            _mapper = mapper;
+
+            MyWorkouts = new ObservableCollection<Workout>();
+            PreBuiltWorkouts = new ObservableCollection<Workout>();
         }
 
-        private ObservableCollection<Workout> PopulateWorkoutList()
+        public async Task InitializeAsnyc()
         {
-            var workouts = new ObservableCollection<Workout>()
-            {
-                new Workout()
-                {
-                    Id = 1,
-                    Name = "Workout 1",
-                    Creator = new User()
-                    {
-                        Id = "1",
-                        FirstName = "John",
-                        LastName = "Doe",
-                        Email = ""
-                    },
-                    WorkoutExercises = new List<WorkoutExercise>()
-                    {
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 1
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 2
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 3
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 2,
-                                Name = "Squat",
-                                Description = "Put a bar on your back and squat up and down"
-                            },
-                            Index = 4
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 2,
-                                Name = "Squat",
-                                Description = "Put a bar on your back and squat up and down"
-                            },
-                            Index = 5
-                        }
-                    }
-                },
-                new Workout()
-                {
-                    Id = 2,
-                    Name = "Workout 2",
-                    Creator = new User()
-                    {
-                        Id = "1",
-                        FirstName = "John",
-                        LastName = "Doe",
-                        Email = ""
-                    },
-                    WorkoutExercises = new List<WorkoutExercise>()
-                    {
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 1
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 2
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 3
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 2,
-                                Name = "Squat",
-                                Description = "Put a bar on your back and squat up and down"
-                            },
-                            Index = 4
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 2,
-                                Name = "Squat",
-                                Description = "Put a bar on your back and squat up and down"
-                            },
-                            Index = 5
-                        }
-                    }
-                },
-                new Workout()
-                {
-                    Id = 2,
-                    Name = "Workout 3",
-                    Creator = new User()
-                    {
-                        Id = "1",
-                        FirstName = "John",
-                        LastName = "Doe",
-                        Email = ""
-                    },
-                    WorkoutExercises = new List<WorkoutExercise>()
-                    {
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 1
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 2
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 1,
-                                Name = "Bench Press",
-                                Description = "Lay on a bench and press the bar up and down"
-                            },
-                            Index = 3
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 2,
-                                Name = "Squat",
-                                Description = "Put a bar on your back and squat up and down"
-                            },
-                            Index = 4
-                        },
-                        new WorkoutExercise()
-                        {
-                            Exercise = new Exercise()
-                            {
-                                Id = 2,
-                                Name = "Squat",
-                                Description = "Put a bar on your back and squat up and down"
-                            },
-                            Index = 5
-                        }
-                    }
-                }
-            };
-
-            return workouts;
+            await SetMyWorkouts();
+            await SetSuggestedWorkouts();
         }
 
         [RelayCommand]
-        public async Task ShowPopup()
+        public async Task ShowAddWorkoutPopup()
         {
             var result = await Application.Current.MainPage.ShowPopupAsync(new AddWorkoutPopup());
 
@@ -239,12 +49,7 @@ namespace SweatFlex.Maui.ViewModels
                 if (string.IsNullOrWhiteSpace(workoutName))
                     return;
 
-                var workout = new Workout()
-                {
-                    Name = workoutName
-                };
-
-                MyWorkouts.Add(workout);
+                await CreateWorkout(workoutName);
             }
         }
 
@@ -257,13 +62,65 @@ namespace SweatFlex.Maui.ViewModels
             {
                 if (confirmed)
                 {
-                    var navigationParams = new Dictionary<string, object> {{ nameof(Workout), SelectedWorkout }};
+                    var navigationParams = new Dictionary<string, object> 
+                    {
+                        { nameof(Workout), SelectedWorkout }
+                    };
                     await Shell.Current.GoToAsync(nameof(CurrentWorkout), navigationParams);
                     return;
                 }
             }
                 
             SelectedWorkout = null;
+        }
+
+        private async Task SetMyWorkouts()
+        {
+            MyWorkouts.Clear();
+            var response = await _workoutService.GetWorkoutsAsync("TESTI");
+
+            if (!response.IsSuccess)
+            {
+                //TODO show error
+                return;
+            }
+
+            var myWorkouts = response.Result?.Select(_mapper.Map<Workout>);
+            myWorkouts?.ToList().ForEach(MyWorkouts.Add);
+        }
+
+        private async Task SetSuggestedWorkouts()
+        {
+            PreBuiltWorkouts.Clear();
+            var response = await _workoutService.GetWorkoutsAsync();
+
+            if (!response.IsSuccess)
+            {
+                //TODO show error
+                return;
+            }
+
+            var recommendedWorkouts = response.Result?.ToList().Select(_mapper.Map<Workout>);
+            recommendedWorkouts?.ToList().ForEach(PreBuiltWorkouts.Add);
+        }
+
+        private async Task CreateWorkout(string workoutName)
+        {
+            var workoutCreateDto = new WorkoutCreateDTO
+            {
+                Name = workoutName,
+                CreatorId = "TESTI"
+            };
+
+            var workout = await _workoutService.CreateWorkoutAsync(workoutCreateDto);
+
+            if (!workout.IsSuccess)
+            {
+                //TODO show error
+                return;
+            }
+
+            MyWorkouts.Add(_mapper.Map<Workout>(workout.Result));
         }
     }
 }

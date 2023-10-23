@@ -12,6 +12,7 @@ namespace SweatFlex.Maui
             CreateMap<WorkoutDTO, Workout>().ReverseMap();
             CreateMap<WorkoutExerciseDTO, WorkoutExercise>().ReverseMap();
             CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<TrainingExerciseDTO, TrainingExercise>().ReverseMap();    
         }
     }
 }

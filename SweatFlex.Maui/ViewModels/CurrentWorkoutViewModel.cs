@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SweatFlex.Maui.Models;
+using SweatFlex.Maui.Services;
 using System.Collections.ObjectModel;
 
 namespace SweatFlex.Maui.ViewModels
@@ -8,18 +9,30 @@ namespace SweatFlex.Maui.ViewModels
     public partial class CurrentWorkoutViewModel : ObservableObject
     {
         [ObservableProperty]
-        private Workout _workout;
+        private Workout? _workout;
 
-        public ObservableCollection<List<TrainingExercise>> TrainingExercisesSets { get; set; }
+        private CurrentWorkoutService _currentWorkoutService;
 
-        public CurrentWorkoutViewModel()
+        private int _sessionId;
+
+        public ObservableCollection<TrainingExercise> TrainingExercises { get; set; }
+
+        public CurrentWorkoutViewModel(CurrentWorkoutService currentWorkoutService)
         {
-           
+            _currentWorkoutService = currentWorkoutService;
+            TrainingExercises = new();
         }
 
         public async Task InitializeAsnyc()
         {
-            //TODO Getting Training Exercises from Workout via Service and adding them to TrainingExercisesSets
+            var trainingExercisesList = await _currentWorkoutService.CreateTrainingExercisesForWorkout(Workout.Id);
+            trainingExercisesList.ForEach(TrainingExercises.Add);
+
+            if (trainingExercisesList is not null && trainingExercisesList.Any())
+            {
+                _sessionId = trainingExercisesList.First().SessionId;
+
+            }
         }
     }
 }

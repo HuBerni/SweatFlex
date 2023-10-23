@@ -1,13 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
+using SweatFlex.Maui.Services;
+using SweatFlex.Maui.Views;
 
 namespace SweatFlex.Maui.ViewModels
 {
     public partial class SettingsViewModel : ObservableObject
     {
+        private readonly AuthService _authService;
+
+        public SettingsViewModel(AuthService authService)
+        {
+            _authService = authService;
+        }
+
+        [RelayCommand]
+        private async Task Logout()
+        {
+            _authService.LogoutAsync();
+
+            await Shell.Current.GoToAsync(nameof(Login));
+        }
     }
 }

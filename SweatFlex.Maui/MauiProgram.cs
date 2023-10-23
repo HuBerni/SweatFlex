@@ -53,13 +53,14 @@ public static class MauiProgram
 
 		//Registering Maui Services
 		builder.Services.AddSingleton<AuthService>();
+		builder.Services.AddSingleton<CurrentWorkoutService>();
 		
 		//Registering API Services
 		builder.Services.AddSingleton<API.AuthService>();
 		builder.Services.AddSingleton<API.ExerciseService>();
 		builder.Services.AddSingleton<API.WorkoutService>();
-
-
+		builder.Services.AddSingleton<API.WorkoutExerciseService>();
+		builder.Services.AddSingleton<API.TrainingExerciseService>();
 
 		return builder.Build();
 	}

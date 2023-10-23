@@ -1,9 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SweatFlex.Maui.ViewModels
 {
@@ -15,14 +10,7 @@ namespace SweatFlex.Maui.ViewModels
 
         public ConfirmationPopupViewModel(string title)
         {
-            if (!string.IsNullOrWhiteSpace(title))
-            {
-                Title = title;
-            }
-            else
-            {
-                Title = "Bist du dir sicher?";
-            }
+            Title = title;
         }
     }
 }
