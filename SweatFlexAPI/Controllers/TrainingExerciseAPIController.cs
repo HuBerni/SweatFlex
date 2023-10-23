@@ -119,9 +119,9 @@ namespace SweatFlexAPI.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApiResponse<List<TrainingExerciseDTO>>>> CreateTrainingExercise(List<TrainingExerciseCreateDTO> createDTO)
+        public async Task<ActionResult<ApiResponse<IList<TrainingExerciseDTO>>>> CreateTrainingExercise(IList<TrainingExerciseCreateDTO> createDTO)
         {
-            ApiResponse<List<TrainingExerciseDTO>> response = new();
+            ApiResponse<IList<TrainingExerciseDTO>> response = new();
 
             try
             {
@@ -137,7 +137,7 @@ namespace SweatFlexAPI.Controllers
 
                 response.StatusCode = HttpStatusCode.Created;
                 response.Result = trainingExerciseDto;
-                return Ok(trainingExerciseDto);
+                return Ok(response);
             }
             catch (Exception ex)
             {
