@@ -28,7 +28,14 @@ namespace SweatFlexEF.DBClasses
                 exercises = await _context.Exercises.Where(e => e.Creator == userId).ToListAsync();
             }
 
-            return exercises.Select(Mapping.Mapper.Map<ExerciseDTO>).ToList();
+            var exerciseDTOs = new List<ExerciseDTO>();
+
+            foreach(var exercise in exercises)
+            {
+                exerciseDTOs.Add(ExerciseDTOMapper(exercise));
+            }
+
+            return exerciseDTOs;
         }
 
         public async Task<ExerciseDTO> GetExerciseByIdAsync(int id)
@@ -39,7 +46,7 @@ namespace SweatFlexEF.DBClasses
             {
                 exercise = await _context.Exercises.Where(e => e.Id == id).FirstOrDefaultAsync();
                 await _context.SaveChangesAsync();
-                return Mapping.Mapper.Map<ExerciseDTO>(exercise);
+                return ExerciseDTOMapper(exercise);
             }
             else
             {
@@ -92,6 +99,20 @@ namespace SweatFlexEF.DBClasses
             {
                 return null;
             }
+        }
+
+        private ExerciseDTO ExerciseDTOMapper(Exercise exercise)
+        {
+            return new ExerciseDTO()
+            {
+                Creator = exercise.Creator,
+                Description = exercise.Description,
+                Equipment = exercise.EquipmentNavigation.Name,
+                Id = exercise.Id,
+                Musclegroup = exercise.MusclegroupNavigation.Name,
+                Name = exercise.Name,
+                Type = exercise.TypeNavigation.Name
+            };
         }
 
     }
