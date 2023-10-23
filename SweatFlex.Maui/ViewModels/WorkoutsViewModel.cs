@@ -21,6 +21,9 @@ namespace SweatFlex.Maui.ViewModels
         [ObservableProperty]
         private Workout? _selectedWorkout;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         private readonly WorkoutService _workoutService;
         private readonly IMapper _mapper;
 
@@ -35,8 +38,10 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsnyc()
         {
+            IsBusy = true;
             await SetMyWorkouts();
             await SetSuggestedWorkouts();
+            IsBusy = false;
         }
 
         [RelayCommand]

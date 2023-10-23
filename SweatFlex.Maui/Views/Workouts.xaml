@@ -9,9 +9,8 @@
         <vm:WorkoutsViewModel />
     </ContentPage.BindingContext>-->
     <Grid RowDefinitions="Auto,*,Auto,Auto,*">
-        
-        <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0" HorizontalOptions="Center"/>
 
+        <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0" HorizontalOptions="Center"/>
         <CollectionView Grid.Row="1" 
                         ItemsSource="{Binding MyWorkouts}" 
                         SelectionMode="Single"
@@ -34,6 +33,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2"/>
 
         <Button Grid.Row="2" ImageSource="plus.svg" HorizontalOptions="EndAndExpand" Margin="0, 0, 20, 0" Command="{Binding ShowAddWorkoutPopupCommand}"/>
 

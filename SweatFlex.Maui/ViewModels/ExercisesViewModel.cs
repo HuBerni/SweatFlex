@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
-using Azure;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SweatFlex.Maui.Models;
 using SweatFlexAPIClient.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SweatFlex.Maui.ViewModels
 {
@@ -17,6 +11,9 @@ namespace SweatFlex.Maui.ViewModels
         private readonly IMapper _mapper;
 
         private readonly ExerciseService _exerciseService;
+
+        [ObservableProperty]
+        private bool _isBusy;
 
         public ObservableCollection<Exercise> Exercises { get; set; }
 
@@ -29,7 +26,9 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsnyc()
         {
+            IsBusy = true;
             await SetExercises();
+            IsBusy = false;
         }
 
         private async Task SetExercises()
