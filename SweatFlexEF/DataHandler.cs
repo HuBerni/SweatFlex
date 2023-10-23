@@ -33,7 +33,7 @@ namespace SweatFlexEF
             return await _exerciseHandler.CreateExerciseAsync(createDTO);
         }
 
-        public async Task<TrainingExerciseDTO> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
+        public async Task<List<TrainingExerciseDTO>> CreateTrainingExerciseAsync(List<TrainingExerciseCreateDTO> createDTO)
         {
             return await _trainingExerciseHandler.CreateTrainingExerciseAsync(createDTO);
         }

@@ -23,9 +23,9 @@ namespace SweatFlexAPIClient.Services
         /// </summary>
         /// <param name="createDTO">Model for creation</param>
         /// <returns></returns>
-        public async Task<ApiResponse<TrainingExerciseDTO>> CreateTrainingExerciseAsync(TrainingExerciseCreateDTO createDTO)
+        public async Task<ApiResponse<List<TrainingExerciseDTO>>> CreateTrainingExerciseAsync(List<TrainingExerciseCreateDTO> createDTO)
         {
-            return await SendAsync<TrainingExerciseDTO>(new ApiRequest()
+            return await SendAsync<List<TrainingExerciseDTO>>(new ApiRequest()
             {
                 ApiType = Enum.ApiType.POST,
                 Url = $"{SweatFlexURL}{_suffix}",
