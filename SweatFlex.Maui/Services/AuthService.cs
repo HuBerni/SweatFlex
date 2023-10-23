@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Azure;
+using Microsoft.IdentityModel.Tokens;
 using SweatFlexAPIClient;
 using SweatFlexAPIClient.APIModels;
 using SweatFlexData.DTOs;
@@ -23,6 +24,7 @@ namespace SweatFlex.Maui.Services
             if (!TokenStorage.Token.IsNullOrEmpty())
             {
                 Preferences.Set(nameof(TokenStorage), TokenStorage.Token);
+                Preferences.Set("UserId", response.Result?.Id);
             }
 
             return response;
@@ -49,14 +51,15 @@ namespace SweatFlex.Maui.Services
                 CoachId = null
             };
 
-            var result = await _apiService.RegisterAsync(userCreateDto);
+            var response = await _apiService.RegisterAsync(userCreateDto);
 
             if (!TokenStorage.Token.IsNullOrEmpty())
             {
                 Preferences.Set(nameof(TokenStorage), TokenStorage.Token);
+                Preferences.Set("UserId", response.Result?.Id);
             }
 
-            return result;
+            return response;
         }
     }
 }
