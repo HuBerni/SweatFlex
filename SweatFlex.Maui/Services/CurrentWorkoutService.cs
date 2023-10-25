@@ -20,15 +20,16 @@ namespace SweatFlex.Maui.Services
         }
 
 
-        public async Task<List<TrainingExercise>> CreateTrainingExercisesForWorkout(int workoutId)
+        public async Task<List<TrainingExercise>> CreateTrainingExercisesForWorkout(int workoutId, string userId)
         {
-            var trainingExercises = new List<TrainingExercise>();
+            var trainingExerciseCreateDTOs = new List<TrainingExerciseCreateDTO>();            
 
             var workoutExercisesResponse = await _workoutExerciseService.GetWorkoutExercisesAsync(workoutId);
 
             if (!workoutExercisesResponse.IsSuccess)
             {
                 //error handling
+                return null;
             }
 
             foreach (var item in workoutExercisesResponse.Result)
@@ -36,22 +37,22 @@ namespace SweatFlex.Maui.Services
                 var trainingExerciseCreateDto = new TrainingExerciseCreateDTO()
                 {
                     ExerciseId = item.Exercise.Id,
-                    UserId = "TESTI",
+                    UserId = userId,
                     WorkoutExerciseId = item.Id,
                 };
 
-                //var trainingExerciseResponse = await _trainingExerciseService.CreateTrainingExerciseAsync(trainingExerciseCreateDto);
-
-                //if (!trainingExerciseResponse.IsSuccess)
-                //{
-                //    //error handling
-                //    continue;
-                //}
-
-                //trainingExercises.Add(_mapper.Map<TrainingExercise>(trainingExerciseResponse.Result));
+                trainingExerciseCreateDTOs.Add(trainingExerciseCreateDto);
             }
-            
-            return null;
+
+            var trainingExerciseResponse = await _trainingExerciseService.CreateTrainingExerciseAsync(trainingExerciseCreateDTOs);
+
+            if (!trainingExerciseResponse.IsSuccess)
+            {
+                //error handling
+                return null;
+            }
+
+            return trainingExerciseResponse.Result.Select(_mapper.Map<TrainingExercise>).ToList();
         }
 
         public async Task<TrainingExercise> UpdateTrainingExerciseAsync(TrainingExercise trainingExercise)
@@ -64,6 +65,7 @@ namespace SweatFlex.Maui.Services
             if (!trainingExerciseResponse.IsSuccess)
             {
                 //error handling
+                return null;
             }
 
             return _mapper.Map<TrainingExercise>(trainingExerciseResponse.Result);
