@@ -30,6 +30,20 @@ namespace SweatFlex.Maui.Services
             return response;
         }
 
+        public async Task<bool> AutoLogin()
+        {
+            bool tokenExists = Preferences.ContainsKey(nameof(TokenStorage));
+
+            TokenStorage.Token = tokenExists ? Preferences.Get(nameof(TokenStorage), "") : "";
+
+            if (tokenExists)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void LogoutAsync()
         {
             Preferences.Set(nameof(TokenStorage), "");

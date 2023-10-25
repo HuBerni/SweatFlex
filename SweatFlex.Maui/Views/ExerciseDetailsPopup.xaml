@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SweatFlex.Maui.Views.ExerciseDetailsPopup">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid Padding="20,20,20,30" RowDefinitions="auto,*">
+                <Label Text="{Binding Exercise.Name}" FontSize="Title" Grid.Row="0"/>
+                <Grid RowDefinitions="auto,auto,auto,auto" ColumnDefinitions="*,*" Grid.Row="1" Margin="15">
+                    <Label Text="Beschreibung:" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="{Binding Exercise.Description}" Grid.Row="0" Grid.Column="1" />
+                    <Label Text="Muskelgruppe" Grid.Row="1" Grid.Column="0" />
+                    <Label Text="{Binding Exercise.MuscleGroup}" Grid.Row="1" Grid.Column="1"/>
+                    <Label Text="Equipment" Grid.Row="2" Grid.Column="0" />
+                    <Label Text="{Binding Exercise.Equipment}" Grid.Row="2" Grid.Column="1"/>
+                    <Label Text="Typ" Grid.Row="3" Grid.Column="0" />
+                    <Label Text="{Binding Exercise.Type}" Grid.Row="3" Grid.Column="1"/>
+                </Grid>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</toolkit:Popup>

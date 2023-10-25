@@ -24,5 +24,6 @@
             <Button Grid.Row="2" Text="Regestrieren" Command="{Binding NavigateToRegisterCommand}" BackgroundColor="{DynamicResource Secondary}"/>
             <Button Grid.Row="3" Text="Passwort vergessen?" BackgroundColor="Transparent" BorderColor="Transparent" TextColor="Blue"/>
         </Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" />
     </VerticalStackLayout>
 </ContentPage>

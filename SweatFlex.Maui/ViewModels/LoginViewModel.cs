@@ -16,15 +16,28 @@ namespace SweatFlex.Maui.ViewModels
         [ObservableProperty]
         private LoginDTO _loginDto;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         public LoginViewModel(AuthService authService)
         {
             LoginDto = new LoginDTO();
             _authService = authService;
         }
 
+        public async Task InitializeAsync()
+        {
+            if (await _authService.AutoLogin())
+            {
+                await Shell.Current.GoToAsync($"//{nameof(Home)}");
+            }
+        }
+
+
         [RelayCommand]
         private async Task Login()
         {
+            IsBusy = true;
             if (LoginDto.Email.IsNullOrEmpty() || LoginDto.Password.IsNullOrEmpty())
             {
                 var toast = Toast.Make("Bitte fülle alle Felder aus", ToastDuration.Short);
@@ -41,6 +54,8 @@ namespace SweatFlex.Maui.ViewModels
                 await toast.Show();
                 return;
             }
+
+            IsBusy = false;
 
             await Shell.Current.GoToAsync($"//{nameof(Home)}");
         }
