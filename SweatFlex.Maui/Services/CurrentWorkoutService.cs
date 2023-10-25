@@ -40,18 +40,18 @@ namespace SweatFlex.Maui.Services
                     WorkoutExerciseId = item.Id,
                 };
 
-                var trainingExerciseResponse = await _trainingExerciseService.CreateTrainingExerciseAsync(trainingExerciseCreateDto);
+                //var trainingExerciseResponse = await _trainingExerciseService.CreateTrainingExerciseAsync(trainingExerciseCreateDto);
 
-                if (!trainingExerciseResponse.IsSuccess)
-                {
-                    //error handling
-                    continue;
-                }
+                //if (!trainingExerciseResponse.IsSuccess)
+                //{
+                //    //error handling
+                //    continue;
+                //}
 
-                trainingExercises.Add(_mapper.Map<TrainingExercise>(trainingExerciseResponse.Result));
+                //trainingExercises.Add(_mapper.Map<TrainingExercise>(trainingExerciseResponse.Result));
             }
             
-            return trainingExercises;
+            return null;
         }
 
         public async Task<TrainingExercise> UpdateTrainingExerciseAsync(TrainingExercise trainingExercise)

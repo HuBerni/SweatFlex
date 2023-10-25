@@ -39,6 +39,8 @@ namespace SweatFlex.Maui.ViewModels
         public async Task InitializeAsnyc()
         {
             IsBusy = true;
+            PreBuiltWorkouts.Clear();
+            MyWorkouts.Clear();
             await SetMyWorkouts();
             await SetSuggestedWorkouts();
             IsBusy = false;
@@ -81,7 +83,6 @@ namespace SweatFlex.Maui.ViewModels
 
         private async Task SetMyWorkouts()
         {
-            MyWorkouts.Clear();
             var response = await _workoutService.GetWorkoutsAsync("TESTI");
 
             if (!response.IsSuccess)
@@ -96,7 +97,6 @@ namespace SweatFlex.Maui.ViewModels
 
         private async Task SetSuggestedWorkouts()
         {
-            PreBuiltWorkouts.Clear();
             var response = await _workoutService.GetWorkoutsAsync();
 
             if (!response.IsSuccess)

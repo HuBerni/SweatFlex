@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SweatFlex.Maui.Models;
+using SweatFlex.Maui.Views;
 using SweatFlexAPIClient.Services;
 using System.Collections.ObjectModel;
 
@@ -11,6 +14,9 @@ namespace SweatFlex.Maui.ViewModels
         private readonly IMapper _mapper;
 
         private readonly ExerciseService _exerciseService;
+
+        [ObservableProperty]
+        private Exercise _selectedExercise;
 
         [ObservableProperty]
         private bool _isBusy;
@@ -38,6 +44,19 @@ namespace SweatFlex.Maui.ViewModels
 
             var exercises = response.Result?.ToList().Select(_mapper.Map<Exercise>);
             exercises?.ToList().ForEach(Exercises.Add);
+        }
+
+        [RelayCommand]
+        private async Task ShowExerciseDetails()
+        {
+            await Application.Current.MainPage.ShowPopupAsync(new ExerciseDetailsPopup(SelectedExercise));
+            SelectedExercise = null;
+        }
+
+        [RelayCommand]
+        private async Task NavigateToCreateExercise()
+        {
+            await Shell.Current.GoToAsync(nameof(CreateExercise));
         }
     }
 }

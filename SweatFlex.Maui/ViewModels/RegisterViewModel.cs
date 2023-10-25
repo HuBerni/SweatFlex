@@ -30,6 +30,9 @@ namespace SweatFlex.Maui.ViewModels
         [ObservableProperty]
         private int _roleId;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         public RegisterViewModel(AuthService authService)
         {
             _authService = authService;
@@ -38,6 +41,7 @@ namespace SweatFlex.Maui.ViewModels
         [RelayCommand]
         private async Task Register()
         {
+            IsBusy = true;
             if (Password != PasswordConfirmation)
             {
                 //TODO show error
@@ -45,6 +49,14 @@ namespace SweatFlex.Maui.ViewModels
             }
 
             var result = await _authService.RegisterAsync(Id, Email, Password, FirstName, LastName, 1);
+
+            if (!result.IsSuccess)
+            {
+                //TODO show error
+                return;
+            }
+
+            IsBusy = false;
 
             await Shell.Current.GoToAsync($"//{nameof(Home)}");
         }
