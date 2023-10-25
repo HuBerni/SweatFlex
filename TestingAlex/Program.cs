@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SweatFlexAPIClient.Services;
+using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexEF;
@@ -12,7 +13,8 @@ internal class Program
     private static void Main(string[] args)
     {
         //loginUser();
-        registerUser();
+        //registerUser();
+        createTrainingExercise();
 
         //test2(args);
 
@@ -27,6 +29,34 @@ internal class Program
         //test();
 
         Console.ReadLine();
+    }
+
+    public async static Task<UserDTO> loggin()
+    {
+        AuthService auth = new();
+
+        var user = await auth.LoginAsync(new SweatFlexData.DTOs.LoginDTO()
+        {
+            Email = "b@flex.com",
+            Password = "Asdf123"
+        });
+
+        return null;
+    }
+
+    public async static void createTrainingExercise()
+    {
+        var result = await loggin();
+        var obj = new TrainingExerciseCreateDTO()
+        {
+            ExerciseId = 3,
+            UserId = "TESTI",
+            WorkoutExerciseId = 2
+        };
+
+        TrainingExerciseService service = new();
+
+        var test = await service.CreateTrainingExerciseAsync(new List<TrainingExerciseCreateDTO>() { obj });
     }
 
     public async static void registerUser()
@@ -140,6 +170,8 @@ internal class Program
         DataHandler dh = new DataHandler(cf.CreateDbContext(args));
 
         var context = cf.CreateDbContext(args);
+
+        var sessino = context.fn_getNextSessionId("TESTI").FirstOrDefault().nextSessionId;
 
         var test = new SweatFlexContextProcedures(context);
         var output = new OutputParameter<int>();
