@@ -25,7 +25,7 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsnyc()
         {
-            var trainingExercisesList = await _currentWorkoutService.CreateTrainingExercisesForWorkout(Workout.Id);
+            var trainingExercisesList = await _currentWorkoutService.CreateTrainingExercisesForWorkout(Workout.Id, Preferences.Get("UserId", ""));
             trainingExercisesList.ForEach(TrainingExercises.Add);
 
             if (trainingExercisesList is not null && trainingExercisesList.Any())
