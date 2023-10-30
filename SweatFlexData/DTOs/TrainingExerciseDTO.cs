@@ -12,6 +12,7 @@ namespace SweatFlexData.DTOs
 
         public int? TimeInSec { get; set; }
         public int? SessionId { get; set; }
+        public int WorkoutExerciseId { get; set; }
 
         public UserDTO User { get; set; }
 
