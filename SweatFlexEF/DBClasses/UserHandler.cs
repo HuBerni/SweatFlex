@@ -15,11 +15,21 @@ namespace SweatFlexEF.DBClasses
             _context = context;
         }
 
+        /// <summary>
+        /// Reads all Users from the Database
+        /// </summary>
+        /// <returns></returns>
         public async Task<IList<UserDTO>> GetUsersAsync()
         {
                 var users = await _context.Users.ToListAsync();
                 return users.Select(Mapping.Mapper.Map<UserDTO>).ToList();            
         }
+
+        /// <summary>
+        /// Reads a List of Users from the Database, depending on the CoachId
+        /// </summary>
+        /// <param name="coachId">CoachId</param>
+        /// <returns></returns>
         public async Task<IList<UserDTO>?> GetUsersByCoachIdAsync(string coachId)
         {
             if(coachId != null)
@@ -32,6 +42,12 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        /// <summary>
+        /// Reads 1 User from the Database, depending on the UserId
+        /// </summary>
+        /// <param name="id">UserId</param>
+        /// <returns></returns>
         public async Task<UserDTO?> GetUserByIdAsync(string id)
         {
             if(id != null)
@@ -45,12 +61,23 @@ namespace SweatFlexEF.DBClasses
             }
         }
 
+        /// <summary>
+        /// Reads 1 User from the Database, depending on the Users EMail
+        /// </summary>
+        /// <param name="eMail">User EMail</param>
+        /// <returns></returns>
         public async Task<UserDTO> GetUserByMailAsync(string eMail)
         {
             var user = await _context.Users.Where(u => u.Email == eMail).FirstOrDefaultAsync();
             return Mapping.Mapper.Map<UserDTO>(user);
         }
 
+        /// <summary>
+        /// Updates 1 User in the Database, depending on the UserId
+        /// </summary>
+        /// <param name="id">UserId</param>
+        /// <param name="updateDTO">Data for update</param>
+        /// <returns></returns>
         public async Task<UserDTO?> UpdateUserAsync(string id, UserUpdateDTO updateDTO)
         {
             if(id != null && updateDTO != null)
@@ -81,6 +108,12 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        /// <summary>
+        /// Deletes 1 User from the Database
+        /// </summary>
+        /// <param name="id">UserId</param>
+        /// <returns></returns>
         public async Task<bool> DeleteUserAsync(string id)
         {
             if(id != null)
@@ -101,6 +134,12 @@ namespace SweatFlexEF.DBClasses
                 return false;
             }
         }
+
+        /// <summary>
+        /// Creates 1 User in the Database with corresponding PasswordDepot
+        /// </summary>
+        /// <param name="createDTO">Data for creation</param>
+        /// <returns></returns>
         public async Task<UserDTO?> CreateUserAsync(UserCreateDTO createDTO)
         {
             var spContext = new SweatFlexContextProcedures(_context);
@@ -134,6 +173,11 @@ namespace SweatFlexEF.DBClasses
             return Mapping.Mapper.Map<UserDTO>(user);         
         }
 
+        /// <summary>
+        /// Validates a UserLogin against the Database
+        /// </summary>
+        /// <param name="loginDTO">Data for Login validation</param>
+        /// <returns></returns>
         public async Task<LoginDTO> Login(LoginDTO loginDTO)
         {
             User user = await _context.Users.Where(u => u.Email == loginDTO.Email.ToLower()).FirstOrDefaultAsync();
@@ -146,6 +190,11 @@ namespace SweatFlexEF.DBClasses
             };
         }
 
+        /// <summary>
+        /// Set 1 User inaktive in the Database
+        /// </summary>
+        /// <param name="id">UserId</param>
+        /// <returns></returns>
         public async Task<bool> SetUserInactive(string id)
         {
             var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();

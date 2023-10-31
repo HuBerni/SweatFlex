@@ -20,6 +20,11 @@ namespace SweatFlexEF.DBClasses
             _context = context;
         }
 
+        /// <summary>
+        /// Reads a List of Workouts from the Database, depending on the CreatorId. If CreatorId == null, reads all Workouts that are not created by a Customer.
+        /// </summary>
+        /// <param name="userId">CreatorId</param>
+        /// <returns></returns>
         public async Task<IList<WorkoutDTO>> GetWorkoutsAsync(string? userId = null)
         {
             List<Workout> workouts = new();
@@ -36,12 +41,24 @@ namespace SweatFlexEF.DBClasses
 
             return workouts.Select(Mapping.Mapper.Map<WorkoutDTO>).ToList();
         }
+
+        /// <summary>
+        /// Reads 1 Workout from the Database, depending on the WorkoutId
+        /// </summary>
+        /// <param name="id">WorkoutId</param>
+        /// <returns></returns>
         public async Task<WorkoutDTO> GetWorkoutByIdAsync(int id)
         {
             var workout = await _context.Workouts.Where(w => w.Id == id).FirstOrDefaultAsync();
-            return Mapping.Mapper.Map<WorkoutDTO>(workout);
-     
+            return Mapping.Mapper.Map<WorkoutDTO>(workout);     
         }
+
+        /// <summary>
+        /// Updates 1 Workout in the Database, depending on the WorkoutId
+        /// </summary>
+        /// <param name="id">WorkoutId</param>
+        /// <param name="updateDTO">Data for update</param>
+        /// <returns></returns>
         public async Task<WorkoutDTO?> UpdateWorkoutsAsynct(int id, WorkoutUpdateDTO updateDTO)
         {
             var workout = _context.Workouts.Where(w => w.Id == id).FirstOrDefault();
@@ -58,6 +75,12 @@ namespace SweatFlexEF.DBClasses
 
             return Mapping.Mapper.Map<WorkoutDTO>(await _context.Workouts.Where(w => w.Id == id).FirstOrDefaultAsync());
         }
+
+        /// <summary>
+        /// Deletes 1 Workout from the Database, depending on the WorkoutId
+        /// </summary>
+        /// <param name="id">WorkoutId</param>
+        /// <returns></returns>
         public async Task<bool> DeleteWorkoutAsync(int id)
         {
             var workout = await _context.Workouts.Where(w => w.Id == id).FirstOrDefaultAsync();
@@ -72,6 +95,12 @@ namespace SweatFlexEF.DBClasses
 
             return true;
         }
+
+        /// <summary>
+        /// Creates 1 new Workout in the Database
+        /// </summary>
+        /// <param name="creatDTO">Data for creation</param>
+        /// <returns></returns>
         public async Task<WorkoutDTO> CreateWorkoutsAsynct(WorkoutCreateDTO creatDTO)
         {
             var workout = Mapping.Mapper.Map<Workout>(creatDTO);

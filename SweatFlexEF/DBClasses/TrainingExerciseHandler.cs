@@ -15,6 +15,12 @@ namespace SweatFlexEF.DBClasses
             _context = context;
         }
 
+        /// <summary>
+        /// Reads a List of TraingingExercises from the Database, depending on Params
+        /// </summary>
+        /// <param name="userId">CreaterId of the TrainingExercises</param>
+        /// <param name="workoutId">WorkoutId of the TrainingExercises. If null, gets all</param>
+        /// <returns></returns>
         public async Task<IList<TrainingExerciseDTO>?> GetTrainingExerciesAsync(string? userId, int? workoutId = null)
         {
             List<TrainingExercise> trainingExercises = new();
@@ -35,10 +41,23 @@ namespace SweatFlexEF.DBClasses
             return trainingExercises.Select(Mapping.Mapper.Map<TrainingExerciseDTO>).ToList();
 
         }
+
+        /// <summary>
+        /// Reads 1 TrainingExercise, depending on the TrainingExerciseId
+        /// </summary>
+        /// <param name="id">TrainingExerciseId</param>
+        /// <returns></returns>
         public async Task<TrainingExerciseDTO?> GetTrainingExerciseAsync(int id)
         {
             return Mapping.Mapper.Map<TrainingExerciseDTO>(await _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefaultAsync());
         }
+
+        /// <summary>
+        /// Updates 1 TrainingExercise depending on the TrainingExerciseId
+        /// </summary>
+        /// <param name="id">TrainingExerciseId</param>
+        /// <param name="updateDTO">Data for Update</param>
+        /// <returns></returns>
         public async Task<TrainingExerciseDTO?> UpdateTrainingExerciseAsync(int id, TrainingExerciseUpdateDTO updateDTO)
         {
             if (updateDTO != null)
@@ -64,6 +83,12 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        /// <summary>
+        /// Deletes 1 TrainingExercise from the Database, depending on the TrainingExerciseId
+        /// </summary>
+        /// <param name="id">TrainingExerciseId</param>
+        /// <returns></returns>
         public async Task<bool> DeleteTrainingExerciseAsync(int id)
         {
             var trainingExercise = await _context.TrainingExercises.Where(t => t.Id == id).FirstOrDefaultAsync();
@@ -78,6 +103,12 @@ namespace SweatFlexEF.DBClasses
 
             return true;
         }
+
+        /// <summary>
+        /// Creates a List of TrainingExercises in the Database
+        /// </summary>
+        /// <param name="createDTO">List of data for creation</param>
+        /// <returns></returns>
         public async Task<IList<TrainingExerciseDTO>?> CreateTrainingExerciseAsync(IList<TrainingExerciseCreateDTO> createDTO)
         {
             if (createDTO != null)

@@ -14,6 +14,11 @@ namespace SweatFlexEF.DBClasses
             _context = context;
         }
 
+        /// <summary>
+        /// Reads Exercises from Database by the creater Id, if creater Id == null, it gets all Exercises that are not created by a customer
+        /// </summary>
+        /// <param name="userId">user that created an exercise</param>
+        /// <returns></returns>
         public async Task<IList<ExerciseDTO>> GetExercisesAsync(string? userId = null)
         {
             List<Exercise> exercises = new();
@@ -38,6 +43,11 @@ namespace SweatFlexEF.DBClasses
             return exerciseDTOs;
         }
 
+        /// <summary>
+        /// Reads 1 Exercise from Database, depending on the Exercise Id
+        /// </summary>
+        /// <param name="id">Exercise Id</param>
+        /// <returns></returns>
         public async Task<ExerciseDTO> GetExerciseByIdAsync(int id)
         {
             Exercise exercise;
@@ -53,6 +63,13 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        /// <summary>
+        /// Updates 1 Exercise in the Database, depending on the Exercise Id
+        /// </summary>
+        /// <param name="id">Exercise Id</param>
+        /// <param name="updateDTO">Exercise data for update</param>
+        /// <returns></returns>
         public async Task<ExerciseDTO> UpdateExerciseAsync(int id, ExerciseUpdateDTO updateDTO)
         {
             if (id != null && updateDTO != null)
@@ -70,6 +87,12 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        /// <summary>
+        /// Deletes 1 Exercise from the Database, depending on the Exercise Id
+        /// </summary>
+        /// <param name="id">Exercise Id</param>
+        /// <returns></returns>
         public async Task<bool> DeleteExerciseAsync(int id)
         {
 
@@ -85,6 +108,12 @@ namespace SweatFlexEF.DBClasses
                 return false;
             }
         }
+
+        /// <summary>
+        /// Creates 1 new Exercise in the Database
+        /// </summary>
+        /// <param name="createDTO">Exercise data for creation</param>
+        /// <returns></returns>
         public async Task<ExerciseDTO> CreateExerciseAsync(ExerciseCreateDTO createDTO)
         {
             if (createDTO != null)
@@ -101,6 +130,11 @@ namespace SweatFlexEF.DBClasses
             }
         }
 
+        /// <summary>
+        /// Manuelle Mapps an Exercise to an ExerciseDTO
+        /// </summary>
+        /// <param name="exercise">Exercise for Mapping</param>
+        /// <returns></returns>
         private ExerciseDTO ExerciseDTOMapper(Exercise exercise)
         {
             return new ExerciseDTO()
