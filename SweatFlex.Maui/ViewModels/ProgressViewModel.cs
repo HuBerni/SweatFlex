@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Models;
+using SweatFlex.Maui.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,21 +15,13 @@ namespace SweatFlex.Maui.ViewModels
 {
     public partial class ProgressViewModel : ObservableObject
     {
-        public ObservableCollection<Progress> Progresses { get; set; }
+        private readonly ProgressService _progressService;
 
-        public ProgressViewModel()
+        public ProgressViewModel(ProgressService progressService)
         {
-            Progresses = new()
-            {
-                new Progress() { 
-                    TrainingExercises = new ObservableCollection<TrainingExercise>() 
-                    { 
-                        new TrainingExercise(), 
-                        new TrainingExercise() 
-                    }},
-                new Progress(),
-                new Progress()
-            };
+            _progressService = progressService;
+
+            
         }
 
 

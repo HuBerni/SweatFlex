@@ -27,10 +27,14 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsync()
         {
-            if (await _authService.AutoLogin())
-            {
-                await Shell.Current.GoToAsync($"//{nameof(Home)}");
-            }
+            //remove when going live
+            //await Shell.Current.GoToAsync($"//{nameof(Home)}");
+            //return;
+
+            //if (await _authService.AutoLogin())
+            //{
+            //    await Shell.Current.GoToAsync($"//{nameof(Home)}");
+            //}
         }
 
 
@@ -52,6 +56,7 @@ namespace SweatFlex.Maui.ViewModels
             {
                 var toast = Toast.Make($"Login Fehlgeschlagen!", ToastDuration.Short);
                 await toast.Show();
+                IsBusy = false;
                 return;
             }
 

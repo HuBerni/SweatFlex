@@ -5,9 +5,6 @@
              x:Class="SweatFlex.Maui.Views.Progress"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Progress">
-    <ContentPage.BindingContext>
-        <vm:ProgressViewModel/>
-    </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Grid RowDefinitions="auto,auto,auto">
             <Label Text="Workout Progress" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>

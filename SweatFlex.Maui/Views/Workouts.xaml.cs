@@ -19,4 +19,9 @@ public partial class Workouts : ContentPage
         base.OnNavigatedTo(parameters);
         await _viewModel.InitializeAsnyc();
     }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }

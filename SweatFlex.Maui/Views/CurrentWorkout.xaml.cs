@@ -1,3 +1,4 @@
+using SweatFlex.Maui.Models;
 using SweatFlex.Maui.ViewModels;
 
 namespace SweatFlex.Maui.Views;

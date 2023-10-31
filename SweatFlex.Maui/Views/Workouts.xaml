@@ -10,9 +10,6 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <!--<ContentPage.BindingContext>
-        <vm:WorkoutsViewModel />
-    </ContentPage.BindingContext>-->
     <Grid RowDefinitions="Auto,*,Auto,Auto,*">
 
         <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0" HorizontalOptions="Center"/>
@@ -31,9 +28,11 @@
                        FontAttributes="Bold"
                        />
                         <Button Grid.Column="1"
-                        ImageSource="three_dots_vertical.svg"
+                        ImageSource="gear.svg"
                         CornerRadius="5"
-                        Padding="10,5" />
+                        Padding="10,5"
+                        Command="{Binding GoToEditWorkoutCommand}"
+                        CommandParameter="{Binding Id}"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

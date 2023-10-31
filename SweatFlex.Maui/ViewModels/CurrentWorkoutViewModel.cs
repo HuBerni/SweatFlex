@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SweatFlex.Maui.Models;
 using SweatFlex.Maui.Services;
 using System.Collections.ObjectModel;
@@ -11,7 +12,11 @@ namespace SweatFlex.Maui.ViewModels
         [ObservableProperty]
         private Workout? _workout;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         private CurrentWorkoutService _currentWorkoutService;
+
 
         private int _sessionId;
 
@@ -25,13 +30,23 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsnyc()
         {
+            IsBusy = true;
             var trainingExercisesList = await _currentWorkoutService.CreateTrainingExercisesForWorkout(Workout.Id, Preferences.Get("UserId", ""));
             trainingExercisesList.ForEach(TrainingExercises.Add);
 
             if (trainingExercisesList is not null && trainingExercisesList.Any())
             {
                 _sessionId = trainingExercisesList.First().SessionId;
+            }
+            IsBusy = false;
+        }
 
+        [RelayCommand]
+        private async Task SaveTrainingExercises()
+        {
+            foreach (var item in TrainingExercises)
+            {
+                await _currentWorkoutService.UpdateTrainingExerciseAsync(item);
             }
         }
     }

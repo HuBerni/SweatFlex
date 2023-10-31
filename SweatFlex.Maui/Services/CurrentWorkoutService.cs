@@ -32,7 +32,9 @@ namespace SweatFlex.Maui.Services
                 return null;
             }
 
-            foreach (var item in workoutExercisesResponse.Result)
+            var workoutExercises = workoutExercisesResponse.Result!.OrderBy(x => x.Index).ToList();
+
+            foreach (var item in workoutExercises)
             {
                 var trainingExerciseCreateDto = new TrainingExerciseCreateDTO()
                 {
@@ -52,12 +54,21 @@ namespace SweatFlex.Maui.Services
                 return null;
             }
 
+            for (int i = 0; i < workoutExercises.Count(); i++)
+            {
+                trainingExerciseResponse.Result[i].Exercise = workoutExercises[i].Exercise;
+            }
+
             return trainingExerciseResponse.Result.Select(_mapper.Map<TrainingExercise>).ToList();
         }
 
         public async Task<TrainingExercise> UpdateTrainingExerciseAsync(TrainingExercise trainingExercise)
         {
-            trainingExercise.ExerciseExecuted = DateTime.Now;
+            if (trainingExercise.ExerciseExecuted is null)
+            {
+                trainingExercise.ExerciseExecuted = DateTime.Now;
+            }
+
             var trainingExerciseUpdateDto = _mapper.Map<TrainingExerciseUpdateDTO>(trainingExercise);
 
             var trainingExerciseResponse = await _trainingExerciseService.UpdateTrainingExerciseAsync(trainingExercise.Id, trainingExerciseUpdateDto);

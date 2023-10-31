@@ -46,6 +46,7 @@ public static class MauiProgram
 		builder.Services.AddTransientWithShellRoute<Settings, SettingsViewModel>(nameof(Settings));
 		builder.Services.AddTransientWithShellRoute<CurrentWorkout, CurrentWorkoutViewModel>(nameof(CurrentWorkout));
 		builder.Services.AddTransientWithShellRoute<CreateExercise, CreateExerciseViewModel>(nameof(CreateExercise));
+		builder.Services.AddTransientWithShellRoute<EditWorkout, EditWorkoutViewModel>(nameof(EditWorkout));
 
 		//Registering Views
 
@@ -56,6 +57,7 @@ public static class MauiProgram
 		//Registering Maui Services
 		builder.Services.AddSingleton<AuthService>();
 		builder.Services.AddSingleton<CurrentWorkoutService>();
+		builder.Services.AddSingleton<ProgressService>();
 		
 		//Registering API Services
 		builder.Services.AddSingleton<API.AuthService>();

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -79,6 +78,20 @@ namespace SweatFlex.Maui.ViewModels
             }
                 
             SelectedWorkout = null;
+        }
+
+        [RelayCommand]
+        private async Task GoToEditWorkout(object workoutId)
+        {
+            if (int.TryParse(workoutId.ToString(), out int workoutIdInt))
+            {
+                var navigationParams = new Dictionary<string, object>
+                        {
+                            { "WorkoutId", 1 }
+                        };
+
+                await Shell.Current.GoToAsync(nameof(EditWorkout), navigationParams);
+            }
         }
 
         private async Task SetMyWorkouts()

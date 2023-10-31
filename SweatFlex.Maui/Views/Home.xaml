@@ -6,6 +6,6 @@
              x:Class="SweatFlex.Maui.Views.Home"
              Title="Home">
 
-    <micro:ChartView x:Name="ChartView" />
+    <!--<micro:ChartView x:Name="ChartView" />-->
 
 </ContentPage>

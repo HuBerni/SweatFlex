@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SweatFlex.Maui.Models;
 using SweatFlexData.DTOs;
+using SweatFlexData.DTOs.Update;
 
 namespace SweatFlex.Maui
 {
@@ -12,7 +13,8 @@ namespace SweatFlex.Maui
             CreateMap<WorkoutDTO, Workout>().ReverseMap();
             CreateMap<WorkoutExerciseDTO, WorkoutExercise>().ReverseMap();
             CreateMap<UserDTO, User>().ReverseMap();
-            CreateMap<TrainingExerciseDTO, TrainingExercise>().ReverseMap();    
+            CreateMap<TrainingExerciseDTO, TrainingExercise>().ReverseMap();
+            CreateMap<TrainingExercise, TrainingExerciseUpdateDTO>().ReverseMap();
         }
     }
 }

@@ -7,11 +7,19 @@ namespace SweatFlex.Maui.ViewModels
 {
     public partial class SettingsViewModel : ObservableObject
     {
-        private readonly AuthService _authService;
+        private AuthService _authService;
+
+        [ObservableProperty]
+        private int _pauseTime;
 
         public SettingsViewModel(AuthService authService)
         {
             _authService = authService;
+        }
+
+        public async Task InitializeAsnyc()
+        {
+            PauseTime = Preferences.Get("PauseTime", 60);
         }
 
         [RelayCommand]
