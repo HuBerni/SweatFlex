@@ -3,6 +3,7 @@ using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using Microsoft.Extensions.Logging;
 using SweatFlex.Maui.Services;
+using SweatFlex.Maui.SQLLite;
 using SweatFlex.Maui.ViewModels;
 using SweatFlex.Maui.Views;
 using SweatFlexAPIClient.APIModels;
@@ -66,6 +67,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<API.WorkoutService>();
 		builder.Services.AddSingleton<API.WorkoutExerciseService>();
 		builder.Services.AddSingleton<API.TrainingExerciseService>();
+
+		//Register SQLite
+		builder.Services.AddSingleton<TodoItemDatabase>();
 
 		return builder.Build();
 	}
