@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SweatFlex.Maui.Models;
+using SweatFlex.Maui.Views;
 using SweatFlexAPIClient.Services;
 using SweatFlexData.DTOs.Create;
 
@@ -22,30 +23,45 @@ namespace SweatFlex.Maui.Services
             _mapper = mapper;
             _exerciseService = exerciseService;
             _workoutExerciseService = workoutExerciseService;
+
+            SetExercises();
+        }
+
+        private async Task SetExercises()
+        {
+            var response = await _exerciseService.GetExercisesAsync();
+            
+            if (response.IsSuccess)
+            {
+                _exercises = response.Result.Select(x => _mapper.Map<Exercise>(x)).ToList();
+            }
         }
 
         public async Task AddWorkoutExercise(int workoutId, int exerciseId, int sets)
         {
-            var workoutExercise = new WorkoutExerciseCreateDTO()
+            for (int i = 0; i < sets; i++)
             {
-                ExerciseId = exerciseId,
-                WorkoutId = workoutId
-            };
-
-            _workoutExerciseCreateDtos.AddRange(Enumerable.Repeat(workoutExercise, sets));
+                _workoutExerciseCreateDtos.Add(new WorkoutExerciseCreateDTO()
+                {
+                    ExerciseId = exerciseId,
+                    WorkoutId = workoutId
+                });
+            }
             
             ExerciseSets.Add(new ExerciseSet()
             {
-                Exercise = _mapper.Map<Exercise>(await _exerciseService.GetExerciseAsync(exerciseId)),
+                Exercise = _exercises.FirstOrDefault(x => x.Id == exerciseId),
                 Sets = sets
             });
 
             AddIndexesToWorkoutExercises();
         }
 
-        public async Task RemoveWorkoutExercise(int workoutId, int exerciseId)
+        public async Task RemoveWorkoutExercise(int exerciseId)
         {
-
+            _workoutExerciseCreateDtos.RemoveAll(x => x.ExerciseId == exerciseId);
+            ExerciseSets.RemoveAll(x => x.Exercise.Id == exerciseId);
+            AddIndexesToWorkoutExercises();
         }
 
         public async Task SaveWorkoutExercises()
@@ -58,9 +74,11 @@ namespace SweatFlex.Maui.Services
 
         private void AddIndexesToWorkoutExercises()
         {
-            for (int i = 1; i <= _workoutExerciseCreateDtos.Count; i++)
+            int index = 1;
+            foreach (var item in _workoutExerciseCreateDtos)
             {
-                _workoutExerciseCreateDtos[i - 1].Index = i;
+                item.Index = index;
+                index++;
             }
         }
     }
