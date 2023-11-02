@@ -7,10 +7,13 @@
              Title="CreateExercise">
     <VerticalStackLayout>
         <Label Text="Übung erstellen" FontSize="Title" FontAttributes="Bold" HorizontalOptions="Center" Margin="20"/>
-        <Grid RowDefinitions="auto, auto, auto, auto" Margin="20">
+        <Grid RowDefinitions="auto, auto, auto, auto, auto, auto, auto" Margin="20">
             <Entry Text="" Placeholder="Name" Margin="10" Grid.Row="0"/>
             <Entry Text="" Placeholder="Beschreibung" Margin="10" Grid.Row="1" HeightRequest="100"/>
-
+            <Picker Title="Muskelgruppe" Margin="10" Grid.Row="2"/>
+            <Picker Title="Equipment" Margin="10" Grid.Row="3"/>
+            <Picker Title="Typ" Margin="10" Grid.Row="4"/>
+            <Button Text="Speichern" Margin="10" Grid.Row="5"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
