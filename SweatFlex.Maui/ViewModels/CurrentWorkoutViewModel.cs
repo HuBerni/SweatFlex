@@ -48,6 +48,8 @@ namespace SweatFlex.Maui.ViewModels
             {
                 await _currentWorkoutService.UpdateTrainingExerciseAsync(item);
             }
+
+            await Shell.Current.Navigation.PopAsync();
         }
     }
 }
