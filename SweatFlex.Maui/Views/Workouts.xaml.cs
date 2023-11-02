@@ -20,8 +20,11 @@ public partial class Workouts : ContentPage
         await _viewModel.InitializeAsnyc();
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private async void EditSettings_Clicked(object sender, EventArgs e)
     {
-
+        if (sender is Button button)
+        {
+            await _viewModel.GoToEditWorkout(button.CommandParameter);
+        }
     }
 }

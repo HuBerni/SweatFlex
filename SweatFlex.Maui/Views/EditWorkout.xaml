@@ -6,8 +6,28 @@
              Title="EditWorkout">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            Text="{Binding Workout.Name}"
+            HorizontalOptions="Center"
+            FontSize="Title"/>
+
+        <CollectionView ItemsSource="{Binding ExerciseSets}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="3*,*">
+                        <Label Text="{Binding Exercise.Name}" Grid.Column="0"/>
+                        <Label Text="{Binding Sets}" Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid ColumnDefinitions="3*,*,*" Margin="30">
+            <Picker ItemsSource="{Binding Exercises}" ItemDisplayBinding="{Binding Name}" x:Name="ExercisePicker">
+            </Picker>
+            <Entry Text="" Placeholder="Sets" Keyboard="Numeric" Grid.Column="1" x:Name="SetsEntry"/>
+            <Button Grid.Row="2" ImageSource="plus.svg" Grid.Column="2" Clicked="Add_Clicked"/>
+        </Grid>
+        <Button Text="Workout Speichern" WidthRequest="200" HorizontalOptions="Center" Margin="10"/>
+        <Button Text="Abbrechen" WidthRequest="200" HorizontalOptions="Center" BackgroundColor="{StaticResource Secondary}"/>
     </VerticalStackLayout>
 </ContentPage>

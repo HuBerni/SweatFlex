@@ -31,7 +31,7 @@
                         ImageSource="gear.svg"
                         CornerRadius="5"
                         Padding="10,5"
-                        Command="{Binding GoToEditWorkoutCommand}"
+                        Clicked="EditSettings_Clicked"
                         CommandParameter="{Binding Id}"/>
                     </Grid>
                 </DataTemplate>

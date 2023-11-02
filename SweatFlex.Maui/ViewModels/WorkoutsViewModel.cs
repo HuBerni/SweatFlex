@@ -81,13 +81,13 @@ namespace SweatFlex.Maui.ViewModels
         }
 
         [RelayCommand]
-        private async Task GoToEditWorkout(object workoutId)
+        public async Task GoToEditWorkout(object workoutId)
         {
             if (int.TryParse(workoutId.ToString(), out int workoutIdInt))
             {
                 var navigationParams = new Dictionary<string, object>
                         {
-                            { "WorkoutId", 1 }
+                            { "WorkoutId", workoutIdInt }
                         };
 
                 await Shell.Current.GoToAsync(nameof(EditWorkout), navigationParams);
@@ -96,7 +96,7 @@ namespace SweatFlex.Maui.ViewModels
 
         private async Task SetMyWorkouts()
         {
-            var response = await _workoutService.GetWorkoutsAsync("TESTI");
+            var response = await _workoutService.GetWorkoutsAsync(Preferences.Get("UserId", ""));
 
             if (!response.IsSuccess)
             {
@@ -127,7 +127,7 @@ namespace SweatFlex.Maui.ViewModels
             var workoutCreateDto = new WorkoutCreateDTO
             {
                 Name = workoutName,
-                CreatorId = "TESTI"
+                CreatorId = Preferences.Get("UserId", "")
             };
 
             var workout = await _workoutService.CreateWorkoutAsync(workoutCreateDto);
@@ -139,6 +139,8 @@ namespace SweatFlex.Maui.ViewModels
             }
 
             MyWorkouts.Add(_mapper.Map<Workout>(workout.Result));
+
+            await GoToEditWorkout(workout.Result.Id);
         }
     }
 }

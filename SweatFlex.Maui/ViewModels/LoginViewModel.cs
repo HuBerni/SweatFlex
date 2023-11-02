@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Services;
@@ -27,10 +25,6 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsync()
         {
-            //remove when going live
-            //await Shell.Current.GoToAsync($"//{nameof(Home)}");
-            //return;
-
             //if (await _authService.AutoLogin())
             //{
             //    await Shell.Current.GoToAsync($"//{nameof(Home)}");
@@ -44,9 +38,8 @@ namespace SweatFlex.Maui.ViewModels
             IsBusy = true;
             if (LoginDto.Email.IsNullOrEmpty() || LoginDto.Password.IsNullOrEmpty())
             {
-                var toast = Toast.Make("Bitte fülle alle Felder aus", ToastDuration.Short);
-                await toast.Show();
-
+                await ToastService.ShowToast("Bitte fülle alle Felder aus");
+                IsBusy = false;
                 return;
             }
 
@@ -54,8 +47,7 @@ namespace SweatFlex.Maui.ViewModels
 
             if (!result.IsSuccess)
             {
-                var toast = Toast.Make($"Login Fehlgeschlagen!", ToastDuration.Short);
-                await toast.Show();
+                await ToastService.ShowToast("Login Fehlgeschlagen!");
                 IsBusy = false;
                 return;
             }
