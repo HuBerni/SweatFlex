@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SweatFlex.Maui.Models;
 using SweatFlex.Maui.Services;
+using SweatFlex.Maui.Views;
 using SweatFlexAPIClient.Services;
 using System.Collections.ObjectModel;
 
@@ -54,7 +55,7 @@ namespace SweatFlex.Maui.ViewModels
 
             if (exerciseResponse.IsSuccess)
             {
-                Exercises = exerciseResponse.Result.Select(x => _mapper.Map<Exercise>(x)).ToObservableCollection();
+                Exercises = exerciseResponse.Result.Select(_mapper.Map<Exercise>).ToObservableCollection();
             }
         }
 
@@ -64,17 +65,24 @@ namespace SweatFlex.Maui.ViewModels
             await UpdateExerciseSetsCollection();
         }
 
-        [RelayCommand]
-        private async Task RemoveExerciseFromWorkout()
+        
+        public async Task RemoveExerciseFromWorkout(int id)
         {
-
+            await _editWorkoutService.RemoveWorkoutExercise(id);
             await UpdateExerciseSetsCollection();
+        }
+
+        [RelayCommand]
+        private async Task SaveWorkout()
+        {
+            await _editWorkoutService.SaveWorkoutExercises();
+            await Shell.Current.Navigation.PopAsync();
         }
 
         private async Task UpdateExerciseSetsCollection()
         {
             ExerciseSets.Clear();
-            _editWorkoutService.ExerciseSets.ForEach(x => ExerciseSets.Add(x));
+            _editWorkoutService.ExerciseSets.ForEach(ExerciseSets.Add);
         }
     }
 }
