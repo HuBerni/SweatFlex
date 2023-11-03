@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
+using Microcharts.Maui;
 using Microsoft.Extensions.Logging;
 using SweatFlex.Maui.Services;
 using SweatFlex.Maui.SQLLite;
@@ -17,7 +18,9 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
-			.UseMauiApp<App>().UseMauiCommunityToolkit()
+			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
+			.UseMicrocharts()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
