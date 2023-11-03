@@ -40,6 +40,10 @@ namespace SweatFlexEF
                 .ReverseMap();
             CreateMap<WorkoutExercise, WorkoutExerciseUpdateDTO>().ReverseMap();
             CreateMap<WorkoutExercise, WorkoutExerciseCreateDTO>().ReverseMap();
+
+            CreateMap<Equipment, EquipmentDTO>().ReverseMap();
+            CreateMap<SweatFlexEF.Models.Type, TypeDTO>().ReverseMap();
+            CreateMap<Musclegroup, MusclegroupDTO>().ReverseMap();
         }
     }
 }

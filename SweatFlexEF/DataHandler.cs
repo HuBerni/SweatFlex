@@ -177,5 +177,10 @@ namespace SweatFlexEF
         {
             return await _userHandler.SetUserInactive(id);
         }
+
+        public async Task<ExerciseAssetsDTO> GetExerciseAssets()
+        {
+            return await _exerciseHandler.GetExerciseAssets();
+        }
     }
 }

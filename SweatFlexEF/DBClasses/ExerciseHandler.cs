@@ -131,6 +131,21 @@ namespace SweatFlexEF.DBClasses
         }
 
         /// <summary>
+        /// Reads all Assets that a Exercise could have (Type, Musclegroup, Equipment)
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ExerciseAssetsDTO> GetExerciseAssets()
+        {
+            ExerciseAssetsDTO assets = new();
+
+            assets.MuscleGroups = _context.Musclegroups.Select(Mapping.Mapper.Map<MusclegroupDTO>).ToList();
+            assets.Types = _context.Types.Select(Mapping.Mapper.Map<TypeDTO>).ToList();
+            assets.Equipments = _context.Equipment.Select(Mapping.Mapper.Map<EquipmentDTO>).ToList();
+
+            return assets;
+        }
+
+        /// <summary>
         /// Manuelle Mapps an Exercise to an ExerciseDTO
         /// </summary>
         /// <param name="exercise">Exercise for Mapping</param>

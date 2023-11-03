@@ -5,6 +5,7 @@ using SweatFlexData.DTOs;
 using SweatFlexData.DTOs.Create;
 using SweatFlexData.DTOs.Update;
 using SweatFlexData.Interface;
+using SweatFlexEF;
 using System.Net;
 
 namespace SweatFlexAPI.Controllers
@@ -280,6 +281,47 @@ namespace SweatFlexAPI.Controllers
                 response.IsSuccess = false;
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.ErrorMessages.Add($"Error deleting exercise: {ex.Message}");
+                return StatusCode((int)response.StatusCode, response);
+            }
+
+            return Ok(response);
+        }
+    
+        /// <summary>
+        /// Getting all Assets a Exercise could have.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [Route("/assets", Name = "GetExerciseAssets")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<ApiResponse<ExerciseAssetsDTO>>> GetExerciseAssets()
+        {
+            ApiResponse<ExerciseAssetsDTO> response = new();
+
+            try
+            {
+                var assetsDTO = await _dataHandler.GetExerciseAssets();
+
+                if (assetsDTO == null)
+                {
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.ErrorMessages.Add($"Assets could not be retrieved");
+                    return NotFound(response);
+                }
+
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = assetsDTO;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error getting exerciseAssets: {ex.Message}");
                 return StatusCode((int)response.StatusCode, response);
             }
 

@@ -104,5 +104,18 @@ namespace SweatFlexAPIClient.Services
                 Url = $"{SweatFlexURL}{_suffix}/{id}"
             });
         }
+
+        /// <summary>
+        /// calls the coresponding API HTTPAction and gets all ExerciseAssets
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ApiResponse<ExerciseAssetsDTO>> GetExerciseAssets()
+        {
+            return await SendAsync<ExerciseAssetsDTO>(new ApiRequest()
+            {
+                ApiType = Enum.ApiType.GET,
+                Url = $"{SweatFlexURL}{_suffix}/assets"
+            });
+        }
     }
 }
