@@ -8,6 +8,6 @@
     <VerticalStackLayout>
         <Label Text="Pause zwischen den Sätzen:"/>
         <Entry Text="{Binding PauseTime}" />
-        <Button Text="Logout" Command="{Binding}" />
+        <Button Text="Logout" Command="{Binding LogoutCommand}" />
     </VerticalStackLayout>
 </ContentPage>
