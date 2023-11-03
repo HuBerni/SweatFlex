@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:micro="clr-namespace:Microcharts;assembly=Microcharts.Maui"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:vm="clr-namespace:SweatFlex.Maui.ViewModels;assembly=SweatFlex.Maui"
              x:Class="SweatFlex.Maui.Views.Home"
              Title="Home">
 
-    <!--<micro:ChartView x:Name="ChartView" />-->
+    <VerticalStackLayout>
+        <Label Text="Gewicht bewegt dieses Monat" VerticalOptions="Center" />
+        <micro:ChartView x:Name="MonthlyChart" HeightRequest="200"/>
+        <Label Text="12-Monats Rückblick" VerticalOptions="Center" />
+        <micro:ChartView x:Name="TwelveMonthsHistory" HeightRequest="200"/>
+    </VerticalStackLayout>
 
 </ContentPage>

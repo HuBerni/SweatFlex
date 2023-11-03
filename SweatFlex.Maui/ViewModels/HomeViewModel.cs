@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Microcharts;
 using SweatFlexAPIClient.Services;
 using System.Collections.ObjectModel;
+using SkiaSharp;
+using SweatFlexUtility;
 
 namespace SweatFlex.Maui.ViewModels
 {
@@ -16,30 +18,32 @@ namespace SweatFlex.Maui.ViewModels
         private bool _isBusy;
         [ObservableProperty]
         private string _userName = Preferences.Get("UserId", "");
-        [ObservableProperty]
-        private ChartEntry[] _chartEntrys;
 
+        public ChartEntry[] _chartEntrysMonthly;
 
-        public ObservableCollection<DateTime?> TrainingExerciseDates { get; set; }
+        public ChartEntry[] _chartEntrys12Months;
+               
         
 
         public HomeViewModel(IMapper mapper, TrainingExerciseService trainingExerciseService)
-        {
-            TrainingExerciseDates = new();
+        {            
             _mapper = mapper;
-            _trainingExerciseService = trainingExerciseService;
+            _trainingExerciseService = trainingExerciseService;            
         }
 
         public async Task InitializeAsnyc()
         {
             IsBusy = true;
-            await SetTrainingHistory();
+            await SetTrainingHistoryEntrys();
             IsBusy = false;
         }
 
-        private async Task SetTrainingHistory()
+        private async Task SetTrainingHistoryEntrys()
         {
+            List<DateTime?> TrainingExerciseDates = new();
             var response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
+            List<decimal?> weights = new();
+            var months = StaticResources.GetMonths();
 
             foreach (var trainingExercise in response.Result)
             {
@@ -53,15 +57,68 @@ namespace SweatFlex.Maui.ViewModels
 
             int i = 0;
 
+            foreach(var date in TrainingExerciseDates)
+            {
+                foreach(var te in response.Result)
+                {
+                    if(te.ExerciseExecuted != null && te.ExerciseExecuted == date)
+                    {
+                        weights[i] += te.Weight;
+                    }
+                }
+                i++;
+            }
+
+            i = 0;
+            int z = 0;
+
             foreach(var TrainingExerciseDate in TrainingExerciseDates)
             {
+                if(z > 11)
+                {
+                    z = 0;
+                }
                 i++;
-                ChartEntrys = ChartEntrys.Concat(new ChartEntry[] {
+
+                _chartEntrysMonthly = _chartEntrysMonthly.Concat(new ChartEntry[] {
                     new ChartEntry(i)
                     {
-                        ValueLabel = TrainingExerciseDate.ToString()
+                        Label = TrainingExerciseDate.ToString(),
+                        ValueLabel = weights[i - 1].ToString(),
+                        Color = SKColor.Parse(months[i][1])
                     }
                 }).ToArray();
+
+                z++;
+            }
+
+            response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
+
+            _chartEntrys12Months = new ChartEntry[12];
+
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+            
+
+            for(int j = 0; j < 12; j++)
+            {
+                var count = response.Result.Where(r => r.ExerciseExecuted.Value.Year == currentYear && r.ExerciseExecuted.Value.Month == currentMonth).ToList();
+                _chartEntrys12Months[12 - j - 1] = new ChartEntry(count.Count())
+                {
+                    Label = months[currentMonth][0],
+                    ValueLabel = count.Count().ToString(),
+                    Color = SKColor.Parse(months[currentMonth][1])
+                };
+
+                if(currentMonth != 1)
+                {
+                    currentMonth -= 1;
+                }
+                else
+                {
+                    currentYear -= 1;
+                    currentMonth = 12;
+                }
             }
         }
 
