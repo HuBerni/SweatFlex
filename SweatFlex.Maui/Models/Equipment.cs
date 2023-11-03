@@ -1,9 +1,8 @@
 ﻿namespace SweatFlex.Maui.Models
 {
-    public class Workout
+    public class Equipment
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public User Creator { get; set; }
     }
 }
