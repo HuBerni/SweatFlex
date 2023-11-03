@@ -29,7 +29,7 @@ namespace SweatFlex.Maui.Services
                 return null;
             }
 
-            var trainingExercisesGrouped = response.Result.GroupBy(x => x.SessionId).ToList();
+            var trainingExercisesGrouped = response.Result.OrderByDescending(x => x.SessionId).GroupBy(x => x.SessionId).ToList();
 
             foreach (var item in trainingExercisesGrouped)
             {
@@ -41,7 +41,8 @@ namespace SweatFlex.Maui.Services
                     TotalWeight = item.Sum(x => x.Weight),
                     TimeSpent = timeSpent,
                     SessionId = item.First().SessionId ?? 0,
-                    Workout = workout
+                    Workout = workout,
+                    Date = DateOnly.FromDateTime(item.First().ExerciseExecuted ?? DateTime.Now)
                 };
 
                 progresses.Add(progress);
@@ -52,6 +53,9 @@ namespace SweatFlex.Maui.Services
 
         private async Task<Workout?> GetWorkoutByWorkoutExercise(int workoutExerciseId)
         {
+            //TODO fix workoutexerciseId in TrainingExercise response
+            workoutExerciseId = 10;
+
             var response = await _workoutExerciseService.GetWorkoutExerciseByIdAsync(workoutExerciseId);
 
             if (!response.IsSuccess)
@@ -59,7 +63,7 @@ namespace SweatFlex.Maui.Services
                 return null;
             }
 
-            return _mapper.Map<Workout>(response.Result);
+            return _mapper.Map<Workout>(response.Result.Workout);
         }
     }
 }
