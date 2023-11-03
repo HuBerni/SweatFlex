@@ -44,11 +44,11 @@ namespace SweatFlex.Maui.Services
             return false;
         }
 
-        public void LogoutAsync()
+        public void Logout()
         {
             Preferences.Set(nameof(TokenStorage), "");
+            Preferences.Set("UserId", "");
             TokenStorage.Token = "";
-            return;
         }
 
         public async Task<ApiResponse<UserDTO>> RegisterAsync

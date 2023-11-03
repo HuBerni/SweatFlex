@@ -25,7 +25,7 @@ namespace SweatFlex.Maui.ViewModels
         [RelayCommand]
         private async Task Logout()
         {
-            _authService.LogoutAsync();
+            _authService.Logout();
 
             await Shell.Current.GoToAsync(nameof(Login));
         }
