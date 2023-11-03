@@ -2,56 +2,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SweatFlex.Maui.ViewModels;assembly=SweatFlex.Maui"
-             x:Class="SweatFlex.Maui.Views.Progress"
+             x:DataType="vm:ProgressViewModel"
+             xmlns:models="clr-namespace:SweatFlex.Maui.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SweatFlex.Maui.Views.Progress"
              Title="Progress">
-    <VerticalStackLayout>
-        <Grid RowDefinitions="auto,auto,auto">
-            <Label Text="Workout Progress" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>
-
-            <CollectionView
-                        ItemsSource="{Binding Progresses}" 
-                        SelectionMode="Single"
-                        SelectedItem="{Binding ProgressSelectedCommand}"
-                        Margin="0,0,0,10"
-                        Grid.Row="1">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10" RowDefinitions="Auto,*,Auto,Auto" ColumnDefinitions="*, Auto">
-                            <Label Grid.Column="0"
-                                   Text="WorkoutName"
-                                   FontSize="Medium"
-                                   FontAttributes="Bold"
-                                   />
-                            <Label Grid.Row="1"
-                                   Text="01.10.2000"
-                                   FontSize="Small"
-                                   FontAttributes="Bold"
-                                   VerticalOptions="End"
-                                   Margin="10"/>
-                            <Grid Margin="10" ColumnDefinitions="Auto,*,Auto" Grid.Row="2" Grid.ColumnSpan="99">
-                                <Label Grid.Column="0" Text="Time: 1h50" HorizontalOptions="Start"/>
-                                <Label Grid.Column="1" Text="Weight: 1400kg" HorizontalOptions="Center"/>
-                            </Grid>
-                            <BoxView HeightRequest="1" Grid.Row="4"/>
-                            <CollectionView
-                                ItemsSource="{Binding Progresses.TrainingExercises}" 
-                                SelectionMode="Single"
-                                SelectedItem="{Binding ProgressSelectedCommand}"
-                                Margin="0,0,0,10">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Label Text="Exercise"/>
-                                            
-                                        </Grid>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid RowDefinitions="auto,auto,auto">
+                <Label Text="Workout Progress" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>
+                <CollectionView ItemsSource="{Binding Progresses}" Grid.Row="1" Margin="20">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Progress">
+                            <Border StrokeShape="RoundRectangle 20,20,20,20" Padding="20">
+                                <Grid RowDefinitions="auto, auto, auto" ColumnDefinitions="*,*,*">
+                                    <Label Text="{Binding Workout.Name}" FontSize="Medium" FontAttributes="Bold"/>
+                                    <Label Text="{Binding TotalWeight, StringFormat='{0} kg'}" Grid.Row="1"/>
+                                    <Label Text="{Binding TimeSpent.Minutes, StringFormat='{0} min'}" Grid.Row="1" Grid.Column="1"/>
+                                    <Label Text="{Binding Date}" Grid.Row="1" Grid.Column="2"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

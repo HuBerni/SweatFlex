@@ -18,7 +18,8 @@
                   SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10">
+                    <Border StrokeShape="RoundRectangle 20,20,20,20" Padding="20">
+                        <Grid Padding="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -32,11 +33,9 @@
                                          FontSize="Medium"
                                          FontAttributes="Bold"
                                          />
-                            <Button Grid.Column="1"
-                                          ImageSource="three_dots_vertical.svg"
-                                          CornerRadius="5"
-                                          Padding="10,5" />
+                            <Label Text="{Binding Musclegroup}" Grid.Row="1"/>
                         </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

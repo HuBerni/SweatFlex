@@ -8,11 +8,6 @@
         <ScrollView>
             <VerticalStackLayout>
             <Label Text="{Binding Workout.Name}" FontSize="Title" HorizontalOptions="Center"/>
-            <Grid RowDefinitions="auto,*,auto" ColumnDefinitions="auto, auto, auto, auto">
-                <Label  Text="         Time: 12:14           " Grid.Column="0"/>
-                <Label Text="Übungen 3/6            " Grid.Column="1"/>
-                <Label Text="Satz 1/4" Grid.Column="2"/>
-            </Grid>
 
             <CollectionView
                         ItemsSource="{Binding TrainingExercises}" 

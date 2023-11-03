@@ -25,5 +25,17 @@ public partial class EditWorkout : ContentPage
         var selectedExercise = ExercisePicker.SelectedItem as Exercise;
 
         await _viewModel.AddExerciseToWorkout(selectedExercise.Id, int.Parse(SetsEntry.Text));
+        ExercisePicker.SelectedItem = null;
+        SetsEntry.Text = string.Empty;
+    }
+
+    private void Remove_Exercise_Clicked(object sender, EventArgs e)
+    {
+        if (sender is Button button)
+        {
+            int id = (int)button.CommandParameter;
+
+            _viewModel.RemoveExerciseFromWorkout(id);
+        }
     }
 }

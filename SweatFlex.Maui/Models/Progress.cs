@@ -1,12 +1,4 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SweatFlex.Maui.Models
+﻿namespace SweatFlex.Maui.Models
 {
     public class Progress
     {
@@ -14,5 +6,6 @@ namespace SweatFlex.Maui.Models
         public int SessionId { get; set; }
         public decimal? TotalWeight { get; set; }
         public TimeSpan TimeSpent { get; set; }
+        public DateOnly Date { get; set; }
     }
 }
