@@ -63,7 +63,8 @@ namespace SweatFlex.Maui.ViewModels
                 {
                     if(te.ExerciseExecuted != null && te.ExerciseExecuted == date)
                     {
-                        weights[i] += te.Weight;
+
+                        weights.Add(te.Weight);
                     }
                 }
                 i++;
@@ -72,25 +73,25 @@ namespace SweatFlex.Maui.ViewModels
             i = 0;
             int z = 0;
 
-            foreach(var TrainingExerciseDate in TrainingExerciseDates)
-            {
-                if(z > 11)
-                {
-                    z = 0;
-                }
-                i++;
+            //foreach(var TrainingExerciseDate in TrainingExerciseDates)
+            //{
+            //    if(z > 11)
+            //    {
+            //        z = 0;
+            //    }
+            //    i++;
 
-                _chartEntrysMonthly = _chartEntrysMonthly.Concat(new ChartEntry[] {
-                    new ChartEntry(i)
-                    {
-                        Label = TrainingExerciseDate.ToString(),
-                        ValueLabel = weights[i - 1].ToString(),
-                        Color = SKColor.Parse(months[i][1])
-                    }
-                }).ToArray();
+            //    _chartEntrysMonthly = _chartEntrysMonthly.Concat(new ChartEntry[] {
+            //        new ChartEntry(i)
+            //        {
+            //            Label = TrainingExerciseDate.ToString(),
+            //            ValueLabel = weights[i - 1].ToString(),
+            //            Color = SKColor.Parse(months[i][1])
+            //        }
+            //    }).ToArray();
 
-                z++;
-            }
+            //    z++;
+            //}
 
             response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
 
@@ -102,12 +103,12 @@ namespace SweatFlex.Maui.ViewModels
 
             for(int j = 0; j < 12; j++)
             {
-                var count = response.Result.Where(r => r.ExerciseExecuted.Value.Year == currentYear && r.ExerciseExecuted.Value.Month == currentMonth).ToList();
-                _chartEntrys12Months[12 - j - 1] = new ChartEntry(count.Count())
+                var count = response.Result.Where(r => r.ExerciseExecuted != null && r.ExerciseExecuted.Value.Year == currentYear && r.ExerciseExecuted.Value.Month == currentMonth).ToList();
+                _chartEntrys12Months[(12 - j) - 1] = new ChartEntry(count.Count())
                 {
-                    Label = months[currentMonth][0],
+                    Label = months[currentMonth - 1][0],
                     ValueLabel = count.Count().ToString(),
-                    Color = SKColor.Parse(months[currentMonth][1])
+                    Color = SKColor.Parse(months[currentMonth - 1][1])
                 };
 
                 if(currentMonth != 1)
