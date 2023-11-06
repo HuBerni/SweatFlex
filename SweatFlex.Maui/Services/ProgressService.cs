@@ -53,9 +53,6 @@ namespace SweatFlex.Maui.Services
 
         private async Task<Workout?> GetWorkoutByWorkoutExercise(int workoutExerciseId)
         {
-            //TODO fix workoutexerciseId in TrainingExercise response
-            workoutExerciseId = 10;
-
             var response = await _workoutExerciseService.GetWorkoutExerciseByIdAsync(workoutExerciseId);
 
             if (!response.IsSuccess)
