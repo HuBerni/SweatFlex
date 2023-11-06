@@ -25,10 +25,10 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsync()
         {
-            //if (await _authService.AutoLogin())
-            //{
-            //    await Shell.Current.GoToAsync($"//{nameof(Home)}");
-            //}
+            if (await _authService.AutoLogin())
+            {
+                await Shell.Current.GoToAsync($"//{nameof(Home)}");
+            }
         }
 
 
