@@ -19,18 +19,18 @@ public partial class Home : ContentPage
         base.OnNavigatedTo(parameters);
         await _viewModel.InitializeAsnyc();
 
-        MonthlyChart.Chart = new BarChart
-        {
-            Entries = _viewModel._chartEntrysMonthly,
-            IsAnimated = true,
-            AnimationProgress = 4,
-            AnimationDuration = new TimeSpan(0, 0, 4),
-            BackgroundColor = SKColor.Parse("#d3d3d3"),
-            LabelTextSize = 40,
-            SerieLabelTextSize = 40,
-            ValueLabelTextSize = 40,
-            LabelColor = SKColor.Parse("#000000")
-        };
+        //MonthlyChart.Chart = new BarChart
+        //{
+        //    Entries = _viewModel._chartEntrysMonthly,
+        //    IsAnimated = true,
+        //    AnimationProgress = 4,
+        //    AnimationDuration = new TimeSpan(0, 0, 4),
+        //    BackgroundColor = SKColor.Parse("#d3d3d3"),
+        //    LabelTextSize = 40,
+        //    SerieLabelTextSize = 40,
+        //    ValueLabelTextSize = 40,
+        //    LabelColor = SKColor.Parse("#000000")
+        //};
 
         TwelveMonthsHistory.Chart = new LineChart
         {
