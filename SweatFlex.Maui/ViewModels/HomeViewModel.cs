@@ -19,7 +19,7 @@ namespace SweatFlex.Maui.ViewModels
         [ObservableProperty]
         private string _userName = Preferences.Get("UserId", "");
 
-        public ChartEntry[] _chartEntrysMonthly;
+        public List<ChartEntry> _chartEntrysMonthly;
 
         public ChartEntry[] _chartEntrys12Months;
                
@@ -73,25 +73,26 @@ namespace SweatFlex.Maui.ViewModels
             i = 0;
             int z = 0;
 
-            //foreach(var TrainingExerciseDate in TrainingExerciseDates)
-            //{
-            //    if(z > 11)
-            //    {
-            //        z = 0;
-            //    }
-            //    i++;
+            _chartEntrysMonthly = new();
 
-            //    _chartEntrysMonthly = _chartEntrysMonthly.Concat(new ChartEntry[] {
-            //        new ChartEntry(i)
-            //        {
-            //            Label = TrainingExerciseDate.ToString(),
-            //            ValueLabel = weights[i - 1].ToString(),
-            //            Color = SKColor.Parse(months[i][1])
-            //        }
-            //    }).ToArray();
+            foreach (var TrainingExerciseDate in TrainingExerciseDates)
+            {
+                if (z > 11)
+                {
+                    z = 0;
+                }
+                i++;
+                
+                _chartEntrysMonthly.Add(
+                    new ChartEntry(i)
+                    {
+                        Label = TrainingExerciseDate.ToString(),
+                        ValueLabel = weights[i - 1].ToString(),
+                        Color = SKColor.Parse(months[z][1])
+                    });
 
-            //    z++;
-            //}
+                z++;
+            }
 
             response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
 
