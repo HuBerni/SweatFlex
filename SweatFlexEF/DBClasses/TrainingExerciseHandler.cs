@@ -130,5 +130,15 @@ namespace SweatFlexEF.DBClasses
                 return null;
             }
         }
+
+        /// <summary>
+        /// Reads a TrainingExercise from the Database based on a sessioId
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <returns></returns>
+        public async Task<TrainingExerciseDTO> GetTrainingExerciseBySessionIdAsync(int sessionId)
+        {
+            return Mapping.Mapper.Map<TrainingExerciseDTO>(_context.TrainingExercises.Where(t => t.SessionId == sessionId).FirstOrDefault());            
+        }
     }
 }

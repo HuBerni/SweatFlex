@@ -182,5 +182,10 @@ namespace SweatFlexEF
         {
             return await _exerciseHandler.GetExerciseAssets();
         }
+
+        public async Task<TrainingExerciseDTO> GetTrainingExerciseBySessionIdAsync(int sessionId)
+        {
+            return await _trainingExerciseHandler.GetTrainingExerciseBySessionIdAsync(sessionId);
+        }
     }
 }

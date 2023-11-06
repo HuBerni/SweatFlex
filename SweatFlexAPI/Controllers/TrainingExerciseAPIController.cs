@@ -67,6 +67,48 @@ namespace SweatFlexAPI.Controllers
         }
 
         /// <summary>
+        /// Getting a single trainingExercise based on a SessionId
+        /// </summary>
+        /// <param name="id">Session Id for DataBase call</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Customer,Coach,Admin")]
+        [Route("getExercisesBySession/{id:int}", Name = "GetTrainingExercises")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ApiResponse<TrainingExerciseDTO>>> GetTrainingExercisesBySessionId(int id)
+        {
+            ApiResponse<TrainingExerciseDTO> response = new();
+
+            try
+            {
+                var trainingExerciseDtos = await _dataHandler.GetTrainingExerciseBySessionIdAsync(id);
+
+                if (trainingExerciseDtos == null)
+                {
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                    response.ErrorMessages.Add("No training exercises found");
+                    return NotFound(response);
+                }
+
+                response.StatusCode = HttpStatusCode.OK;
+                response.Result = trainingExerciseDtos;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.ErrorMessages.Add($"Error getting training exercises: {ex.Message}");
+                return StatusCode((int)response.StatusCode, response);
+            }
+
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Getting a training exercise by id
         /// </summary>
         /// <param name="id"></param>

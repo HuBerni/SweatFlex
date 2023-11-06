@@ -62,6 +62,20 @@ namespace SweatFlexAPIClient.Services
         }
 
         /// <summary>
+        /// calls the coresponding API HTTPAction and returns a TrainingExercises
+        /// </summary>
+        /// <param name="id">Session Id</param>
+        /// <returns></returns>
+        public async Task<ApiResponse<TrainingExerciseDTO>> GetTrainingExerciseBySessionIdAsync(int id)
+        {
+            return await SendAsync<TrainingExerciseDTO>(new ApiRequest()
+            {
+                ApiType = Enum.ApiType.GET,
+                Url = $"{SweatFlexURL}{_suffix}/getExercisesBySession/{id}",
+            });
+        }
+
+        /// <summary>
         /// calls the coresponding API HTTPAction and return a List of TrainingExercises
         /// </summary>
         /// <param name="userId">User Id for TrainingExercises</param>
