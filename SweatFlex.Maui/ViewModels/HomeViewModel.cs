@@ -86,7 +86,7 @@ namespace SweatFlex.Maui.ViewModels
                 _chartEntrysMonthly.Add(
                     new ChartEntry(i)
                     {
-                        Label = TrainingExerciseDate.ToString(),
+                        Label = TrainingExerciseDate.Value.ToString("dd.MM"),
                         ValueLabel = weights[i - 1].ToString(),
                         Color = SKColor.Parse(months[z][1])
                     });
