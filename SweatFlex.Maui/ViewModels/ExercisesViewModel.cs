@@ -41,8 +41,10 @@ namespace SweatFlex.Maui.ViewModels
         {
             Exercises.Clear();
             var response = await _exerciseService.GetExercisesAsync();
+            var userResponse = await _exerciseService.GetExercisesAsync(Preferences.Get("UserId", ""));
 
-            var exercises = response.Result?.ToList().Select(_mapper.Map<Exercise>);
+            var exercises = response.Result?.ToList().Select(_mapper.Map<Exercise>).ToList();
+            exercises?.AddRange(userResponse.Result?.ToList().Select(_mapper.Map<Exercise>).ToList());
             exercises?.ToList().ForEach(Exercises.Add);
         }
 

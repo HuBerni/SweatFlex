@@ -7,10 +7,10 @@
              Title="Home">
 
     <VerticalStackLayout>
-        <Label Text="Gewicht bewegt dieses Monat" VerticalOptions="Center" />
-        <micro:ChartView x:Name="MonthlyChart" HeightRequest="200"/>
-        <Label Text="12-Monats Rückblick" VerticalOptions="Center" />
-        <micro:ChartView x:Name="TwelveMonthsHistory" HeightRequest="200"/>
+        <Label Text="Wilkommen zurück!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Margin="20"/>
+        <Label Text="Gewicht bewegt dieses Monat" HorizontalOptions="Center" FontSize="Medium" Margin="10"/>
+        <micro:ChartView x:Name="MonthlyChart" HeightRequest="200" Margin="10"/>
+        <Label Text="12-Monats Rückblick" HorizontalOptions="Center" FontSize="Medium" Margin="10"/>
+        <micro:ChartView x:Name="TwelveMonthsHistory" HeightRequest="200" Margin="10"/>
     </VerticalStackLayout>
-
 </ContentPage>

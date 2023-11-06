@@ -13,9 +13,15 @@ public partial class CreateExercise : ContentPage
 		InitializeComponent();
     }
 
-    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+    //protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+    //{
+    //    base.OnNavigatedTo(args);
+    //    await _viewModel.InitializeAsync();
+    //}
+
+    protected override async void OnAppearing()
     {
-        base.OnNavigatedTo(args);
+        base.OnAppearing();
         await _viewModel.InitializeAsync();
     }
 

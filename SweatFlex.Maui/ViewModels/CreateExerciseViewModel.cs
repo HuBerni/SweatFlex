@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SweatFlex.Maui.Models;
 using SweatFlexAPIClient.Services;
 using SweatFlexData.DTOs.Create;
@@ -46,12 +47,15 @@ namespace SweatFlex.Maui.ViewModels
         private async Task SetExerciseAssets()
         {
             var response = await _exerciseService.GetExerciseAssets();
+            ExerciseTypes.Clear();
+            Musclegroups.Clear();
+            Equipments.Clear();
 
             if (response.IsSuccess)
             {
-                ExerciseTypes = response.Result.Types.Select(_mapper.Map<ExerciseType>).ToObservableCollection();
-                Musclegroups = response.Result.MuscleGroups.Select(_mapper.Map<Musclegroup>).ToObservableCollection();
-                Equipments = response.Result.Equipments.Select(_mapper.Map<Equipment>).ToObservableCollection();
+                response.Result.Types.ForEach(x => ExerciseTypes.Add(_mapper.Map<ExerciseType>(x)));
+                response.Result.MuscleGroups.ForEach(x => Musclegroups.Add(_mapper.Map<Musclegroup>(x)));
+                response.Result.Equipments.ForEach(x => Equipments.Add(_mapper.Map<Equipment>(x)));
             }
         }
 

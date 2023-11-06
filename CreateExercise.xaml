@@ -6,7 +6,7 @@
              x:Class="SweatFlex.Maui.Views.CreateExercise"
              Title="CreateExercise">
     <VerticalStackLayout>
-        <Label Text="Übung erstellen" FontSize="Title" FontAttributes="Bold" HorizontalOptions="Center" Margin="20"/>
+        <Label Text="ï¿½bung erstellen" FontSize="Title" FontAttributes="Bold" HorizontalOptions="Center" Margin="20"/>
         <Grid RowDefinitions="auto, auto, auto, auto" Margin="20">
             <Entry Text="" Placeholder="Name" Margin="10" Grid.Row="0"/>
             <Entry Text="" Placeholder="Beschreibung" Margin="10" Grid.Row="1" HeightRequest="100" VerticalTextAlignment="Start"/>
