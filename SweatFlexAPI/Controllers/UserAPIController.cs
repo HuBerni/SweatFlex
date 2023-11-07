@@ -114,7 +114,7 @@ namespace SweatFlexAPI.Controllers
         /// <param name="coachId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Coach,Admin")]
+        [Authorize(Roles = "Customer,Coach,Admin")]
         [Route("coach/{id}", Name = "GetUsersByCoach")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
