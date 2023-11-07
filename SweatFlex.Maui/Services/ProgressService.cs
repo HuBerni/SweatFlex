@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CommunityToolkit.Maui.Core.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Models;
 using SweatFlexAPIClient.Services;
@@ -42,7 +43,8 @@ namespace SweatFlex.Maui.Services
                     TimeSpent = timeSpent,
                     SessionId = item.First().SessionId ?? 0,
                     Workout = workout,
-                    Date = DateOnly.FromDateTime(item.First().ExerciseExecuted ?? DateTime.Now)
+                    Date = DateOnly.FromDateTime(item.First().ExerciseExecuted ?? DateTime.Now),
+                    TrainingExercises = item.Select(x => _mapper.Map<TrainingExercise>(x)).ToObservableCollection()
                 };
 
                 progresses.Add(progress);

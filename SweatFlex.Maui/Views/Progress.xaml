@@ -10,7 +10,7 @@
     <ScrollView>
         <VerticalStackLayout>
             <Grid RowDefinitions="auto,auto,auto">
-                <Label Text="Workout Progress" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>
+                <Label Text="Workout Fortschritt" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>
                 <CollectionView ItemsSource="{Binding Progresses}" Grid.Row="1" Margin="20">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Progress">
@@ -20,6 +20,26 @@
                                     <Label Text="{Binding TotalWeight, StringFormat='{0} kg'}" Grid.Row="1"/>
                                     <Label Text="{Binding TimeSpent.Minutes, StringFormat='{0} min'}" Grid.Row="1" Grid.Column="1"/>
                                     <Label Text="{Binding Date}" Grid.Row="1" Grid.Column="2"/>
+                                    <toolkit:Expander Grid.Row="3" Grid.ColumnSpan="10">
+                                        <toolkit:Expander.Header>
+                                            <Label Text="Details" FontAttributes="Bold"/>
+                                        </toolkit:Expander.Header>
+                                        <VerticalStackLayout>
+                                            <Label/>
+                                            <CollectionView ItemsSource="{Binding TrainingExercises}">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate x:DataType="models:TrainingExercise">
+                                                        <Grid ColumnDefinitions="5*,3*,3*">
+                                                            <Label Text="{Binding Exercise.Name}" FontAttributes="Bold" Grid.Column="0"/>
+                                                            <Label Text="{Binding Weight, StringFormat='{0} kg'}" Grid.Column="1"/>
+                                                            <Label Text="{Binding Reputations, StringFormat='x    {0}'}" Grid.Column="2"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </VerticalStackLayout>
+                                    </toolkit:Expander>
+
                                 </Grid>
                             </Border>
                         </DataTemplate>

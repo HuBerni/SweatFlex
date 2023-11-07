@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microcharts;
-using SweatFlexAPIClient.Services;
-using System.Collections.ObjectModel;
 using SkiaSharp;
+using SweatFlex.Maui.Services;
+using SweatFlexAPIClient.Services;
 using SweatFlexUtility;
 
 namespace SweatFlex.Maui.ViewModels
@@ -13,11 +13,13 @@ namespace SweatFlex.Maui.ViewModels
         private readonly IMapper _mapper;
 
         private readonly TrainingExerciseService _trainingExerciseService;
-
+        private readonly ProgressService _progressService;
         [ObservableProperty]
         private bool _isBusy;
         [ObservableProperty]
         private string _userName = Preferences.Get("UserId", "");
+        [ObservableProperty]
+        private decimal? _totalWeight;
 
         public List<ChartEntry> _chartEntrysMonthly;
 
@@ -25,10 +27,11 @@ namespace SweatFlex.Maui.ViewModels
                
         
 
-        public HomeViewModel(IMapper mapper, TrainingExerciseService trainingExerciseService)
+        public HomeViewModel(IMapper mapper, TrainingExerciseService trainingExerciseService, ProgressService progressService)
         {            
             _mapper = mapper;
-            _trainingExerciseService = trainingExerciseService;            
+            _trainingExerciseService = trainingExerciseService;
+            _progressService = progressService;
         }
 
         public async Task InitializeAsnyc()
@@ -40,32 +43,25 @@ namespace SweatFlex.Maui.ViewModels
 
         private async Task SetTrainingHistoryEntrys()
         {
-            List<DateTime?> TrainingExerciseDates = new();
-            var response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
+            List<DateTime?> workoutDates = new();
+            var progresses = await _progressService.GetProgresses(Preferences.Get("UserId", ""));
+            progresses = progresses?.OrderBy(x => x.Date).ToList();
             List<decimal?> weights = new();
+            TotalWeight = progresses?.Sum(x => x.TotalWeight);
             var months = StaticResources.GetMonths();
 
-            foreach (var trainingExercise in response.Result)
+            foreach (var progress in progresses)
             {
-                if (trainingExercise.ExerciseExecuted != null &&
-                    !TrainingExerciseDates.Contains(trainingExercise.ExerciseExecuted) && 
-                    trainingExercise.ExerciseExecuted.Value.Month == DateTime.Now.Month)
-                {
-                    TrainingExerciseDates.Add(trainingExercise.ExerciseExecuted);
-                }
+                workoutDates.Add(progress.Date.ToDateTime(new TimeOnly()));
             }
 
             int i = 0;
 
-            foreach(var date in TrainingExerciseDates)
+            foreach(var date in workoutDates)
             {
-                foreach(var te in response.Result)
+                foreach(var progress in progresses)
                 {
-                    if(te.ExerciseExecuted != null && te.ExerciseExecuted == date)
-                    {
-
-                        weights.Add(te.Weight);
-                    }
+                    weights.Add(progress.TotalWeight);
                 }
                 i++;
             }
@@ -75,7 +71,7 @@ namespace SweatFlex.Maui.ViewModels
 
             _chartEntrysMonthly = new();
 
-            foreach (var TrainingExerciseDate in TrainingExerciseDates)
+            foreach (var TrainingExerciseDate in workoutDates)
             {
                 if (z > 11)
                 {
@@ -94,7 +90,7 @@ namespace SweatFlex.Maui.ViewModels
                 z++;
             }
 
-            response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
+            var response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
 
             _chartEntrys12Months = new ChartEntry[12];
 

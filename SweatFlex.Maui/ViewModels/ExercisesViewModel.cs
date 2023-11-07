@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Models;
 using SweatFlex.Maui.Views;
 using SweatFlexAPIClient.Services;
@@ -42,6 +43,12 @@ namespace SweatFlex.Maui.ViewModels
             Exercises.Clear();
             var response = await _exerciseService.GetExercisesAsync();
             var userResponse = await _exerciseService.GetExercisesAsync(Preferences.Get("UserId", ""));
+            
+            if (!Preferences.Get("CoachId", "").IsNullOrEmpty())
+            {
+                var coachResponse = await _exerciseService.GetExercisesAsync(Preferences.Get("CoachId", ""));
+                coachResponse.Result?.ToList().ForEach(x => Exercises.Add(_mapper.Map<Exercise>(x)));
+            }
 
             var exercises = response.Result?.ToList().Select(_mapper.Map<Exercise>).ToList();
             exercises?.AddRange(userResponse.Result?.ToList().Select(_mapper.Map<Exercise>).ToList());

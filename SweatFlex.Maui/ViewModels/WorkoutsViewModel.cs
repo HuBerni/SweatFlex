@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using SweatFlex.Maui.Models;
 using SweatFlex.Maui.Views;
 using SweatFlexAPIClient.Services;
@@ -110,6 +111,22 @@ namespace SweatFlex.Maui.ViewModels
 
         private async Task SetSuggestedWorkouts()
         {
+            var coachWorkouts = new List<Workout?>();
+
+
+            if (!Preferences.Get("CoachId", "").IsNullOrEmpty())
+            {
+
+                var coachResponse = await _workoutService.GetWorkoutsAsync(Preferences.Get("CoachId", ""));
+                if (!coachResponse.IsSuccess)
+                {
+                    //TODO show error
+                    return;
+                }
+
+                coachWorkouts = coachResponse.Result?.ToList().Select(_mapper.Map<Workout>).ToList();
+            }
+
             var response = await _workoutService.GetWorkoutsAsync();
 
             if (!response.IsSuccess)
@@ -119,6 +136,8 @@ namespace SweatFlex.Maui.ViewModels
             }
 
             var recommendedWorkouts = response.Result?.ToList().Select(_mapper.Map<Workout>);
+
+            coachWorkouts?.ForEach(PreBuiltWorkouts.Add);
             recommendedWorkouts?.ToList().ForEach(PreBuiltWorkouts.Add);
         }
 

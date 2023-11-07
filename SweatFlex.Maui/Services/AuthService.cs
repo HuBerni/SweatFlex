@@ -25,6 +25,8 @@ namespace SweatFlex.Maui.Services
             {
                 Preferences.Set(nameof(TokenStorage), TokenStorage.Token);
                 Preferences.Set("UserId", response.Result?.Id);
+                Preferences.Set("RoleId", response.Result?.Role.ToString());
+                Preferences.Set("CoachId", response.Result?.Coach?.Id ?? "");
             }
 
             return response;
@@ -32,7 +34,9 @@ namespace SweatFlex.Maui.Services
 
         public async Task<bool> AutoLogin()
         {
-            bool tokenExists = Preferences.ContainsKey(nameof(TokenStorage));
+            var token = Preferences.Get(nameof(TokenStorage), "");
+
+            bool tokenExists = !token.IsNullOrEmpty();
 
             TokenStorage.Token = tokenExists ? Preferences.Get(nameof(TokenStorage), "") : "";
 
@@ -48,6 +52,8 @@ namespace SweatFlex.Maui.Services
         {
             Preferences.Set(nameof(TokenStorage), "");
             Preferences.Set("UserId", "");
+            Preferences.Set("RoleId", "");
+            Preferences.Set("CoachId", "");
             TokenStorage.Token = "";
         }
 
@@ -71,6 +77,8 @@ namespace SweatFlex.Maui.Services
             {
                 Preferences.Set(nameof(TokenStorage), TokenStorage.Token);
                 Preferences.Set("UserId", response.Result?.Id);
+                Preferences.Set("RoleId", response.Result?.Role.ToString());
+                Preferences.Set("CoachId", response.Result?.Coach?.Id ?? "");
             }
 
             return response;

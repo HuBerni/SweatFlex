@@ -6,8 +6,9 @@
              x:DataType="vm:SettingsViewModel"
              Title="Settings">
     <VerticalStackLayout>
-        <Label Text="Pause zwischen den Sätzen:"/>
-        <Entry Text="{Binding PauseTime}" />
-        <Button Text="Logout" Command="{Binding LogoutCommand}" />
+        <Label Text="Einstellungen" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Margin="20"/>
+        <Label Text="Pause zwischen den Sätzen:" Margin="20"/>
+        <Entry Text="{Binding PauseTime}" Margin="20,0,20,0"/>
+        <Button Text="Logout" Command="{Binding LogoutCommand}" Margin="20" />
     </VerticalStackLayout>
 </ContentPage>

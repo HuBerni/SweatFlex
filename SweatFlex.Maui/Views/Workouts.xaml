@@ -12,7 +12,7 @@
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto,*,Auto,Auto,*">
 
-        <Label Text="My Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0" HorizontalOptions="Center"/>
+        <Label Text="Meine Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0" HorizontalOptions="Center"/>
         <CollectionView Grid.Row="1" 
                         ItemsSource="{Binding MyWorkouts}" 
                         SelectionMode="Single"
@@ -39,7 +39,7 @@
                 IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
                 Command="{Binding ShowAddWorkoutPopupCommand}"/>
 
-        <Label Text="Suggested Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="3" HorizontalOptions="Center"/>
+        <Label Text="Vorgeschlagene Workouts" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="3" HorizontalOptions="Center"/>
 
         <CollectionView Grid.Row="4" 
                         ItemsSource="{Binding PreBuiltWorkouts}" 
