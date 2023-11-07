@@ -13,5 +13,7 @@
         public string Email { get; set; }
 
         public User? Coach { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

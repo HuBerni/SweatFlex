@@ -4,7 +4,9 @@ using Microcharts;
 using SkiaSharp;
 using SweatFlex.Maui.Models;
 using SweatFlex.Maui.Services;
+using SweatFlexAPIClient.APIModels;
 using SweatFlexAPIClient.Services;
+using SweatFlexData.DTOs;
 using SweatFlexUtility;
 using System.Collections.ObjectModel;
 
@@ -23,6 +25,8 @@ namespace SweatFlex.Maui.ViewModels
         private string? _userId;
         [ObservableProperty]
         private decimal? _totalWeight;
+        [ObservableProperty]
+        private bool _isCoach;
 
         public List<ChartEntry> _chartEntrysMonthly;
 
@@ -41,9 +45,12 @@ namespace SweatFlex.Maui.ViewModels
         public async Task InitializeAsnyc()
         {
             IsBusy = true;
+            UserId = "";
+            IsCoach = false;
 
-            if (Preferences.Get("RoleId", "") == "2")
+            if (Preferences.Get("RoleId", "") == "2" && Users.Count == 0)
             {
+                IsCoach = true;
                 var response = await _userService.GetUserByCoachAsync(Preferences.Get("UserId", ""));
                 var user = response.Result?.Select(_mapper.Map<User>).ToList();
                 user?.ForEach(Users.Add);
@@ -53,7 +60,7 @@ namespace SweatFlex.Maui.ViewModels
             IsBusy = false;
         }
 
-        private async Task SetTrainingHistoryEntrys()
+        public async Task SetTrainingHistoryEntrys()
         {
             List<DateTime?> workoutDates = new();
             var progresses = new List<Progress?>();
@@ -66,7 +73,11 @@ namespace SweatFlex.Maui.ViewModels
             {
                 progresses = await _progressService.GetProgresses(Preferences.Get("UserId", ""));
             }
-            
+
+            if (progresses?.Count == 0)
+            {
+                return;
+            }
             
             progresses = progresses?.OrderBy(x => x.Date).ToList();
             List<decimal?> weights = new();
@@ -96,6 +107,11 @@ namespace SweatFlex.Maui.ViewModels
 
             foreach (var TrainingExerciseDate in workoutDates)
             {
+                if (TrainingExerciseDate is null)
+                {
+                    continue;
+                }
+
                 if (z > 11)
                 {
                     z = 0;
@@ -113,7 +129,16 @@ namespace SweatFlex.Maui.ViewModels
                 z++;
             }
 
-            var response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
+            ApiResponse<IList<TrainingExerciseDTO>>? response = null;
+
+            if (!string.IsNullOrEmpty(UserId))
+            {
+                response = await _trainingExerciseService.GetTrainingExercisesAsync(UserId!);
+            }
+            else
+            {
+                response = await _trainingExerciseService.GetTrainingExercisesAsync(Preferences.Get("UserId", ""));
+            }
 
             _chartEntrys12Months = new ChartEntry[12];
 
