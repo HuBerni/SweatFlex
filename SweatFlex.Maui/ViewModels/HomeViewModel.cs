@@ -2,9 +2,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microcharts;
 using SkiaSharp;
+using SweatFlex.Maui.Models;
 using SweatFlex.Maui.Services;
 using SweatFlexAPIClient.Services;
 using SweatFlexUtility;
+using System.Collections.ObjectModel;
 
 namespace SweatFlex.Maui.ViewModels
 {
@@ -14,29 +16,39 @@ namespace SweatFlex.Maui.ViewModels
 
         private readonly TrainingExerciseService _trainingExerciseService;
         private readonly ProgressService _progressService;
+        private readonly UserService _userService;
         [ObservableProperty]
         private bool _isBusy;
         [ObservableProperty]
-        private string _userName = Preferences.Get("UserId", "");
+        private string? _userId;
         [ObservableProperty]
         private decimal? _totalWeight;
 
         public List<ChartEntry> _chartEntrysMonthly;
 
         public ChartEntry[] _chartEntrys12Months;
-               
-        
 
-        public HomeViewModel(IMapper mapper, TrainingExerciseService trainingExerciseService, ProgressService progressService)
+        public ObservableCollection<User> Users { get; set; } = new();
+
+        public HomeViewModel(IMapper mapper, TrainingExerciseService trainingExerciseService, ProgressService progressService, UserService userService)
         {            
             _mapper = mapper;
             _trainingExerciseService = trainingExerciseService;
             _progressService = progressService;
+            _userService = userService;
         }
 
         public async Task InitializeAsnyc()
         {
             IsBusy = true;
+
+            if (Preferences.Get("RoleId", "") == "2")
+            {
+                var response = await _userService.GetUserByCoachAsync(Preferences.Get("UserId", ""));
+                var user = response.Result?.Select(_mapper.Map<User>).ToList();
+                user?.ForEach(Users.Add);
+            }
+
             await SetTrainingHistoryEntrys();
             IsBusy = false;
         }
@@ -44,7 +56,18 @@ namespace SweatFlex.Maui.ViewModels
         private async Task SetTrainingHistoryEntrys()
         {
             List<DateTime?> workoutDates = new();
-            var progresses = await _progressService.GetProgresses(Preferences.Get("UserId", ""));
+            var progresses = new List<Progress?>();
+
+            if (!string.IsNullOrEmpty(UserId))
+            {
+                progresses = await _progressService.GetProgresses(UserId);
+            }
+            else
+            {
+                progresses = await _progressService.GetProgresses(Preferences.Get("UserId", ""));
+            }
+            
+            
             progresses = progresses?.OrderBy(x => x.Date).ToList();
             List<decimal?> weights = new();
             TotalWeight = progresses?.Sum(x => x.TotalWeight);

@@ -8,6 +8,7 @@
 
     <VerticalStackLayout>
         <Label Text="Wilkommen zurück!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Margin="20"/>
+        <Picker Title="User auswählen" ItemsSource="{Binding Users}"/>
         <Label Text="Gewicht bewegt dieses Monat" HorizontalOptions="Center" FontSize="Medium"/>
         <Label Text="{Binding TotalWeight, StringFormat='{0} kg'}" Margin="10" HorizontalOptions="Center"/>
         <micro:ChartView x:Name="MonthlyChart" HeightRequest="200" Margin="10"/>

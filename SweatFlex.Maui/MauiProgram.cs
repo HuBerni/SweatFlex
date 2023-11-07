@@ -70,6 +70,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<API.WorkoutService>();
 		builder.Services.AddSingleton<API.WorkoutExerciseService>();
 		builder.Services.AddSingleton<API.TrainingExerciseService>();
+		builder.Services.AddSingleton<API.UserService>();
 
 		//Register SQLite
 		builder.Services.AddSingleton<TodoItemDatabase>();
