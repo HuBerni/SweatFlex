@@ -73,7 +73,7 @@ namespace SweatFlexAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "Customer,Coach,Admin")]
-        [Route("getExercisesBySession/{id:int}", Name = "GetTrainingExercises")]
+        [Route("getExercisesBySession/{id:int}", Name = "GetTrainingExercisesBySessionId")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
