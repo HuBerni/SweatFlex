@@ -19,12 +19,12 @@ namespace SweatFlex.Maui.ViewModels
 
         public LoginViewModel(AuthService authService)
         {
-            LoginDto = new LoginDTO();
             _authService = authService;
         }
 
         public async Task InitializeAsync()
         {
+            LoginDto = new LoginDTO();
             if (await _authService.AutoLogin())
             {
                 await Shell.Current.GoToAsync($"//{nameof(Home)}");

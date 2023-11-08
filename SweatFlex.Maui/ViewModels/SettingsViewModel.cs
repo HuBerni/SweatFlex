@@ -27,7 +27,7 @@ namespace SweatFlex.Maui.ViewModels
         {
             _authService.Logout();
 
-            await Shell.Current.GoToAsync($"{nameof(Login)}");
+            await Shell.Current.GoToAsync($"///MainPage");
         }
     }
 }
