@@ -11,4 +11,6 @@ public partial class ExerciseDetailsPopup : Popup
 		BindingContext = new ExerciseDetailsPopupViewModel(exercise);
 		InitializeComponent();
 	}
+
+	private void Close_Clicked(object sender, EventArgs e) => CloseAsync();
 }

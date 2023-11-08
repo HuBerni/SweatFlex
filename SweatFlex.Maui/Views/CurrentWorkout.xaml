@@ -8,7 +8,7 @@
         <ScrollView>
             <VerticalStackLayout>
             <Label Text="{Binding Workout.Name}" FontSize="Title" HorizontalOptions="Center"/>
-
+            
             <CollectionView
                         ItemsSource="{Binding TrainingExercises}" 
                         SelectionMode="None"

@@ -44,6 +44,7 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsnyc()
         {
+            IsBusy = true;
             var workoutResponse = await _workoutService.GetWorkoutByIdAsync(WorkoutId);
 
             if (workoutResponse.IsSuccess)
@@ -57,6 +58,7 @@ namespace SweatFlex.Maui.ViewModels
             {
                 Exercises = exerciseResponse.Result.Select(_mapper.Map<Exercise>).ToObservableCollection();
             }
+            IsBusy = false;
         }
 
         public async Task AddExerciseToWorkout(int exerciseId, int sets)
@@ -83,6 +85,13 @@ namespace SweatFlex.Maui.ViewModels
         {
             ExerciseSets.Clear();
             _editWorkoutService.ExerciseSets.ForEach(ExerciseSets.Add);
+        }
+
+        [RelayCommand]
+        public async Task CancelEdit()
+        {
+            await _workoutService.DeleteWorkoutAsync(WorkoutId);
+            await Shell.Current.Navigation.PopAsync();
         }
     }
 }

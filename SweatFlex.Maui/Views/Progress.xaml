@@ -36,11 +36,11 @@
                                             <CollectionView ItemsSource="{Binding TrainingExercises}">
                                                 <CollectionView.ItemTemplate>
                                                     <DataTemplate x:DataType="models:TrainingExercise">
-                                                        <Grid ColumnDefinitions="5*,3*,3*">
-                                                            <Label Text="{Binding Exercise.Name}" FontAttributes="Bold" Grid.Column="0"/>
-                                                            <Label Text="{Binding Weight, StringFormat='{0} kg'}" Grid.Column="1"/>
+                                                        <HorizontalStackLayout Spacing="20">
+                                                            <Label Text="{Binding Exercise.Name, StringFormat='{0}   '}" FontAttributes="Bold" Grid.Column="0"/>
+                                                            <Label Text="{Binding Weight, StringFormat='   {0} kg   '}" Grid.Column="1"/>
                                                             <Label Text="{Binding Reputations, StringFormat='x    {0}'}" Grid.Column="2"/>
-                                                        </Grid>
+                                                        </HorizontalStackLayout>
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
                                             </CollectionView>

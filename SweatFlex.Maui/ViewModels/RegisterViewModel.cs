@@ -64,7 +64,7 @@ namespace SweatFlex.Maui.ViewModels
         [RelayCommand]
         private async Task NavigateToLogin()
         {
-            await Shell.Current.GoToAsync(nameof(Login));
+            await Shell.Current.GoToAsync($"///MainPage");
         }
     }
 }

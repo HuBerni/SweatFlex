@@ -5,12 +5,12 @@
              xmlns:local="clr-namespace:SweatFlex.Maui.Views"
              x:Class="SweatFlex.Maui.Views.ConfirmationPopup">
     <VerticalStackLayout>
-        <StackLayout Padding="50,50,50,50" BackgroundColor="{StaticResource White}">
+        <StackLayout Padding="50,50,50,50" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
             <ContentView x:Name="ContentView"/>
             <Label Text="{Binding Title}"/>
             <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,20,0,0">
                 <Button Text="Ok" Clicked="Confirm_Clicked" />
-                <Button Text="Abbrechen" BackgroundColor="{StaticResource Secondary}" Clicked="Close_Clicked" />
+                <Button Text="Abbrechen" BackgroundColor="{StaticResource SweatGray}" Clicked="Close_Clicked" />
             </StackLayout>
         </StackLayout>
     </VerticalStackLayout>

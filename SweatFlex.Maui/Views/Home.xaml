@@ -12,13 +12,14 @@
                 ItemsSource="{Binding Users}" 
                 ItemDisplayBinding="{Binding FullName}" 
                 SelectedIndexChanged="Picker_SelectedIndexChanged"
-                IsVisible="{Binding IsCoach}">
+                IsVisible="{Binding IsCoach}"
+                x:Name="UserPicker">
         </Picker>
-        <Label Text="Gewicht bewegt dieses Monat" HorizontalOptions="Center" FontSize="Medium"/>
-        <Label Text="{Binding TotalWeight, StringFormat='{0} kg'}" Margin="10" HorizontalOptions="Center"/>
-        <micro:ChartView x:Name="MonthlyChart" HeightRequest="200" Margin="10"/>
-        <Label Text="12-Monats Rückblick" HorizontalOptions="Center" FontSize="Medium" Margin="10"/>
-        <micro:ChartView x:Name="TwelveMonthsHistory" HeightRequest="200" Margin="10"/>
-        <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2"/>
+        <Label Text="Gewicht bewegt dieses Monat" HorizontalOptions="Center" FontSize="Medium" IsVisible="{Binding ChartVisible}"/>
+        <Label Text="{Binding TotalWeight, StringFormat='{0} kg'}" Margin="10" HorizontalOptions="Center" IsVisible="{Binding ChartVisible}"/>
+        <micro:ChartView x:Name="MonthlyChart" HeightRequest="200" Margin="10" IsVisible="{Binding ChartVisible}"/>
+        <Label Text="12-Monats Rückblick" HorizontalOptions="Center" FontSize="Medium" Margin="10" IsVisible="{Binding ChartVisible}"/>
+        <micro:ChartView x:Name="TwelveMonthsHistory" HeightRequest="200" Margin="10" IsVisible="{Binding ChartVisible}"/>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" Margin="50"/>
     </VerticalStackLayout>
 </ContentPage>

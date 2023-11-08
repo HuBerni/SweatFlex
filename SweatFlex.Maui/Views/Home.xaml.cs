@@ -41,11 +41,11 @@ public partial class Home : ContentPage
                 IsAnimated = true,
                 AnimationProgress = 4,
                 AnimationDuration = new TimeSpan(0, 0, 4),
-                BackgroundColor = SKColor.Parse("#d3d3d3"),
+                BackgroundColor = SKColor.Parse("#2C2E43"),
                 LabelTextSize = 40,
                 SerieLabelTextSize = 40,
                 ValueLabelTextSize = 40,
-                LabelColor = SKColor.Parse("#000000")
+                LabelColor = SKColor.Parse("#FFFFFF")
             };
         }
 
@@ -57,11 +57,11 @@ public partial class Home : ContentPage
                 IsAnimated = true,
                 AnimationProgress = 4,
                 AnimationDuration = new TimeSpan(0, 0, 4),
-                BackgroundColor = SKColor.Parse("#d3d3d3"),
+                BackgroundColor = SKColor.Parse("#2C2E43"),
                 LabelTextSize = 40,
                 SerieLabelTextSize = 40,
                 ValueLabelTextSize = 40,
-                LabelColor = SKColor.Parse("#000000")
+                LabelColor = SKColor.Parse("#FFFFFF")
             };
         }
     }

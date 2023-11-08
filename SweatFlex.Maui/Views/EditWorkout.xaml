@@ -9,14 +9,14 @@
             Text="{Binding Workout.Name}"
             HorizontalOptions="Center"
             FontSize="Title"/>
-
+        <ActivityIndicator IsRunning="{Binding IsBusy}"/>
         <CollectionView ItemsSource="{Binding ExerciseSets}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="2*,*">
                         <Label Text="{Binding Exercise.Name}" Grid.Column="0" VerticalOptions="Center" FontAttributes="Bold"/>
                         <Label Text="{Binding Sets}" Grid.Column="1" VerticalOptions="Center"/>
-                        <Button ImageSource="x_lg.svg" Grid.Column="2" CommandParameter="{Binding Exercise.Id}" Clicked="Remove_Exercise_Clicked" BackgroundColor="Transparent" HeightRequest="30"/>
+                        <Button ImageSource="x_lg.svg" Grid.Column="2" CommandParameter="{Binding Exercise.Id}" Clicked="Remove_Exercise_Clicked" BackgroundColor="{StaticResource Primary}" HeightRequest="30" WidthRequest="30"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -29,6 +29,6 @@
             <Button Grid.Row="2" ImageSource="plus.svg" Grid.Column="2" Clicked="Add_Clicked"/>
         </Grid>
         <Button Text="Workout Speichern" WidthRequest="200" HorizontalOptions="Center" Margin="10" Command="{Binding SaveWorkoutCommand}"/>
-        <Button Text="Abbrechen" WidthRequest="200" HorizontalOptions="Center" BackgroundColor="{StaticResource Secondary}"/>
+        <Button Text="Abbrechen" WidthRequest="200" HorizontalOptions="Center" BackgroundColor="{StaticResource SweatGray}" Command="{Binding CancelEditCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

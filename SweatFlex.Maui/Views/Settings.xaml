@@ -7,8 +7,8 @@
              Title="Settings">
     <VerticalStackLayout>
         <Label Text="Einstellungen" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Margin="20"/>
-        <Label Text="Pause zwischen den Sätzen:" Margin="20"/>
-        <Entry Text="{Binding PauseTime}" Margin="20,0,20,0"/>
+        <Label Text="Theme auswählen:" Margin="20"/>
+        <Picker  Title="Auswahl:" ItemsSource="{Binding ThemeOptions}" x:Name="ThemePicker" SelectedIndexChanged="Picker_SelectedIndexChanged"/>
         <Button Text="Logout" Command="{Binding LogoutCommand}" Margin="20" />
     </VerticalStackLayout>
 </ContentPage>

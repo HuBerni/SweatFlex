@@ -63,6 +63,13 @@ namespace SweatFlex.Maui.ViewModels
         [RelayCommand]
         public async Task WorkoutSelected()
         {
+            if (Preferences.Get("RoleId", "") == "2")
+            {
+                await Application.Current.MainPage.ShowPopupAsync(new ConfirmationPopup("Sie können keine Workouts starten, da sie ein Coach sind."));
+                SelectedWorkout = null;
+                return;
+            }
+            
             var result = await Application.Current.MainPage.ShowPopupAsync(new ConfirmationPopup($"Wollen sie das Workout {SelectedWorkout?.Name} starten?"));
 
             if(result is bool confirmed)

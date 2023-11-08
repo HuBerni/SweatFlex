@@ -42,7 +42,7 @@
             </CollectionView>
             <Button Grid.Row="2" ImageSource="plus.svg" HorizontalOptions="EndAndExpand" Margin="20" 
                 IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}" Command="{Binding NavigateToCreateExerciseCommand}"/>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2"/>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="0" Margin="80" IsVisible="{Binding IsBusy}"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

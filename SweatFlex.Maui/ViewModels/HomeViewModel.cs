@@ -27,6 +27,8 @@ namespace SweatFlex.Maui.ViewModels
         private decimal? _totalWeight;
         [ObservableProperty]
         private bool _isCoach;
+        [ObservableProperty]
+        private bool _chartVisible;
 
         public List<ChartEntry> _chartEntrysMonthly;
 
@@ -45,7 +47,6 @@ namespace SweatFlex.Maui.ViewModels
         public async Task InitializeAsnyc()
         {
             IsBusy = true;
-            UserId = "";
 
             if (Preferences.Get("RoleId", "") == "2" && Users.Count == 0)
             {
@@ -60,6 +61,7 @@ namespace SweatFlex.Maui.ViewModels
             }
             else
             {
+                UserId = "";
                 IsCoach = false;
             }
 
@@ -70,6 +72,7 @@ namespace SweatFlex.Maui.ViewModels
         public async Task SetTrainingHistoryEntrys()
         {
             IsBusy = true;
+            ChartVisible = false;
             List<DateTime?> workoutDates = new();
             var progresses = new List<Progress?>();
 
@@ -84,6 +87,7 @@ namespace SweatFlex.Maui.ViewModels
 
             if (progresses?.Count == 0)
             {
+                IsBusy = false;
                 return;
             }
             
@@ -131,7 +135,8 @@ namespace SweatFlex.Maui.ViewModels
                     {
                         Label = TrainingExerciseDate.Value.ToString("dd.MM"),
                         ValueLabel = weights[i - 1].ToString(),
-                        Color = SKColor.Parse(months[z][1])
+                        Color = SKColor.Parse(months[z][1]),
+                        ValueLabelColor = SKColor.Parse("#FFFFFF")
                     });
 
                 z++;
@@ -161,7 +166,8 @@ namespace SweatFlex.Maui.ViewModels
                 {
                     Label = months[currentMonth - 1][0],
                     ValueLabel = count.Count().ToString(),
-                    Color = SKColor.Parse(months[currentMonth - 1][1])
+                    Color = SKColor.Parse(months[currentMonth - 1][1]),
+                    ValueLabelColor = SKColor.Parse("#FFFFFF")
                 };
 
                 if(currentMonth != 1)
@@ -176,6 +182,7 @@ namespace SweatFlex.Maui.ViewModels
             }
 
             IsBusy = false;
+            ChartVisible = true;
         }
 
     }

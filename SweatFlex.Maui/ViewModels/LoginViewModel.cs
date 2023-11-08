@@ -34,6 +34,24 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task InitializeAsync()
         {
+            var theme = Preferences.Get("Theme", "");
+
+            if (!theme.IsNullOrEmpty())
+            {
+                if (theme == "Dark")
+                {
+                    Application.Current.UserAppTheme = AppTheme.Dark;
+                }
+                else if (theme == "Light")
+                {
+                    Application.Current.UserAppTheme = AppTheme.Light;
+                }
+                else
+                {
+                    Application.Current.UserAppTheme = AppTheme.Unspecified;
+                }
+            }
+
             LoginDto = new LoginDTO();
             if (await _authService.AutoLogin())
             {
