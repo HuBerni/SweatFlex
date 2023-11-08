@@ -9,9 +9,16 @@
              Title="Progress">
     <ScrollView>
         <VerticalStackLayout>
-            <Grid RowDefinitions="auto,auto,auto">
+            <Grid RowDefinitions="auto,auto,auto,auto">
                 <Label Text="Workout Fortschritt" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold" Margin="10,20,0,30" Grid.Row="0"/>
-                <CollectionView ItemsSource="{Binding Progresses}" Grid.Row="1" Margin="20">
+                <Picker Grid.Row="1"
+                    Title="User auswählen" 
+                ItemsSource="{Binding Users}" 
+                ItemDisplayBinding="{Binding FullName}" 
+                SelectedIndexChanged="Picker_SelectedIndexChanged"
+                IsVisible="{Binding IsCoach}">
+                </Picker>
+                <CollectionView ItemsSource="{Binding Progresses}" Grid.Row="2" Margin="20">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Progress">
                             <Border StrokeShape="RoundRectangle 20,20,20,20" Padding="20">
@@ -39,13 +46,12 @@
                                             </CollectionView>
                                         </VerticalStackLayout>
                                     </toolkit:Expander>
-
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="3"/>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>
