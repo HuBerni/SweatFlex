@@ -81,5 +81,25 @@ namespace SweatFlex.Maui.Services
 
             return _mapper.Map<TrainingExercise>(trainingExerciseResponse.Result);
         }
+
+        public async Task<TrainingExercise> UpdateTrainingExerciseAsync(TrainingExerciseLocal trainingExercise)
+        {
+            if (trainingExercise.ExerciseExecuted is null)
+            {
+                trainingExercise.ExerciseExecuted = DateTime.Now;
+            }
+
+            var trainingExerciseUpdateDto = _mapper.Map<TrainingExerciseUpdateDTO>(trainingExercise);
+
+            var trainingExerciseResponse = await _trainingExerciseService.UpdateTrainingExerciseAsync(trainingExercise.Id, trainingExerciseUpdateDto);
+
+            if (!trainingExerciseResponse.IsSuccess)
+            {
+                //error handling
+                return null;
+            }
+
+            return _mapper.Map<TrainingExercise>(trainingExerciseResponse.Result);
+        }
     }
 }
