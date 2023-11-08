@@ -46,7 +46,6 @@ namespace SweatFlex.Maui.ViewModels
         {
             IsBusy = true;
             UserId = "";
-            IsCoach = false;
 
             if (Preferences.Get("RoleId", "") == "2" && Users.Count == 0)
             {
@@ -55,6 +54,14 @@ namespace SweatFlex.Maui.ViewModels
                 var user = response.Result?.Select(_mapper.Map<User>).ToList();
                 user?.ForEach(Users.Add);
             }
+            else if (Preferences.Get("RoleId","") == "2")
+            {
+                IsCoach = true;
+            }
+            else
+            {
+                IsCoach = false;
+            }
 
             await SetTrainingHistoryEntrys();
             IsBusy = false;
@@ -62,10 +69,11 @@ namespace SweatFlex.Maui.ViewModels
 
         public async Task SetTrainingHistoryEntrys()
         {
+            IsBusy = true;
             List<DateTime?> workoutDates = new();
             var progresses = new List<Progress?>();
 
-            if (!string.IsNullOrEmpty(UserId))
+            if (!string.IsNullOrEmpty(UserId) && IsCoach)
             {
                 progresses = await _progressService.GetProgresses(UserId);
             }
@@ -131,7 +139,7 @@ namespace SweatFlex.Maui.ViewModels
 
             ApiResponse<IList<TrainingExerciseDTO>>? response = null;
 
-            if (!string.IsNullOrEmpty(UserId))
+            if (!string.IsNullOrEmpty(UserId) && IsCoach)
             {
                 response = await _trainingExerciseService.GetTrainingExercisesAsync(UserId!);
             }
@@ -166,6 +174,8 @@ namespace SweatFlex.Maui.ViewModels
                     currentMonth = 12;
                 }
             }
+
+            IsBusy = false;
         }
 
     }

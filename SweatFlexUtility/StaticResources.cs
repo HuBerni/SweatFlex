@@ -25,7 +25,7 @@ namespace SweatFlexUtility
                 new List<string>(){ "August", "#77E5B8" },
                 new List<string>(){ "September", "#7CE672" },
                 new List<string>(){ "Oktober", "#D8E66D" },
-                new List<string>(){ "Novermber", "#E5D56D" },
+                new List<string>(){ "Novermber", "#C5556D" },
                 new List<string>(){ "Dezember", "#E5CDB8" }
             };
 
