@@ -17,6 +17,11 @@ namespace SweatFlex.Maui.Services
             _apiService = apiService;
         }
 
+        /// <summary>
+        /// Calls the API to login the user and stores the token in the preferences
+        /// </summary>
+        /// <param name="loginDTO"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> LoginAsync(LoginDTO loginDTO)
         {
             var response = await _apiService.LoginAsync(loginDTO);
@@ -32,6 +37,10 @@ namespace SweatFlex.Maui.Services
             return response;
         }
 
+        /// <summary>
+        /// Checks if the user has a token stored in the preferences and sets the token in the TokenStorage
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> AutoLogin()
         {
             var token = Preferences.Get(nameof(TokenStorage), "");
@@ -48,6 +57,9 @@ namespace SweatFlex.Maui.Services
             return false;
         }
 
+        /// <summary>
+        /// Removes the token from the preferences and the TokenStorage
+        /// </summary>
         public void Logout()
         {
             Preferences.Set(nameof(TokenStorage), "");
@@ -57,6 +69,16 @@ namespace SweatFlex.Maui.Services
             TokenStorage.Token = "";
         }
 
+        /// <summary>
+        /// Creates a new user and stores the token in the preferences
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<UserDTO>> RegisterAsync
             (string id, string email, string password, string firstName, string lastName, int roleId)
         {

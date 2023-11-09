@@ -44,6 +44,10 @@ namespace SweatFlex.Maui.ViewModels
             await SetExerciseAssets();
         }
 
+        /// <summary>
+        /// Sets the exercise types, musclegroups and equipments for dropdowns
+        /// </summary>
+        /// <returns></returns>
         private async Task SetExerciseAssets()
         {
             var response = await _exerciseService.GetExerciseAssets();
@@ -59,6 +63,15 @@ namespace SweatFlex.Maui.ViewModels
             }
         }
 
+        /// <summary>
+        /// Adds an exercise to the database
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="musclegroupId"></param>
+        /// <param name="typeId"></param>
+        /// <param name="equipmentId"></param>
+        /// <returns></returns>
         public async Task AddExercise(string name, string description, int musclegroupId, int typeId, int? equipmentId = null)
         {
             var exerciseCreateDto = new ExerciseCreateDTO()

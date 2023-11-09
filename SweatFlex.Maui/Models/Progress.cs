@@ -2,6 +2,9 @@
 
 namespace SweatFlex.Maui.Models
 {
+    /// <summary>
+    /// Progress is a model class that represents a user's progress by trainingexercises
+    /// </summary>
     public class Progress
     {
         public Workout Workout { get; set; }

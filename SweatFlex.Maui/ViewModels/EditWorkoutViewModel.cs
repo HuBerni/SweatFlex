@@ -61,19 +61,33 @@ namespace SweatFlex.Maui.ViewModels
             IsBusy = false;
         }
 
+        /// <summary>
+        /// Adds a new exercise to the edit workout service and updates the exercise sets collection
+        /// </summary>
+        /// <param name="exerciseId"></param>
+        /// <param name="sets"></param>
+        /// <returns></returns>
         public async Task AddExerciseToWorkout(int exerciseId, int sets)
         {
             await _editWorkoutService.AddWorkoutExercise(WorkoutId, exerciseId, sets);
             await UpdateExerciseSetsCollection();
         }
 
-        
+        /// <summary>
+        /// Removes an exercise from the edit workout service and updates the exercise sets collection
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task RemoveExerciseFromWorkout(int id)
         {
             await _editWorkoutService.RemoveWorkoutExercise(id);
             await UpdateExerciseSetsCollection();
         }
 
+        /// <summary>
+        /// Saves the workout with the edit workout service and navigates back to the previous page
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task SaveWorkout()
         {
@@ -87,6 +101,11 @@ namespace SweatFlex.Maui.ViewModels
             _editWorkoutService.ExerciseSets.ForEach(ExerciseSets.Add);
         }
 
+
+        /// <summary>
+        /// If the user cancels the edit, the workout will be deleted if it has no exercises
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         public async Task CancelEdit()
         {

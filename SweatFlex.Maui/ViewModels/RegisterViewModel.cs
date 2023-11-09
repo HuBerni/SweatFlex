@@ -38,6 +38,11 @@ namespace SweatFlex.Maui.ViewModels
             _authService = authService;
         }
 
+
+        /// <summary>
+        /// Registers the user and navigates to the home page if successful
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task Register()
         {
@@ -61,6 +66,10 @@ namespace SweatFlex.Maui.ViewModels
             await Shell.Current.GoToAsync($"//{nameof(Home)}");
         }
 
+        /// <summary>
+        /// Navigates to the login page
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task NavigateToLogin()
         {

@@ -20,6 +20,11 @@ namespace SweatFlex.Maui.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets the progresses for a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<List<Progress>?> GetProgresses(string userId)
         {
             var progresses = new List<Progress>();
@@ -53,6 +58,11 @@ namespace SweatFlex.Maui.Services
             return progresses;
         }
 
+        /// <summary>
+        /// Gets the workout by workoutexercise
+        /// </summary>
+        /// <param name="workoutExerciseId"></param>
+        /// <returns></returns>
         private async Task<Workout?> GetWorkoutByWorkoutExercise(int workoutExerciseId)
         {
             var response = await _workoutExerciseService.GetWorkoutExerciseByIdAsync(workoutExerciseId);

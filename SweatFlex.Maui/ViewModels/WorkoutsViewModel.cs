@@ -46,6 +46,10 @@ namespace SweatFlex.Maui.ViewModels
             IsBusy = false;
         }
 
+        /// <summary>
+        /// Shows the add workout popup and creates a new workout if the user enters a name
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         public async Task ShowAddWorkoutPopup()
         {
@@ -60,6 +64,10 @@ namespace SweatFlex.Maui.ViewModels
             }
         }
 
+        /// <summary>
+        /// Starts the selected workout and navigates to the current workout page with the workout as parameter
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         public async Task WorkoutSelected()
         {
@@ -88,6 +96,11 @@ namespace SweatFlex.Maui.ViewModels
             SelectedWorkout = null;
         }
 
+        /// <summary>
+        /// Navigate to the edit workout page with the workout id
+        /// </summary>
+        /// <param name="workoutId">The Id of the workout</param>
+        /// <returns></returns>
         [RelayCommand]
         public async Task GoToEditWorkout(object workoutId)
         {
@@ -102,6 +115,10 @@ namespace SweatFlex.Maui.ViewModels
             }
         }
 
+        /// <summary>
+        /// Sets the workouts created by the user and displays them in the list
+        /// </summary>
+        /// <returns></returns>
         private async Task SetMyWorkouts()
         {
             var response = await _workoutService.GetWorkoutsAsync(Preferences.Get("UserId", ""));
@@ -116,6 +133,10 @@ namespace SweatFlex.Maui.ViewModels
             myWorkouts?.ToList().ForEach(MyWorkouts.Add);
         }
 
+        /// <summary>
+        /// Sets the suggested workouts for the user and displays them in the list
+        /// </summary>
+        /// <returns></returns>
         private async Task SetSuggestedWorkouts()
         {
             var coachWorkouts = new List<Workout?>();
@@ -148,6 +169,11 @@ namespace SweatFlex.Maui.ViewModels
             recommendedWorkouts?.ToList().ForEach(PreBuiltWorkouts.Add);
         }
 
+        /// <summary>
+        /// Creates a new workout and navigates to the edit page
+        /// </summary>
+        /// <param name="workoutName"></param>
+        /// <returns></returns>
         private async Task CreateWorkout(string workoutName)
         {
             var workoutCreateDto = new WorkoutCreateDTO

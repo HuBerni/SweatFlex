@@ -7,7 +7,10 @@ namespace SweatFlex.Maui.ViewModels
         [ObservableProperty]
         private string _title;
 
-
+        /// <summary>
+        /// Creates a new instance of the <see cref="ConfirmationPopupViewModel"/> class
+        /// </summary>
+        /// <param name="title"></param>
         public ConfirmationPopupViewModel(string title)
         {
             Title = title;

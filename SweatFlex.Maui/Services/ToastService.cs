@@ -10,6 +10,12 @@ namespace SweatFlex.Maui.Services
 {
     public static class ToastService
     {
+        /// <summary>
+        /// Creates a toast with the given message and duration
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
         public static async Task ShowToast(string message, int duration = 0)
         {
             var toastDuration = duration switch

@@ -59,6 +59,10 @@ namespace SweatFlex.Maui.ViewModels
             IsBusy = false;
         }
 
+        /// <summary>
+        /// Saves the training exercises to the database with the current weight and reps
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task SaveTrainingExercises()
         {

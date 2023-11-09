@@ -23,6 +23,9 @@ namespace SweatFlex.Maui.ViewModels
             FillThemeList();
         }
 
+        /// <summary>
+        /// Fills the theme list with the available options
+        /// </summary>
         private void FillThemeList()
         {
             if (ThemeOptions.Count > 0)
@@ -33,6 +36,11 @@ namespace SweatFlex.Maui.ViewModels
             ThemeOptions.Add("Dark");
         }
 
+        /// <summary>
+        /// Changes the theme of the app and saves it to preferences for next time
+        /// </summary>
+        /// <param name="theme"></param>
+        /// <returns></returns>
         [RelayCommand]
         public async Task ChangeTheme(string theme)
         {
@@ -53,6 +61,11 @@ namespace SweatFlex.Maui.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// Logs the user out and navigates to the main page
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task Logout()
         {

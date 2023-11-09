@@ -27,6 +27,10 @@ namespace SweatFlex.Maui.Services
             SetExercises();
         }
 
+        /// <summary>
+        /// Sets the exercises for the current user
+        /// </summary>
+        /// <returns></returns>
         private async Task SetExercises()
         {
             var response = await _exerciseService.GetExercisesAsync();
@@ -37,6 +41,13 @@ namespace SweatFlex.Maui.Services
             }
         }
 
+        /// <summary>
+        /// Adds an exercise and the sets to the workout
+        /// </summary>
+        /// <param name="workoutId"></param>
+        /// <param name="exerciseId"></param>
+        /// <param name="sets"></param>
+        /// <returns></returns>
         public async Task AddWorkoutExercise(int workoutId, int exerciseId, int sets)
         {
             for (int i = 0; i < sets; i++)
@@ -57,6 +68,11 @@ namespace SweatFlex.Maui.Services
             AddIndexesToWorkoutExercises();
         }
 
+        /// <summary>
+        /// Removes an exercise from the workout
+        /// </summary>
+        /// <param name="exerciseId"></param>
+        /// <returns></returns>
         public async Task RemoveWorkoutExercise(int exerciseId)
         {
             _workoutExerciseCreateDtos.RemoveAll(x => x.ExerciseId == exerciseId);
@@ -64,6 +80,10 @@ namespace SweatFlex.Maui.Services
             AddIndexesToWorkoutExercises();
         }
 
+        /// <summary>
+        /// Saves the workoutexercises to the database
+        /// </summary>
+        /// <returns></returns>
         public async Task SaveWorkoutExercises()
         {
             foreach (var item in _workoutExerciseCreateDtos)
@@ -72,6 +92,9 @@ namespace SweatFlex.Maui.Services
             }
         }
 
+        /// <summary>
+        /// settting the indexes for the workoutexercises
+        /// </summary>
         private void AddIndexesToWorkoutExercises()
         {
             int index = 1;

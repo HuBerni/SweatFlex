@@ -59,6 +59,10 @@ namespace SweatFlex.Maui.ViewModels
             IsBusy = false;
         }
 
+        /// <summary>
+        /// Sets the progresses for the user or coach depending on the role
+        /// </summary>
+        /// <returns></returns>
         public async Task SetProgresses()
         {
             IsBusy = true;

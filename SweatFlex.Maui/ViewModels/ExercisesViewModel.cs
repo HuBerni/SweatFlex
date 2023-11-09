@@ -38,6 +38,10 @@ namespace SweatFlex.Maui.ViewModels
             IsBusy = false;
         }
 
+        /// <summary>
+        /// Sets the exercises for the current user and the coach if the user has a coach
+        /// </summary>
+        /// <returns></returns>
         private async Task SetExercises()
         {
             Exercises.Clear();
@@ -55,6 +59,11 @@ namespace SweatFlex.Maui.ViewModels
             exercises?.ToList().ForEach(Exercises.Add);
         }
 
+
+        /// <summary>
+        /// Opens a popup with the details of the selected exercise
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task ShowExerciseDetails()
         {
@@ -62,6 +71,10 @@ namespace SweatFlex.Maui.ViewModels
             SelectedExercise = null;
         }
 
+        /// <summary>
+        /// Navigates to the create exercise page
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         private async Task NavigateToCreateExercise()
         {

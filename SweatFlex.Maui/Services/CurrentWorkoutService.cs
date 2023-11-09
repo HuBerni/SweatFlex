@@ -19,7 +19,12 @@ namespace SweatFlex.Maui.Services
             _mapper = mapper;
         }
 
-
+        /// <summary>
+        /// Creates trainingexercises for a workout and returns them
+        /// </summary>
+        /// <param name="workoutId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<List<TrainingExercise>> CreateTrainingExercisesForWorkout(int workoutId, string userId)
         {
             var trainingExerciseCreateDTOs = new List<TrainingExerciseCreateDTO>();            
@@ -62,6 +67,11 @@ namespace SweatFlex.Maui.Services
             return trainingExerciseResponse.Result.Select(_mapper.Map<TrainingExercise>).ToList();
         }
 
+        /// <summary>
+        /// Gets the training exercise setting the new values and returns it
+        /// </summary>
+        /// <param name="trainingExercise"></param>
+        /// <returns></returns>
         public async Task<TrainingExercise> UpdateTrainingExerciseAsync(TrainingExercise trainingExercise)
         {
             if (trainingExercise.ExerciseExecuted is null)
@@ -82,6 +92,11 @@ namespace SweatFlex.Maui.Services
             return _mapper.Map<TrainingExercise>(trainingExerciseResponse.Result);
         }
 
+        /// <summary>
+        /// Updates the training exercise and returns it
+        /// </summary>
+        /// <param name="trainingExercise"></param>
+        /// <returns></returns>
         public async Task<TrainingExercise> UpdateTrainingExerciseAsync(TrainingExerciseLocal trainingExercise)
         {
             if (trainingExercise.ExerciseExecuted is null)
